@@ -1,0 +1,9 @@
+python=3.5
+librosa=
+numpy=
+matplotlib=
+tensorflow=1.2
+keras=2.0.5
+jams=
+pandas=
+scipy=
