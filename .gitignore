@@ -1,2 +1,3 @@
-
-datasets/audio_hex-pickup_debleeded.tar.gz
+.ipynb_checkpoints
+data/GuitarSet/annotation
+data/GuitarSet/audio_mono-mic

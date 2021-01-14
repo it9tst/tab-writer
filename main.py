@@ -1,13 +1,6 @@
-#import tensorflow as tf
-#from tensorflow import keras
-import matplotlib.pyplot as plt
-from audioCQT import audio_CQT
+from dataGen import main
 
-new_CQT = audio_CQT(13,0,1)
+# define path data folder
+path = 'C:/Users/Gabriele/GitHub/tab-writer/data/'
 
-plt.xlabel('Time')
-plt.ylabel('Note')
-plt.imshow(new_CQT, interpolation='nearest', aspect='auto', extent=[0, 1, 1, 9])
-plt.savefig("img.png")
-
-
+main(path)
