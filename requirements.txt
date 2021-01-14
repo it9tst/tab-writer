@@ -2,8 +2,8 @@ python==3.5
 tensorflow==1.2
 keras==2.0.5
 librosa==0.6.3
-numpy==1.14.5
-matplotlib==
+numpy==1.18.5
+matplotlib==3.0.0
 jams==0.3.4
 pandas==0.20.2
 scipy==1.4.1
