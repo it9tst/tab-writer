@@ -3,6 +3,7 @@ import jams
 import numpy as np
 import librosa
 import math
+import datetime
 from scipy.io import wavfile
 
 class dataGen:
@@ -10,10 +11,12 @@ class dataGen:
     def __init__(self, path):
         # file path to the GuitarSet dataset
         self.path_data = path
-        self.path_audio = path_data + "GuitarSet/audio_mono-mic/"
-        self.path_anno = path_data + "GuitarSet/annotation/"
+        self.path_audio = self.path_data + "GuitarSet/audio_mono-mic/"
+        self.path_anno = self.path_data + "GuitarSet/annotation/"
               
-        # prepresentation and its labels storage
+        # array and dict
+        self.labels = []
+        self.img = []
         self.output = {}
 
         # parameters
@@ -25,13 +28,7 @@ class dataGen:
         self.frameDuration = self.hop_length / self.sr_downs
         
         # save file path
-        self.save_path = "spec_repr/"
-        self.filename = "dataset"
-        
-        # array and dict
-        self.labels = []
-        self.repr = []
-        self.output = {}
+        self.save_path = self.path_data + "train/"
 
     def audio_CQT(self, file_num, start, dur):  # start and dur in seconds
         path = os.path.join(self.path_audio, os.listdir(self.path_audio)[file_num])
@@ -44,7 +41,7 @@ class dataGen:
 
         # Perform the Constant-Q Transform
         data, sr = librosa.load(path, sr = None, mono = True, offset = start, duration = dur)
-        CQT = librosa.cqt(data, sr = self.sr_downs, hop_length = self.hop_length, fmin = None, n_bins = self.cqt_n_bins, bins_per_octave = self.bins_per_octave)
+        CQT = librosa.cqt(data, sr = self.sr_downs, hop_length = self.hop_length, fmin = None, n_bins = self.n_bins, bins_per_octave = self.bins_per_octave)
         CQT_mag = librosa.magphase(CQT)[0]**4
         CQTdB = librosa.core.amplitude_to_db(CQT_mag, ref = np.amax)
         new_CQT = cqt_lim(CQTdB)
@@ -118,7 +115,7 @@ class dataGen:
         if MIDI_val.size >= 6:
             MIDI_val = np.delete(MIDI_val, np.s_[6::])
 
-        if len(MIDI_val > 0:
+        if len(MIDI_val) > 0:
             # Initialize variables
             f_row = np.full((6, 6), np.inf)  # 6 strings with 1 note per string
             f_col = np.full((6, 6), np.inf)
@@ -374,51 +371,67 @@ class dataGen:
             return True_tab
         else:
             return None
-
-    def save_data(self, filename):
-        np.savez(filename, **self.output)
-
-    def store(self):
-        save_path = self.save_path
-               
-        self.output["labels"] = self.labels
-        self.output["repr"] = self.repr
-
-        if not os.path.exists(save_path):
-            os.makedirs(save_path)
-        self.save_data(save_path + self.filename + ".npz")
-
+        
     def get_times(self, n):
         file_audio = os.path.join(self.path_audio, os.listdir(self.path_audio)[n])
         (source_rate, source_sig) = wavfile.read(file_audio)
         duration_seconds = len(source_sig) / float(source_rate)
         totalFrame = math.ceil(duration_seconds / self.frameDuration)
         frame_indices = list(range(totalFrame))
-        times = librosa.frames_to_time(frame_indices, sr = self.sr_downs, self.hop_length = self.hop_length)
+        times = librosa.frames_to_time(frame_indices, sr = self.sr_downs, hop_length = self.hop_length)
         return times
+
+    def save_data(self, filename):
+        np.savez(filename, **self.output)
                
-    def load(self):
-        n_file = len(os.listdir(self.path_audio))
- 
-        for n in range(n_file):
-            times = self.get_times(n)
+    def get_filename(self, n):
+        filename = os.path.basename(os.path.join(self.path_anno, os.listdir(self.path_anno)[n]))
+        return filename[:-5]
+    
+    def log(self, text):
+        text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " | " + text + "\n"
+        with open("log/dataGen.log", "a") as myfile:
+            myfile.write(text)
+            print(text)
 
-            for t in range(len(times)-1):
-                True_tab = self.spacejam(n, times[t], times[t+1])
-                if(True_tab is None):
-                    continue
-     
-                cqt = self.audio_CQT(n, times[t], times[t+1]-times[t])
-                if(cqt.max() == cqt.min() == 0):
-                    continue
+    def store(self, n, num_frames):
+        save_path = self.save_path
+        filename = self.get_filename(n)
+               
+        self.output["labels"] = self.labels
+        self.output["img"] = self.img
 
-                self.labels.append(True_tab)
-                self.repr.append(cqt)
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        self.save_data(save_path + filename + ".npz")
+        self.log("done file n. " + str(n+1) + ": " + filename + ", " + str(num_frames) + " frames")
+   
+    def load(self, n):
+        times = self.get_times(n)
 
-def main(path):
+        for t in range(len(times)-1):
+            True_tab = self.spacejam(n, times[t], times[t+1])
+            if(True_tab is None):
+                continue
+
+            cqt = self.audio_CQT(n, times[t], times[t+1]-times[t])
+            if(cqt.max() == cqt.min() == 0):
+                continue
+
+            self.labels.append(True_tab)
+            self.img.append(cqt)
+
+        self.store(n, len(times))
+        self.output = {}
+        self.labels = []
+        self.img = []
+
+def main(args):
+    path = args[0]
+    n = args[1]
     gen = dataGen(path)
-    gen.load()
-    gen.store()
+    gen.log("start file n. " + str(n+1))
+    gen.load(n)
 
 if __name__ == "__main__":
     main(args)
