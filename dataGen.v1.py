@@ -2,6 +2,7 @@ import os
 import jams
 import numpy as np
 import librosa
+import math
 import datetime
 from scipy.io import wavfile
 
@@ -20,14 +21,14 @@ class dataGen:
 
         # parameters
         self.sr_downs = 22050
-        self.hop_length = 512
-        self.n_bins = 192
-        self.bins_per_octave = 24
+        self.hop_length = 1024
+        self.n_bins = 96
+        self.bins_per_octave = 12
         
         self.frameDuration = self.hop_length / self.sr_downs
         
         # save file path
-        self.save_path = self.path_data + "dataset2/"
+        self.save_path = self.path_data + "dataset1/"
 
     def audio_CQT(self, file_num, start, dur):  # start and dur in seconds
         path = os.path.join(self.path_audio, os.listdir(self.path_audio)[file_num])
@@ -40,9 +41,6 @@ class dataGen:
 
         # Perform the Constant-Q Transform
         data, sr = librosa.load(path, sr = None, mono = True, offset = start, duration = dur)
-        data = data.astype(float)
-        data = librosa.util.normalize(data)
-        data = librosa.resample(data, sr, self.sr_downs)
         CQT = librosa.cqt(data, sr = self.sr_downs, hop_length = self.hop_length, fmin = None, n_bins = self.n_bins, bins_per_octave = self.bins_per_octave)
         CQT_mag = librosa.magphase(CQT)[0]**4
         CQTdB = librosa.core.amplitude_to_db(CQT_mag, ref = np.amax)
@@ -374,11 +372,14 @@ class dataGen:
         else:
             return None
         
-    def get_duration_seconds(self, n):
+    def get_times(self, n):
         file_audio = os.path.join(self.path_audio, os.listdir(self.path_audio)[n])
         (source_rate, source_sig) = wavfile.read(file_audio)
         duration_seconds = len(source_sig) / float(source_rate)
-        return duration_seconds
+        totalFrame = math.ceil(duration_seconds / self.frameDuration)
+        frame_indices = list(range(totalFrame))
+        times = librosa.frames_to_time(frame_indices, sr = self.sr_downs, hop_length = self.hop_length)
+        return times
 
     def save_data(self, filename):
         np.savez(filename, **self.output)
@@ -406,7 +407,7 @@ class dataGen:
         self.log("done file n. " + str(n+1) + ": " + filename + ", " + str(num_frames) + " frames")
    
     def load(self, n):
-        times = np.arange(0.0, self.get_duration_seconds(n), 0.2)
+        times = self.get_times(n)
 
         for t in range(len(times)-1):
             True_tab = self.spacejam(n, times[t], times[t+1])

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.unibo.tab_writer.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_record"
+        android:name="com.unibo.tab_writer.RecordFragment"
+        android:label="@string/nav_record"
+        tools:layout="@layout/fragment_record" />
+    <fragment
+        android:id="@+id/nav_list"
+        android:name="com.unibo.tab_writer.TabListFragment"
+        android:label="@string/nav_list"
+        tools:layout="@layout/fragment_tab_list" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.unibo.tab_writer.SettingsFragment"
+        android:label="@string/nav_settings" />
+    <fragment
+        android:id="@+id/nav_info"
+        android:name="com.unibo.tab_writer.InfoFragment"
+        android:label="@string/nav_info"
+        tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/nav_tab"
+        android:name="com.unibo.tab_writer.TabViewFragment"
+        android:label="fragment_view_tab"
+        tools:layout="@layout/fragment_tab_view" />
+</navigation>

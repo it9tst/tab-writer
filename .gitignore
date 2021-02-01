@@ -5,3 +5,4 @@ _wip/
 *.jams
 *.wav
 *.npz
+*.pickle
