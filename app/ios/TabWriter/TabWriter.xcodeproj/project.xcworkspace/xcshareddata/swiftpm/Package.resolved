@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PythonKit",
+        "repositoryURL": "https://github.com/pvieito/PythonKit",
+        "state": {
+          "branch": "master",
+          "revision": "074622c6893188bbb7926eee2f7eece8a5124c47",
+          "version": null
+        }
+      },
+      {
+        "package": "GuitarChords",
+        "repositoryURL": "https://github.com/BeauNouvelle/SwiftyGuitarChords",
+        "state": {
+          "branch": "main",
+          "revision": "00a6af3e27c395e70b9fa7380d64ef35c8077334",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
