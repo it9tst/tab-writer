@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/back_settings"
-    android:backgroundTint="@color/colorGreyDark"
-    android:backgroundTintMode="multiply"
+    android:background="@drawable/bg_grey_dark_settings"
     android:layout_marginHorizontal="15dp"
     android:layout_marginVertical="5dp">
 
@@ -31,7 +29,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/arlon_regular"
         android:text="ListTitle"
-        android:textColor="@color/colorRed"
+        android:textColor="@color/list_title_color"
         android:textSize="20sp"
         android:maxLines="1"
         android:ellipsize="end"

@@ -5,4 +5,11 @@
     <color name="colorGrey">#505050</color>
     <color name="colorRed">#e74f4e</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="icon_color">#2A2A2A</color>
+    <color name="record_text_color">#2A2A2A</color>
+    <color name="record_timer_color">#2A2A2A</color>
+    <color name="list_title_color">#2A2A2A</color>
+    <color name="textTitle_color">#2A2A2A</color>
+    <color name="textInfo_color">#2A2A2A</color>
+    <color name="tab_view_color">#2A2A2A</color>
 </resources>

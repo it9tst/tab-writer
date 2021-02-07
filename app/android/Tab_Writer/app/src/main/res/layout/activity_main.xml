@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,9 +17,7 @@
             android:id="@+id/layoutToolBar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@drawable/back_settings"
-            android:backgroundTint="@color/colorGreyDark"
-            android:backgroundTintMode="multiply"
+            android:background="@drawable/bg_grey_dark_settings"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="15dp"
@@ -30,8 +29,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_menu"
-                app:tint="@color/colorWhite" />
+                android:src="@drawable/ic_menu"/>
 
             <TextView
                 android:id="@+id/textTitle"
@@ -39,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="@string/app_name"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/textTitle_color"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

@@ -21,6 +21,7 @@ import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TabViewFragment extends Fragment {
 
@@ -61,7 +62,7 @@ public class TabViewFragment extends Fragment {
 
         XAxis xAxis = bubbleChart.getXAxis();
         xAxis.setAxisMinimum(-0.5f);
-        xAxis.setAxisMaximum(7.5f);
+        xAxis.setAxisMaximum(20.5f);
 
         YAxis yAxis = bubbleChart.getAxisLeft();
         yAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"E","A","D","G","B","e"}));
@@ -75,6 +76,12 @@ public class TabViewFragment extends Fragment {
         yAxis.setAxisMaximum(5f);
 
         ArrayList<BubbleEntry> tab = new ArrayList<>();
+        Random r = new Random();
+/*
+        for(int i=0; i<15; i++){
+            tab.add(new BubbleEntry((float) r.nextInt(10), (float) r.nextInt(5), (float) r.nextInt(17)));
+        }
+*/
         tab.add(new BubbleEntry(0, 0, 13));
         tab.add(new BubbleEntry(1, 0, 11));
         tab.add(new BubbleEntry(1, 1, 13));
@@ -84,6 +91,10 @@ public class TabViewFragment extends Fragment {
         tab.add(new BubbleEntry(5, 3, 10));
         tab.add(new BubbleEntry(6, 5, 11));
         tab.add(new BubbleEntry(7, 3, 3));
+        tab.add(new BubbleEntry(8, 4, 17));
+        tab.add(new BubbleEntry(9, 3, 3));
+        tab.add(new BubbleEntry(10, 1, 10));
+        tab.add(new BubbleEntry(11, 2, 6));
 
         BubbleDataSet bubbleDataSet = new BubbleDataSet(tab, "tab");
         bubbleDataSet.setColor(Color.WHITE, 0);
@@ -92,7 +103,10 @@ public class TabViewFragment extends Fragment {
         bubbleDataSet.setValueFormatter(new DefaultValueFormatter(0));
 
         BubbleData bubbleData = new BubbleData(bubbleDataSet);
+
         bubbleChart.setData(bubbleData);
-        bubbleChart.setVisibleXRangeMaximum(8f);
+        bubbleChart.setVisibleXRangeMaximum(7.5f);
+
+        bubbleChart.animateX(1000);
     }
 }

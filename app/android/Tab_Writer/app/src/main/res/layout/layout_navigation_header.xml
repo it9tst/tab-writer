@@ -5,17 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/back_settings"
-    android:backgroundTint="@color/colorGreyDark"
-    android:backgroundTintMode="multiply"
-    android:padding="20dp">
+    android:background="@drawable/bg_grey_dark_settings"
+    android:paddingTop="35dp"
+    android:paddingBottom="15dp">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
+        android:layout_width="180dp"
+        android:layout_height="110dp"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

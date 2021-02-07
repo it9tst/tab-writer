@@ -4,24 +4,43 @@ import android.Manifest;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 public class RecordFragment extends Fragment implements View.OnClickListener{
@@ -39,8 +58,11 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
     private Chronometer timer;
 
-    private TabModel tabModel;
+    private String path;
 
+    private String ipv4Address = "s3rv3r2020.duckdns.org";
+    private String portNumber = "5000";
+    OkHttpClient client = new OkHttpClient();
 
     public RecordFragment() {
         // Required empty public constructor
@@ -51,6 +73,36 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        String postUrl= "http://"+ipv4Address+":"+portNumber+"/";
+
+        Request request = new Request.Builder().url(postUrl).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getActivity(), "Network not found 1", Toast.LENGTH_LONG).show();
+                        recordText.setText("NETWORK NOT FOUND");
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        try {
+                            Toast.makeText(getActivity(), response.body().string(), Toast.LENGTH_LONG).show();
+                            recordText.setText("PRESS THE BUTTON\nTO START RECORDING");
+                            recordBtn.setClickable(true);
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -69,6 +121,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         recordText = view.findViewById(R.id.record_text);
 
         recordBtn.setOnClickListener(this);
+        recordBtn.setClickable(false);
 
     }
 
@@ -93,13 +146,13 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
     private void stopRecording(){
         timer.stop();
 
-        recordText.setText("STO PENSANDO...");
-
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
 
-        // continuare con l'elaborazione -> model
+//        Log.d("LOGGO",new File("file:///android_asset/fff.wav").getAbsolutePath());
+//        String fname = new File(getActivity().getFilesDir(), "fff.wav").getAbsolutePath();
+        connectServer(path);
     }
 
     private void startRecording(){
@@ -112,7 +165,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
         recordFile = "Guitar_Tab_" + formatter.format(now) + ".3gp";
 
-//        recordText.setText(tabModel.getTabModel());
         recordText.setText("STO ASCOLTANDO...");
 
         mediaRecorder = new MediaRecorder();
@@ -120,6 +172,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        path = recordPath + "/" + recordFile;
 
         try {
             mediaRecorder.prepare();
@@ -138,5 +192,87 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
             return false;
         }
 
+    }
+
+    private void connectServer(String path) {
+        String postUrl= "http://"+ipv4Address+":"+portNumber+"/upload/";
+
+        RequestBody postBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", "androidFlask.3gp", RequestBody.create(MediaType.parse("application/octet-stream"), path))
+                .build();
+
+        postRequest(postUrl, postBody);
+    }
+
+    private void postRequest(String postUrl, RequestBody postBody) {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(postUrl)
+                .post(postBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getActivity(), "Network not found 2", Toast.LENGTH_LONG).show();
+                        recordText.setText("NETWORK NOT FOUND");
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        try {
+                            recordText.setText("STO PENSANDO...");
+
+                            String jsonData = response.body().string();
+                            JSONObject Jobject = new JSONObject(jsonData);
+                            JSONArray Jarray = Jobject.getJSONArray("employees");
+
+                            //define the strings that will temporary store the data
+                            String tab_x, tab_y, value;
+
+                            //get the length of the json array
+                            int limit = Jarray.length()
+
+                            //datastore array of size limit
+                            String dataStore[] = new String[limit];
+
+                            for (int i = 0; i < limit; i++) {
+                                JSONObject object = Jarray.getJSONObject(i);
+
+                                tab_x = object.getString("tab_x");
+                                tab_y = object.getString("tab_y");
+                                value = object.getString("value");
+
+                                Log.d("JSON DATA", tab_x + " ## " + tab_y + " ## " + value);
+
+                                //store the data into the array
+                                dataStore[i] = tab_x + " ## " + tab_y + " ## " + value;
+                            }
+
+                            //prove that the data was stored in the array
+                            for (String content ; dataStore) {
+                                Log.d("ARRAY CONTENT", content);
+                            }
+
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.navHostFragment, new TabViewFragment(), "TabViewFragment");
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 }

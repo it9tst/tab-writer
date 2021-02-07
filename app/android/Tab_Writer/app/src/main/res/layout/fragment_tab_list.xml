@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_settings"
-    android:backgroundTint="@color/colorGrey"
-    android:backgroundTintMode="multiply"
+    android:background="@drawable/bg_grey_settings"
     tools:context=".TabListFragment">
 
     <androidx.recyclerview.widget.RecyclerView

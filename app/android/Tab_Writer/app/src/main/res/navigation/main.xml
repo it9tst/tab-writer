@@ -21,10 +21,6 @@
         android:label="@string/nav_list"
         tools:layout="@layout/fragment_tab_list" />
     <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.unibo.tab_writer.SettingsFragment"
-        android:label="@string/nav_settings" />
-    <fragment
         android:id="@+id/nav_info"
         android:name="com.unibo.tab_writer.InfoFragment"
         android:label="@string/nav_info"

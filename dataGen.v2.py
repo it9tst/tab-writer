@@ -2,7 +2,6 @@ import os
 import jams
 import numpy as np
 import librosa
-import math
 import datetime
 from scipy.io import wavfile
 
@@ -11,7 +10,7 @@ class dataGen:
     def __init__(self, path):
         # file path to the GuitarSet dataset
         self.path_data = path
-        self.path_audio = self.path_data + "GuitarSet/audio_mono-mic/"
+        self.path_audio = self.path_data + "GuitarSet/audio_hex-pickup_debleeded/"
         self.path_anno = self.path_data + "GuitarSet/annotation/"
               
         # array and dict
@@ -20,15 +19,15 @@ class dataGen:
         self.output = {}
 
         # parameters
-        self.sr_downs = 22050
-        self.hop_length = 512
-        self.n_bins = 192
-        self.bins_per_octave = 24
+        self.sr_downs = 44100
+        self.hop_length = 1024
+        self.n_bins = 96
+        self.bins_per_octave = 12
         
         self.frameDuration = self.hop_length / self.sr_downs
         
         # save file path
-        self.save_path = self.path_data + "dataset3/"
+        self.save_path = self.path_data + "dataset2/"
 
     def audio_CQT(self, file_num, start, dur):  # start and dur in seconds
         path = os.path.join(self.path_audio, os.listdir(self.path_audio)[file_num])
@@ -40,13 +39,12 @@ class dataGen:
             return new_CQT
 
         # Perform the Constant-Q Transform
-        data, sr = librosa.load(path, sr = self.sr_downs, mono = True, offset = start, duration = dur)
-        data = librosa.util.normalize(data)
+        data, sr = librosa.load(path, sr = None, mono = True, offset = start, duration = dur)
         data = librosa.cqt(data, sr = self.sr_downs, hop_length = self.hop_length, fmin = None, n_bins = self.n_bins, bins_per_octave = self.bins_per_octave)
         data = librosa.magphase(data)[0]**4
         data = librosa.core.amplitude_to_db(data, ref = np.amax)
-        CQT = cqt_lim(data)
-        return CQT
+        cqt = cqt_lim(data)
+        return cqt
 
     def spacejam(self, file_num, start, stop): # start and stop in seconds
         path = os.path.join(self.path_anno, os.listdir(self.path_anno)[file_num])
@@ -119,8 +117,6 @@ class dataGen:
             # Initialize variables
             f_row = np.full((6, 6), np.inf)  # 6 strings with 1 note per string
             f_col = np.full((6, 6), np.inf)
-
-            # Initialize variables
             Fret = np.zeros((6, 18), dtype = np.int32)
             Sol = np.copy(Fret)
             fcnt = -1
@@ -372,14 +368,11 @@ class dataGen:
         else:
             return None
         
-    def get_times(self, n):
+    def get_duration_seconds(self, n):
         file_audio = os.path.join(self.path_audio, os.listdir(self.path_audio)[n])
         (source_rate, source_sig) = wavfile.read(file_audio)
         duration_seconds = len(source_sig) / float(source_rate)
-        totalFrame = math.ceil(duration_seconds / self.frameDuration)
-        frame_indices = list(range(totalFrame))
-        times = librosa.frames_to_time(frame_indices, sr = self.sr_downs, hop_length = self.hop_length)
-        return times
+        return duration_seconds
 
     def save_data(self, filename):
         np.savez(filename, **self.output)
@@ -407,7 +400,7 @@ class dataGen:
         self.log("done file n. " + str(n+1) + ": " + filename + ", " + str(num_frames) + " frames")
    
     def load(self, n):
-        times = self.get_times(n)
+        times = np.arange(0.0, self.get_duration_seconds(n), 0.2)
 
         for t in range(len(times)-1):
             True_tab = self.spacejam(n, times[t], times[t+1])
