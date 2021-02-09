@@ -13,15 +13,15 @@
 		E6561AC425CEF0AD00252B4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6561AC325CEF0AD00252B4A /* Assets.xcassets */; };
 		E6561AD025CEF0E500252B4A /* Tab.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E6561ACF25CEF0E500252B4A /* Tab.mlmodel */; };
 		E6561ADC25CEF1EC00252B4A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561ADB25CEF1EC00252B4A /* HomeViewController.swift */; };
-		E6561AE125CEF2A500252B4A /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = E6561AE025CEF2A500252B4A /* PythonKit */; };
 		E6561AEA25CEF30A00252B4A /* arlon_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6561AE925CEF30A00252B4A /* arlon_regular.ttf */; };
 		E6561AEE25CEF31700252B4A /* arlon_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6561AEC25CEF31700252B4A /* arlon_bold.ttf */; };
 		E6561AEF25CEF31700252B4A /* arlon_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6561AED25CEF31700252B4A /* arlon_light.ttf */; };
 		E6561AF525CEF38A00252B4A /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561AF325CEF38A00252B4A /* RecentViewController.swift */; };
 		E6561AF625CEF38A00252B4A /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561AF425CEF38A00252B4A /* TabViewController.swift */; };
-		E6561AFA25CEF3AF00252B4A /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = E6561AF925CEF3AF00252B4A /* GuitarChords */; };
+		E6561AFA25CEF3AF00252B4A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E6561AF925CEF3AF00252B4A /* SwiftPackageProductDependency */; };
 		E6561AFE25CEF5AF00252B4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6561AFD25CEF5AF00252B4A /* Main.storyboard */; };
 		E6561B0225CEF5E000252B4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6561B0125CEF5E000252B4A /* LaunchScreen.storyboard */; };
+		E69A72B925D0495D003E4C4F /* Bridge.plugin in Resources */ = {isa = PBXBuildFile; fileRef = E69A72B825D0495D003E4C4F /* Bridge.plugin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +40,7 @@
 		E6561AF425CEF38A00252B4A /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		E6561AFD25CEF5AF00252B4A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E6561B0125CEF5E000252B4A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E69A72B825D0495D003E4C4F /* Bridge.plugin */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Bridge.plugin; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,19 +48,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6561AE125CEF2A500252B4A /* PythonKit in Frameworks */,
-				E6561AFA25CEF3AF00252B4A /* GuitarChords in Frameworks */,
+				E6561AFA25CEF3AF00252B4A /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CBD235B333BC1C67F7B12F2F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E6561AAE25CEF0AA00252B4A = {
 			isa = PBXGroup;
 			children = (
 				E6561AB925CEF0AA00252B4A /* TabWriter */,
 				E6561AB825CEF0AA00252B4A /* Products */,
+				CBD235B333BC1C67F7B12F2F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,7 +84,6 @@
 			children = (
 				E6561AE725CEF2F000252B4A /* Resources */,
 				E6561ADA25CEF1C900252B4A /* Scene */,
-				E6561ACF25CEF0E500252B4A /* Tab.mlmodel */,
 				E6561ABA25CEF0AA00252B4A /* AppDelegate.swift */,
 				E6561ABC25CEF0AA00252B4A /* SceneDelegate.swift */,
 				E6561ABE25CEF0AA00252B4A /* ViewController.swift */,
@@ -101,6 +108,8 @@
 		E6561AE725CEF2F000252B4A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E69A72B825D0495D003E4C4F /* Bridge.plugin */,
+				E6561ACF25CEF0E500252B4A /* Tab.mlmodel */,
 				E6561AEC25CEF31700252B4A /* arlon_bold.ttf */,
 				E6561AED25CEF31700252B4A /* arlon_light.ttf */,
 				E6561AE925CEF30A00252B4A /* arlon_regular.ttf */,
@@ -125,8 +134,7 @@
 			);
 			name = TabWriter;
 			packageProductDependencies = (
-				E6561AE025CEF2A500252B4A /* PythonKit */,
-				E6561AF925CEF3AF00252B4A /* GuitarChords */,
+				E6561AF925CEF3AF00252B4A /* SwiftPackageProductDependency */,
 			);
 			productName = TabWriter;
 			productReference = E6561AB725CEF0AA00252B4A /* TabWriter.app */;
@@ -156,8 +164,7 @@
 			);
 			mainGroup = E6561AAE25CEF0AA00252B4A;
 			packageReferences = (
-				E6561ADF25CEF2A500252B4A /* XCRemoteSwiftPackageReference "PythonKit" */,
-				E6561AF825CEF3AF00252B4A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */,
+				E6561AF825CEF3AF00252B4A /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = E6561AB825CEF0AA00252B4A /* Products */;
 			projectDirPath = "";
@@ -175,6 +182,7 @@
 			files = (
 				E6561AEE25CEF31700252B4A /* arlon_bold.ttf in Resources */,
 				E6561AC425CEF0AD00252B4A /* Assets.xcassets in Resources */,
+				E69A72B925D0495D003E4C4F /* Bridge.plugin in Resources */,
 				E6561AFE25CEF5AF00252B4A /* Main.storyboard in Resources */,
 				E6561B0225CEF5E000252B4A /* LaunchScreen.storyboard in Resources */,
 				E6561AEA25CEF30A00252B4A /* arlon_regular.ttf in Resources */,
@@ -324,6 +332,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = TabWriter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -342,6 +351,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = TabWriter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -378,15 +388,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E6561ADF25CEF2A500252B4A /* XCRemoteSwiftPackageReference "PythonKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pvieito/PythonKit";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		E6561AF825CEF3AF00252B4A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */ = {
+		E6561AF825CEF3AF00252B4A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/BeauNouvelle/SwiftyGuitarChords";
 			requirement = {
@@ -397,14 +399,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E6561AE025CEF2A500252B4A /* PythonKit */ = {
+		E6561AF925CEF3AF00252B4A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E6561ADF25CEF2A500252B4A /* XCRemoteSwiftPackageReference "PythonKit" */;
-			productName = PythonKit;
-		};
-		E6561AF925CEF3AF00252B4A /* GuitarChords */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E6561AF825CEF3AF00252B4A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
+			package = E6561AF825CEF3AF00252B4A /* RemoteSwiftPackageReference */;
 			productName = GuitarChords;
 		};
 /* End XCSwiftPackageProductDependency section */

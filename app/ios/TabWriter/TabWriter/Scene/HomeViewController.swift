@@ -7,9 +7,10 @@
 
 import UIKit
 import AVFoundation
-import PythonKit
-import CoreML
-import Vision
+//import CoreML
+//import Vision
+import CoreMedia
+import RosaKit
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
@@ -24,8 +25,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var isAudioRecordingGranted: Bool!
     var isRecording = false
     var isPlaying = false
-    //var filename: String = ""
-    var filename = "Recording_2021_02_05_21_48.m4a"
+    //var filename = ""
+    var filename = "Recording_" + String(2020) + "_" + String(format: "%02d",2) + "_" + String(format: "%02d", 6) + "_" + String(format: "%02d", 19) + "_" + String(format: "%02d", 51) + ".m4a"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,15 +81,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         return documentsDirectory
     }
 
-    func getFileUrl() -> URL
+    func getFileUrl(filename: String) -> URL
     {
-        let year = Calendar.current.component(.year, from: Date())
-        let month = Calendar.current.component(.month, from: Date())
-        let day = Calendar.current.component(.day, from: Date())
-        let hour = Calendar.current.component(.hour, from: Date())
-        let minute = Calendar.current.component(.minute, from: Date())
-        
-        filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + ".m4a"
         let filePath = getDocumentsDirectory().appendingPathComponent(filename)
         // print(filePath)
         return filePath
@@ -111,7 +105,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                     AVNumberOfChannelsKey: 1,
                     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
                 ]
-                audioRecorder = try AVAudioRecorder(url: getFileUrl(), settings: settings)
+                
+                let year = Calendar.current.component(.year, from: Date())
+                let month = Calendar.current.component(.month, from: Date())
+                let day = Calendar.current.component(.day, from: Date())
+                let hour = Calendar.current.component(.hour, from: Date())
+                let minute = Calendar.current.component(.minute, from: Date())
+                
+                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + ".m4a"
+                
+                audioRecorder = try AVAudioRecorder(url: getFileUrl(filename: filename), settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.isMeteringEnabled = true
                 audioRecorder.prepareToRecord()
@@ -188,8 +191,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             self.recordLabel.text = "STO PENSANDO"
             self.recordLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
             
-            
-            
             self.performSegue(withIdentifier: "segueToResultViewController", sender: nil)
             
             self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
@@ -198,5 +199,31 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             
         }
     }
+    
+    private var spectrograms = [[Double]]()
+        
+        private func loadData() {
+            spectrograms = [[Double]]()
+            
+            let url = Bundle.main.url(forResource: "test", withExtension: "wav")
+            
+            let soundFile = url.flatMap { try? WavFileManager().readWavFile(at: $0) }
+            
+            let dataCount = soundFile?.data.count ?? 0
+            let sampleRate = soundFile?.sampleRate ?? 44100
+            let bytesPerSample = soundFile?.bytesPerSample ?? 0
+
+            let chunkSize = 66000
+            let chunksCount = dataCount/(chunkSize*bytesPerSample) - 1
+
+            let rawData = soundFile?.data.int16Array
+            
+            for index in 0..<chunksCount-1 {
+                let samples = Array(rawData?[chunkSize*index..<chunkSize*(index+1)] ?? []).map { Double($0)/32768.0 }
+                let powerSpectrogram = samples.melspectrogram(nFFT: 1024, hopLength: 512, sampleRate: Int(sampleRate), melsCount: 128).map { $0.normalizeAudioPower() }
+                spectrograms.append(contentsOf: powerSpectrogram.transposed)
+            }
+
+        }
     
 }
