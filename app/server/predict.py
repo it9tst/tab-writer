@@ -5,7 +5,6 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Reshape, Activation
 from keras.layers import Conv2D, MaxPooling2D, Conv1D, Lambda
 from keras import backend as K
-import json
 
 
 num_strings = 6

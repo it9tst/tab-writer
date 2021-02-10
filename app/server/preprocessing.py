@@ -6,6 +6,7 @@ import os
 import math
 from scipy.io import wavfile
 
+
 # array
 img = []
 
