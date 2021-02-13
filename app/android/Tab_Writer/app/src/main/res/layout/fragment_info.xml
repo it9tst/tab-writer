@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_grey_settings"
     android:padding="10dp"
-    tools:context=".InfoFragment">
+    tools:context=".layout.InfoFragment">
 
     <TextView
         android:id="@+id/textInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/arlon_regular"
         android:textColor="@color/textInfo_color"
         android:textSize="13sp"
         android:lineHeight="28dp"

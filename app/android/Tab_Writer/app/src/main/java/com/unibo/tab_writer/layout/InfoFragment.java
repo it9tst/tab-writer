@@ -1,4 +1,4 @@
-package com.unibo.tab_writer;
+package com.unibo.tab_writer.layout;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.unibo.tab_writer.R;
 
 public class InfoFragment extends Fragment {
 

@@ -1,12 +1,14 @@
-package com.unibo.tab_writer;
+package com.unibo.tab_writer.layout;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +25,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.arthenica.mobileffmpeg.Config;
+import com.arthenica.mobileffmpeg.FFmpeg;
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.unibo.tab_writer.R;
+import com.unibo.tab_writer.database.DatabaseHelper;
+import com.unibo.tab_writer.database.DbAdapter;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -60,9 +71,16 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
     private String path;
 
-    private String ipv4Address = "s3rv3r2020.duckdns.org";
-    private String portNumber = "5000";
-    OkHttpClient client = new OkHttpClient();
+    private String ipv4Address;
+    private String portNumber;
+
+//    private String ipv4Address = "s3rv3r2020.duckdns.org";
+//    private String portNumber = "5000";
+    private OkHttpClient client = new OkHttpClient();
+
+    private DbAdapter dbHelper;
+    private long cursor;
+
 
     public RecordFragment() {
         // Required empty public constructor
@@ -73,6 +91,13 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        dbHelper = new DbAdapter(getContext());
+        dbHelper.open();
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        ipv4Address = sharedPreferences.getString("ip", "192.168.1.1");
+        portNumber = sharedPreferences.getString("port", "5000");
 
         String postUrl= "http://"+ipv4Address+":"+portNumber+"/";
 
@@ -122,7 +147,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
         recordBtn.setOnClickListener(this);
         recordBtn.setClickable(false);
-
     }
 
     @Override
@@ -150,8 +174,11 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         mediaRecorder.release();
         mediaRecorder = null;
 
+        recordText.setText("STO PENSANDO...");
+
 //        Log.d("LOGGO",new File("file:///android_asset/fff.wav").getAbsolutePath());
 //        String fname = new File(getActivity().getFilesDir(), "fff.wav").getAbsolutePath();
+//        Log.d("LOGGO", path);
         connectServer(path);
     }
 
@@ -163,15 +190,16 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.ITALIAN);
         Date now = new Date();
 
-        recordFile = "Guitar_Tab_" + formatter.format(now) + ".3gp";
+        recordFile = "Guitar_Tab_" + formatter.format(now) + ".aac";
 
         recordText.setText("STO ASCOLTANDO...");
 
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
         mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        mediaRecorder.setAudioSamplingRate(44100);
 
         path = recordPath + "/" + recordFile;
 
@@ -199,15 +227,14 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
         RequestBody postBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("file", "androidFlask.3gp", RequestBody.create(MediaType.parse("application/octet-stream"), path))
+                .addFormDataPart("file", "rec.aac", RequestBody.create(new File(path), MediaType.parse("application/octet-stream")))
                 .build();
 
         postRequest(postUrl, postBody);
     }
 
-    private void postRequest(String postUrl, RequestBody postBody) {
-        OkHttpClient client = new OkHttpClient();
 
+    private void postRequest(String postUrl, RequestBody postBody) {
         Request request = new Request.Builder()
                 .url(postUrl)
                 .post(postBody)
@@ -229,44 +256,39 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         try {
-                            recordText.setText("STO PENSANDO...");
+                            //Toast.makeText(getActivity(), response.body().string(), Toast.LENGTH_LONG).show();
 
                             String jsonData = response.body().string();
-                            JSONObject Jobject = new JSONObject(jsonData);
-                            JSONArray Jarray = Jobject.getJSONArray("employees");
+                            JSONObject Jobject = null;
+                            try {
+                                Jobject = new JSONObject(jsonData);
+                                JSONArray tab = Jobject.getJSONArray("tab");
+                                Log.d("LOGGO", tab.toString());
 
-                            //define the strings that will temporary store the data
-                            String tab_x, tab_y, value;
+                                // salva json
+                                cursor = dbHelper.createTab(recordFile, "data", "tab", tab.toString());
 
-                            //get the length of the json array
-                            int limit = Jarray.length()
+                                int rc = FFmpeg.execute("-i " + path + " -acodec pcm_u8 -ar 44100 " + path + ".wav");
 
-                            //datastore array of size limit
-                            String dataStore[] = new String[limit];
+                                Python py = Python.getInstance();
+                                final PyObject pyobj = py.getModule("preprocessing");
 
-                            for (int i = 0; i < limit; i++) {
-                                JSONObject object = Jarray.getJSONObject(i);
+                                PyObject obj = pyobj.callAttr("preprocessing_file", path + ".wav");
+                                Log.d("LOGGO", obj.toString());
 
-                                tab_x = object.getString("tab_x");
-                                tab_y = object.getString("tab_y");
-                                value = object.getString("value");
 
-                                Log.d("JSON DATA", tab_x + " ## " + tab_y + " ## " + value);
 
-                                //store the data into the array
-                                dataStore[i] = tab_x + " ## " + tab_y + " ## " + value;
+                                // passa info fragment
+
+
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.navHostFragment, new TabViewFragment(), "TabViewFragment");
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                            //prove that the data was stored in the array
-                            for (String content ; dataStore) {
-                                Log.d("ARRAY CONTENT", content);
-                            }
-
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.navHostFragment, new TabViewFragment(), "TabViewFragment");
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
                         } catch (IOException e){
                             e.printStackTrace();
                         }

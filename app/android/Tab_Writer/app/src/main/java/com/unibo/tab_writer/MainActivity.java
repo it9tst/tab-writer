@@ -1,6 +1,7 @@
 package com.unibo.tab_writer;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,18 +16,24 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.material.navigation.NavigationView;
+import com.unibo.tab_writer.database.DatabaseHelper;
 
 
 public class MainActivity extends AppCompatActivity {
 
-
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setContentView(R.layout.activity_main);
+
+        databaseHelper = new DatabaseHelper(MainActivity.this);
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -37,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if(!Python.isStarted()){
+            Python.start(new AndroidPlatform(this));
+        }
 
-
-
-        //new AndroidFFMPEGLocator(this);
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
 

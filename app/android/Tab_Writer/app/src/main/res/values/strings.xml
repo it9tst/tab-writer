@@ -1,22 +1,6 @@
 <resources>
     <string name="app_name">Tab Writer</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-
-
     <string name="title_app">APP</string>
     <string name="nav_home">Home</string>
     <string name="nav_record">Crea Tab</string>
@@ -24,6 +8,10 @@
     <string name="title_altro">ALTRO</string>
     <string name="nav_settings">Impostazioni</string>
     <string name="nav_info">Info</string>
+
+    <string name="connect_header">Connessione</string>
+    <string name="ip_title">Host Name (o indirizzo IP)</string>
+    <string name="port_title">Porta</string>
 
     <string name="info_text">Progetto finale per esame di Sistemi Digitali\nIng. Informatica Magistrale - UniBO 2021\nAlma Mater Studiorum\nGroup by: D. De Nardi, G. Tornatore</string>
 </resources>

@@ -7,27 +7,31 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.unibo.tab_writer.HomeFragment"
+        android:name="com.unibo.tab_writer.layout.HomeFragment"
         android:label="@string/nav_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_record"
-        android:name="com.unibo.tab_writer.RecordFragment"
+        android:name="com.unibo.tab_writer.layout.RecordFragment"
         android:label="@string/nav_record"
         tools:layout="@layout/fragment_record" />
     <fragment
         android:id="@+id/nav_list"
-        android:name="com.unibo.tab_writer.TabListFragment"
+        android:name="com.unibo.tab_writer.layout.TabListFragment"
         android:label="@string/nav_list"
         tools:layout="@layout/fragment_tab_list" />
     <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.unibo.tab_writer.layout.SettingsFragment"
+        android:label="Impostazioni"/>
+    <fragment
         android:id="@+id/nav_info"
-        android:name="com.unibo.tab_writer.InfoFragment"
+        android:name="com.unibo.tab_writer.layout.InfoFragment"
         android:label="@string/nav_info"
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/nav_tab"
-        android:name="com.unibo.tab_writer.TabViewFragment"
+        android:name="com.unibo.tab_writer.layout.TabViewFragment"
         android:label="fragment_view_tab"
         tools:layout="@layout/fragment_tab_view" />
 </navigation>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_grey_settings"
-    tools:context=".RecordFragment">
+    tools:context=".layout.RecordFragment">
 
     <ImageView
         android:id="@+id/record_header_image"
@@ -22,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
-        android:fontFamily="@font/arlon_regular"
         android:gravity="center"
         android:lineHeight="32dp"
         android:text="CONNECTING..."
@@ -51,7 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/arlon_regular"
         android:textColor="@color/record_timer_color"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"

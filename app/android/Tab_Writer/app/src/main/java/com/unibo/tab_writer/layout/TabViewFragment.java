@@ -1,4 +1,4 @@
-package com.unibo.tab_writer;
+package com.unibo.tab_writer.layout;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.BubbleDataSet;
 import com.github.mikephil.charting.data.BubbleEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.unibo.tab_writer.R;
 
 import java.util.ArrayList;
 import java.util.Random;
