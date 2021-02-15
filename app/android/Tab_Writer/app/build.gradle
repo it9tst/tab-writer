@@ -15,7 +15,7 @@ android {
         versionName "1.0"
 
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
         }
 
         python {
@@ -48,15 +48,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
- /*   aaptOptions {
-        noCompress "tflite"
-        noCompress "lite"
-    }
-
-    buildFeatures {
-        mlModelBinding true
-    }
-*/
     sourceSets {
         main {
             python.srcDir "src/main/python"
@@ -82,11 +73,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
-
-    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
-    implementation 'org.tensorflow:tensorflow-lite-gpu:0.0.0-nightly'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.0.0-nightly'
 
     implementation 'com.arthenica:mobile-ffmpeg-full:4.4'
 }

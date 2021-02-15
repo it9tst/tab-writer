@@ -1,6 +1,11 @@
 package com.unibo.tab_writer.layout;
 
+import android.graphics.Color;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.unibo.tab_writer.R;
 import com.unibo.tab_writer.utils.TimeAgo;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.TabViewHolder> {
@@ -42,7 +46,7 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.TabViewH
     @Override
     public void onBindViewHolder(@NonNull TabViewHolder holder, int position) {
         holder.list_title.setText(this.tab_title.get(position).toString());
-        holder.list_date.setText(this.tab_date.get(position).toString());
+        holder.list_date.setText(timeAgo.getTimeAgo(Long.parseLong(this.tab_date.get(position).toString())));
     }
 
     @Override
@@ -50,7 +54,7 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.TabViewH
         return this.count;
     }
 
-    public class TabViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TabViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private ImageView list_tab;
         private TextView list_title;
@@ -64,15 +68,23 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.TabViewH
             list_date = itemView.findViewById(R.id.list_date);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             onItemListClick.onClickListener(getAdapterPosition());
         }
+
+        @Override
+        public boolean onLongClick(View view) {
+            onItemListClick.onLongClickListener(getAdapterPosition());
+            return false;
+        }
     }
 
     public interface onItemListClick {
         void onClickListener(int position);
+        void onLongClickListener(int position);
     }
 }

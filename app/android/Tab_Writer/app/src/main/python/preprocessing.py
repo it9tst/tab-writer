@@ -4,6 +4,7 @@ import librosa
 import keras
 import os
 import math
+from keras.utils import normalize
 from scipy.io import wavfile
 
 
@@ -38,8 +39,6 @@ def audio_CQT(path, start, dur):  # start and dur in seconds
 def get_duration_seconds(path):
     file_audio = path
     (source_rate, source_sig) = wavfile.read(file_audio)
-    print(source_rate)
-    print(source_sig)
     duration_seconds = len(source_sig) / float(source_rate)
     return duration_seconds
 
@@ -52,7 +51,7 @@ def scal_norm_exp(img):
 	a_scaled = 255*(a-a_min)/(a_max-a_min)
 
 	imgnorm = a_scaled
-	imgnorm = keras.utils.normalize(imgnorm, axis=2)
+	imgnorm = normalize(imgnorm, axis=2)
 
 	for n in range(len(imgnorm)):
 	    arr.append(imgnorm[n])
@@ -66,7 +65,6 @@ def preprocessing_file(path):
 	for t in range(len(times)-1):
 	    cqt = audio_CQT(path, times[t], times[t+1]-times[t])
 	    img.append(cqt)
-	    print(cqt)
 
 	images = scal_norm_exp(img)
 

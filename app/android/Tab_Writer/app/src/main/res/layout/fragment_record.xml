@@ -24,7 +24,7 @@
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:lineHeight="32dp"
-        android:text="CONNECTING..."
+        android:text="PRESS THE BUTTON\nTO START RECORDING"
         android:textAlignment="center"
         android:textColor="@color/record_text_color"
         android:textSize="18sp"

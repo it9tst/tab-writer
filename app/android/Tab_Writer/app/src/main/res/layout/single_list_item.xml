@@ -49,4 +49,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/list_tab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/list_tab" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

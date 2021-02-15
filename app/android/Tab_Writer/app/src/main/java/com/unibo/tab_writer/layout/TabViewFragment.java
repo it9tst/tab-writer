@@ -1,12 +1,15 @@
 package com.unibo.tab_writer.layout;
 
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +23,22 @@ import com.github.mikephil.charting.data.BubbleEntry;
 import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.unibo.tab_writer.R;
+import com.unibo.tab_writer.database.DbAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class TabViewFragment extends Fragment {
 
-    BubbleChart bubbleChart;
+    private BubbleChart bubbleChart;
+    private String tab_title;
+    private String tab_tab;
+
+    private DbAdapter dbHelper;
+    private Cursor cursor;
 
     public TabViewFragment() {
         // Required empty public constructor
@@ -36,19 +48,41 @@ public class TabViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        tab_title = getArguments().getString("tab_title");
+
+        dbHelper = new DbAdapter(getContext());
+        dbHelper.open();
+        cursor = dbHelper.fetchTabsByFilter(tab_title);
+
+        if (cursor.moveToFirst()){
+            tab_tab = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_TAB));
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         return inflater.inflate(R.layout.fragment_tab_view, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ArrayList<BubbleEntry> tab = new ArrayList<>();
+
+        Log.d("LOGGO-Tab-ViewFragment", tab_tab);
+
+        JSONArray ja = null;
+        try {
+            ja = new JSONArray(tab_tab);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ja.put(tab_tab);
 
         BubbleChart bubbleChart = view.findViewById(R.id.bubbleChart);
         bubbleChart.setTouchEnabled(true);
@@ -63,7 +97,7 @@ public class TabViewFragment extends Fragment {
 
         XAxis xAxis = bubbleChart.getXAxis();
         xAxis.setAxisMinimum(-0.5f);
-        xAxis.setAxisMaximum(20.5f);
+        xAxis.setAxisMaximum(ja.length());
 
         YAxis yAxis = bubbleChart.getAxisLeft();
         yAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"E","A","D","G","B","e"}));
@@ -76,13 +110,24 @@ public class TabViewFragment extends Fragment {
         yAxis.setAxisMinimum(0f);
         yAxis.setAxisMaximum(5f);
 
-        ArrayList<BubbleEntry> tab = new ArrayList<>();
-        Random r = new Random();
+
+        for(int i=0; i < ja.length(); i++) {
+            JSONObject jsonobject = null;
+            try {
+                jsonobject = ja.getJSONObject(i);
+                tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x")), getRealPosition(Float.parseFloat(jsonobject.getString("tab_y"))), Float.parseFloat(jsonobject.getString("value"))));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
 /*
+        Random r = new Random();
+
         for(int i=0; i<15; i++){
             tab.add(new BubbleEntry((float) r.nextInt(10), (float) r.nextInt(5), (float) r.nextInt(17)));
         }
-*/
+
         tab.add(new BubbleEntry(0, 0, 13));
         tab.add(new BubbleEntry(1, 0, 11));
         tab.add(new BubbleEntry(1, 1, 13));
@@ -96,7 +141,7 @@ public class TabViewFragment extends Fragment {
         tab.add(new BubbleEntry(9, 3, 3));
         tab.add(new BubbleEntry(10, 1, 10));
         tab.add(new BubbleEntry(11, 2, 6));
-
+*/
         BubbleDataSet bubbleDataSet = new BubbleDataSet(tab, "tab");
         bubbleDataSet.setColor(Color.WHITE, 0);
         bubbleDataSet.setValueTextColor(Color.WHITE);
@@ -106,8 +151,33 @@ public class TabViewFragment extends Fragment {
         BubbleData bubbleData = new BubbleData(bubbleDataSet);
 
         bubbleChart.setData(bubbleData);
-        bubbleChart.setVisibleXRangeMaximum(7.5f);
+        bubbleChart.setVisibleXRangeMaximum(9.5f);
 
-        bubbleChart.animateX(1000);
+        bubbleChart.animateXY(1000,1000);
+    }
+
+    private float getRealPosition(float p){
+        float r = 0;
+        switch ((int) p) {
+            case 0:
+                r = 5;
+                break;
+            case 1:
+                r = 4;
+                break;
+            case 2:
+                r = 3;
+                break;
+            case 3:
+                r = 2;
+                break;
+            case 4:
+                r = 1;
+                break;
+            case 5:
+                r = 0;
+                break;
+        }
+        return r;
     }
 }
