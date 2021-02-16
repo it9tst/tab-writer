@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "PythonKit",
-        "repositoryURL": "https://github.com/pvieito/PythonKit",
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire",
         "state": {
-          "branch": "master",
-          "revision": "074622c6893188bbb7926eee2f7eece8a5124c47",
-          "version": null
+          "branch": null,
+          "revision": "eaf6e622dd41b07b251d8f01752eab31bc811493",
+          "version": "5.4.1"
         }
       },
       {
@@ -16,6 +16,15 @@
         "state": {
           "branch": "main",
           "revision": "00a6af3e27c395e70b9fa7380d64ef35c8077334",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON",
+        "state": {
+          "branch": "master",
+          "revision": "cbf2d4955557abc1ed5debab21d20763e7ebc540",
           "version": null
         }
       }

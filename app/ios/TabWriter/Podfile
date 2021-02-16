@@ -6,5 +6,17 @@ target 'TabWriter' do
   use_frameworks!
 
   # Pods for TabWriter
+  pod 'Firebase/MLModelInterpreter'
+  pod 'TensorFlowLiteSwift'
+  pod 'Firebase/Analytics'
 
+end
+
+# You can setup your podfile to automatically match the deployment target of all the podfiles to your # current project deployment target like this :
+post_install do |pi|
+    pi.pods_project.targets.each do |t|
+      t.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+      end
+    end
 end

@@ -7,10 +7,11 @@
 
 import UIKit
 import AVFoundation
-//import CoreML
-//import Vision
 import CoreMedia
-import RosaKit
+import Alamofire
+import SwiftyJSON
+import Firebase
+import TensorFlowLite
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
@@ -19,14 +20,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var recordImage: UIImageView!
     
+    var interpreter: Interpreter!
+    var inputArray: [[[[Float32]]]] = []
+    
     var audioRecorder: AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
     var meterTimer:Timer!
     var isAudioRecordingGranted: Bool!
     var isRecording = false
     var isPlaying = false
-    //var filename = ""
-    var filename = "Recording_" + String(2020) + "_" + String(format: "%02d",2) + "_" + String(format: "%02d", 6) + "_" + String(format: "%02d", 19) + "_" + String(format: "%02d", 51) + ".m4a"
+    var filename = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +46,14 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         recordLabel.font = UIFont(name: "Arlon-Regular", size: 20)
         timerLabel.font =  UIFont(name: "Arlon-Regular", size: 22)
         
+        let ok = loadModel()
+        print("🟢", ok)
+        
         check_record_permission()
         
     }
     
     // check record permission
-    
     func check_record_permission()
     {
         switch AVAudioSession.sharedInstance().recordPermission {
@@ -73,7 +78,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }
     
     // generate path where you want to save that recording as myRecording.m4a
-    
     func getDocumentsDirectory() -> URL
     {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -89,7 +93,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }
     
     // Setup the recorder
-    
     func setup_recorder()
     {
         if isAudioRecordingGranted
@@ -103,7 +106,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                     AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                     AVSampleRateKey: 44100,
                     AVNumberOfChannelsKey: 1,
-                    AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
+                    AVEncoderAudioQualityKey:AVAudioQuality.low.rawValue
                 ]
                 
                 let year = Calendar.current.component(.year, from: Date())
@@ -112,9 +115,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 let hour = Calendar.current.component(.hour, from: Date())
                 let minute = Calendar.current.component(.minute, from: Date())
                 
-                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + ".m4a"
+                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute)
                 
-                audioRecorder = try AVAudioRecorder(url: getFileUrl(filename: filename), settings: settings)
+                audioRecorder = try AVAudioRecorder(url: getFileUrl(filename: filename + ".m4a"), settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.isMeteringEnabled = true
                 audioRecorder.prepareToRecord()
@@ -178,52 +181,111 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             self.recordLabel.textColor = #colorLiteral(red: 0.7280769348, green: 0.2136592269, blue: 0.3053612411, alpha: 1)
             self.recordImage.image = UIImage(named: "rec_button_on")
             
-            //setup_recorder()
-            //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
-            //audioRecorder.record()
-            //isRecording = true
+            setup_recorder()
+            meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
+            audioRecorder.record()
+            isRecording = true
             
         } else if (self.recordLabel.text == "STO REGISTRANDO") {
-            
-            //finishAudioRecording(success: true)
-            //isRecording = false
             
             self.recordLabel.text = "STO PENSANDO"
             self.recordLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
             
-            self.performSegue(withIdentifier: "segueToResultViewController", sender: nil)
+            finishAudioRecording(success: true)
+            isRecording = false
             
-            self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
-            self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-            self.recordImage.image = UIImage(named: "rec_button_off")
+            let urlAudioM4a = getFileUrl(filename: filename + ".m4a")
+            
+            request(audioFilePath: urlAudioM4a)
             
         }
     }
     
-    private var spectrograms = [[Double]]()
-        
-        private func loadData() {
-            spectrograms = [[Double]]()
-            
-            let url = Bundle.main.url(forResource: "test", withExtension: "wav")
-            
-            let soundFile = url.flatMap { try? WavFileManager().readWavFile(at: $0) }
-            
-            let dataCount = soundFile?.data.count ?? 0
-            let sampleRate = soundFile?.sampleRate ?? 44100
-            let bytesPerSample = soundFile?.bytesPerSample ?? 0
+    func request(audioFilePath: URL) {
+        let url = URL(string: "http://0.0.0.0:5000/upload/")!
 
-            let chunkSize = 66000
-            let chunksCount = dataCount/(chunkSize*bytesPerSample) - 1
+        let headers: HTTPHeaders = [
+                "content-type": "multipart/form-data; boundary=---011000010111000001101001",
+                "accept": "application/json"
+        ]
 
-            let rawData = soundFile?.data.int16Array
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(audioFilePath, withName: "file")
             
-            for index in 0..<chunksCount-1 {
-                let samples = Array(rawData?[chunkSize*index..<chunkSize*(index+1)] ?? []).map { Double($0)/32768.0 }
-                let powerSpectrogram = samples.melspectrogram(nFFT: 1024, hopLength: 512, sampleRate: Int(sampleRate), melsCount: 128).map { $0.normalizeAudioPower() }
-                spectrograms.append(contentsOf: powerSpectrogram.transposed)
+        }, to: url, headers: headers)
+        .responseJSON { response in
+            switch response.result {
+            case .success:
+                //do{
+                    //let json = try JSON(data: response.data!)
+                    //print(json)
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        self.inputArray = try decoder.decode([[[[Float32]]]].self, from: response.data!)
+                        //debugPrint(inputArray)
+                      } catch {
+                          print("Unexpected runtime error. Array")
+                          return
+                      }
+                    
+                    self.performSegue(withIdentifier: "segueToResultViewController", sender: nil)
+                    
+                    self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
+                    self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                    self.recordImage.image = UIImage(named: "rec_button_off")
+                    
+                //}   catch {
+                //    print(error.localizedDescription)
+                //}
+            
+            case .failure(let encodingError):
+                print("error:\(encodingError)")
             }
-
+            
         }
+    }
+    
+    private func loadModel() -> Bool {
+        
+        guard let modelPath = Bundle.main.path(forResource: "tabCNN", ofType: "tflite")
+          else {
+            // Invalid model path
+            print("invalid model path")
+            return false
+          }
+        
+        do {
+            interpreter = try Interpreter(modelPath: modelPath)
+          } catch {
+              print("Error initializing TensorFlow Lite: \(error.localizedDescription)")
+              return false
+          }
+        
+        return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+        // Controllo se il segue ha un identifier o meno, se non ce l'ha esco dalla func
+        guard let identifier = segue.identifier else {
+            print("🟢 il segue non ha un identifier, esco dal prepareForSegue")
+            return
+        }
+        
+        // Controllo l'identifier perché potrebbero esserci più di un Segue che parte da questo VC
+        switch identifier {
+        case "segueToResultViewController":
+            // Accedo al destinationViewController del segue e lo casto del tipo di dato opportuno
+            // Modifico la variabile d'appoggio con il contenuto che voglio inviare
+            let vcDestinazione = segue.destination as! TabViewController
+            vcDestinazione.interpreter = self.interpreter
+            vcDestinazione.inputArray = self.inputArray
+            
+            default:
+                return
+        }
+        
+    }
     
 }

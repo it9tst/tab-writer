@@ -17,7 +17,7 @@ class RecentViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print("🟢", #function)
-        //clearAllFile()
+        clearAllFile()
         
         findAllRecording()
         self.tableView.delegate = self
