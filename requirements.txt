@@ -6,4 +6,3 @@ numpy==1.18.5
 python==3.5.6
 tensorflow==1.15
 scipy==1.4.1
-coremltools==3.3
