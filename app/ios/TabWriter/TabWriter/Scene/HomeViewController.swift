@@ -43,8 +43,21 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                     }
                 }*/
         
-        recordLabel.font = UIFont(name: "Arlon-Regular", size: 20)
-        timerLabel.font =  UIFont(name: "Arlon-Regular", size: 22)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                self.recordLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                self.timerLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            } else {
+                self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                self.timerLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+            }
+        } else {
+            self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+            self.timerLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+        }
+        
+        recordLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        timerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
         
         let ok = loadModel()
         print("🟢", ok)
@@ -124,11 +137,33 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             }
             catch let error {
                 display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
+                self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
+                if #available(iOS 13.0, *) {
+                    if self.traitCollection.userInterfaceStyle == .dark {
+                        self.recordLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    } else {
+                        self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                    }
+                } else {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                }
+                self.recordImage.image = UIImage(named: "rec_button_off")
             }
         }
         else
         {
             display_alert(msg_title: "Error", msg_desc: "Don't have access to use your microphone.", action_title: "OK")
+            self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
+            if #available(iOS 13.0, *) {
+                if self.traitCollection.userInterfaceStyle == .dark {
+                    self.recordLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                } else {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                }
+            } else {
+                self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+            }
+            self.recordImage.image = UIImage(named: "rec_button_off")
         }
     }
     
@@ -145,6 +180,17 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         else
         {
             display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
+            self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
+            if #available(iOS 13.0, *) {
+                if self.traitCollection.userInterfaceStyle == .dark {
+                    self.recordLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                } else {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                }
+            } else {
+                self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+            }
+            self.recordImage.image = UIImage(named: "rec_button_off")
         }
     }
     
@@ -178,7 +224,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         if (self.recordLabel.text == "CLICCA IL BOTTONE PER REGISTRARE") {
             
             self.recordLabel.text = "STO REGISTRANDO"
-            self.recordLabel.textColor = #colorLiteral(red: 0.7280769348, green: 0.2136592269, blue: 0.3053612411, alpha: 1)
+            if #available(iOS 13.0, *) {
+                if self.traitCollection.userInterfaceStyle == .dark {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+                } else {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.7280769348, green: 0.2136592269, blue: 0.3053612411, alpha: 1)
+                }
+            } else {
+                self.recordLabel.textColor = #colorLiteral(red: 0.7280769348, green: 0.2136592269, blue: 0.3053612411, alpha: 1)
+            }
             self.recordImage.image = UIImage(named: "rec_button_on")
             
             setup_recorder()
@@ -189,7 +243,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         } else if (self.recordLabel.text == "STO REGISTRANDO") {
             
             self.recordLabel.text = "STO PENSANDO"
-            self.recordLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+            if #available(iOS 13.0, *) {
+                if self.traitCollection.userInterfaceStyle == .dark {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                } else {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+                }
+            } else {
+                self.recordLabel.textColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+            }
             
             finishAudioRecording(success: true)
             isRecording = false
@@ -232,7 +294,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                     self.performSegue(withIdentifier: "segueToResultViewController", sender: nil)
                     
                     self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
-                    self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                    if #available(iOS 13.0, *) {
+                        if self.traitCollection.userInterfaceStyle == .dark {
+                            self.recordLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        } else {
+                            self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                        }
+                    } else {
+                        self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                    }
                     self.recordImage.image = UIImage(named: "rec_button_off")
                     
                 //}   catch {
@@ -240,7 +310,19 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 //}
             
             case .failure(let encodingError):
-                print("error:\(encodingError)")
+                self.display_alert(msg_title: "Error", msg_desc: "\(encodingError)", action_title: "OK")
+                //print("error:\(encodingError)")
+                self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
+                if #available(iOS 13.0, *) {
+                    if self.traitCollection.userInterfaceStyle == .dark {
+                        self.recordLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    } else {
+                        self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                    }
+                } else {
+                    self.recordLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                }
+                self.recordImage.image = UIImage(named: "rec_button_off")
             }
             
         }
@@ -258,7 +340,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         do {
             interpreter = try Interpreter(modelPath: modelPath)
           } catch {
-              print("Error initializing TensorFlow Lite: \(error.localizedDescription)")
+            self.display_alert(msg_title: "Error", msg_desc: "Error initializing TensorFlow Lite", action_title: "OK")
+            //print("Error initializing TensorFlow Lite: \(error.localizedDescription)")
               return false
           }
         
@@ -281,6 +364,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             let vcDestinazione = segue.destination as! TabViewController
             vcDestinazione.interpreter = self.interpreter
             vcDestinazione.inputArray = self.inputArray
+            vcDestinazione.fileName = self.filename
             
             default:
                 return

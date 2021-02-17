@@ -9,6 +9,8 @@ target 'TabWriter' do
   pod 'Firebase/MLModelInterpreter'
   pod 'TensorFlowLiteSwift'
   pod 'Firebase/Analytics'
+  pod 'Charts'
+  pod 'TinyConstraints'
 
 end
 

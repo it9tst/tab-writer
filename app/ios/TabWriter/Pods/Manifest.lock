@@ -1,4 +1,7 @@
 PODS:
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - Firebase/Analytics (7.6.0):
     - Firebase/Core
   - Firebase/Core (7.6.0):
@@ -103,14 +106,18 @@ PODS:
     - TensorFlowLiteSwift/Core (= 2.3.0)
   - TensorFlowLiteSwift/Core (2.3.0):
     - TensorFlowLiteC (= 2.3.0)
+  - TinyConstraints (4.0.1)
 
 DEPENDENCIES:
+  - Charts
   - Firebase/Analytics
   - Firebase/MLModelInterpreter
   - TensorFlowLiteSwift
+  - TinyConstraints
 
 SPEC REPOS:
   trunk:
+    - Charts
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -129,8 +136,10 @@ SPEC REPOS:
     - TensorFlowLiteC
     - TensorFlowLiteObjC
     - TensorFlowLiteSwift
+    - TinyConstraints
 
 SPEC CHECKSUMS:
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   Firebase: e1e089d9aac215a52442583f818ab61de3c4581b
   FirebaseAnalytics: 9f8f4feab1f3fddf4e4515f8f022fe6aa9e51043
   FirebaseCore: 0a43b7f1c5b36f3358cd703011ca4c7e0df55870
@@ -149,7 +158,8 @@ SPEC CHECKSUMS:
   TensorFlowLiteC: 51f50caf5777f740a70e2c1a5dbdc149e7aeb50b
   TensorFlowLiteObjC: 5b358503636cffcbbafd8b0ac9badb577fd72800
   TensorFlowLiteSwift: fb152cc1eec36b25b03a23c07f5d58113170af58
+  TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: fe4253f4486a96c58fad22c847d594272594ed8a
+PODFILE CHECKSUM: 77295257153d99ed16dff646676527d7f01f97cc
 
 COCOAPODS: 1.10.1

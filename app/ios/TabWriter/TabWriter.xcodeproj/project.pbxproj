@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		61123A6F9E0D56640C5CAF2A /* Pods_TabWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA226549FA3064004710B0E4 /* Pods_TabWriter.framework */; };
+		E6123FD625DD901500DE0B79 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6123FD525DD901500DE0B79 /* InfoViewController.swift */; };
 		E616365B25DADB2300AB0013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E616365A25DADB2300AB0013 /* GoogleService-Info.plist */; };
 		E6561ABB25CEF0AA00252B4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561ABA25CEF0AA00252B4A /* AppDelegate.swift */; };
 		E6561ABD25CEF0AA00252B4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561ABC25CEF0AA00252B4A /* SceneDelegate.swift */; };
@@ -19,7 +20,6 @@
 		E6561AEF25CEF31700252B4A /* arlon_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6561AED25CEF31700252B4A /* arlon_light.ttf */; };
 		E6561AF525CEF38A00252B4A /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561AF325CEF38A00252B4A /* RecentViewController.swift */; };
 		E6561AF625CEF38A00252B4A /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561AF425CEF38A00252B4A /* TabViewController.swift */; };
-		E6561AFA25CEF3AF00252B4A /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = E6561AF925CEF3AF00252B4A /* GuitarChords */; };
 		E6561AFE25CEF5AF00252B4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6561AFD25CEF5AF00252B4A /* Main.storyboard */; };
 		E6561B0225CEF5E000252B4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6561B0125CEF5E000252B4A /* LaunchScreen.storyboard */; };
 		E6AA15AA25D596C0000D4BDF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E6AA15A925D596C0000D4BDF /* Alamofire */; };
@@ -31,6 +31,7 @@
 		1E67613C5C20886EA26CE0EC /* Pods-TabWriter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.release.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.release.xcconfig"; sourceTree = "<group>"; };
 		A4116A13DF669B39629C87DD /* Pods-TabWriter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.debug.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.debug.xcconfig"; sourceTree = "<group>"; };
 		DA226549FA3064004710B0E4 /* Pods_TabWriter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TabWriter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6123FD525DD901500DE0B79 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		E616365A25DADB2300AB0013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E6561AB725CEF0AA00252B4A /* TabWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6561ABA25CEF0AA00252B4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +56,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6AA15AE25D596FB000D4BDF /* SwiftyJSON in Frameworks */,
-				E6561AFA25CEF3AF00252B4A /* GuitarChords in Frameworks */,
 				E6AA15AA25D596C0000D4BDF /* Alamofire in Frameworks */,
 				61123A6F9E0D56640C5CAF2A /* Pods_TabWriter.framework in Frameworks */,
 			);
@@ -122,6 +122,7 @@
 				E6561AF325CEF38A00252B4A /* RecentViewController.swift */,
 				E6561AF425CEF38A00252B4A /* TabViewController.swift */,
 				E6561ADB25CEF1EC00252B4A /* HomeViewController.swift */,
+				E6123FD525DD901500DE0B79 /* InfoViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -156,7 +157,6 @@
 			);
 			name = TabWriter;
 			packageProductDependencies = (
-				E6561AF925CEF3AF00252B4A /* GuitarChords */,
 				E6AA15A925D596C0000D4BDF /* Alamofire */,
 				E6AA15AD25D596FB000D4BDF /* SwiftyJSON */,
 			);
@@ -188,7 +188,6 @@
 			);
 			mainGroup = E6561AAE25CEF0AA00252B4A;
 			packageReferences = (
-				E6561AF825CEF3AF00252B4A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */,
 				E6AA15A825D596C0000D4BDF /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E6AA15AC25D596FB000D4BDF /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
@@ -269,6 +268,7 @@
 				E6561ADC25CEF1EC00252B4A /* HomeViewController.swift in Sources */,
 				E6561ABF25CEF0AA00252B4A /* ViewController.swift in Sources */,
 				E6561ABB25CEF0AA00252B4A /* AppDelegate.swift in Sources */,
+				E6123FD625DD901500DE0B79 /* InfoViewController.swift in Sources */,
 				E6561AF525CEF38A00252B4A /* RecentViewController.swift in Sources */,
 				E6561AF625CEF38A00252B4A /* TabViewController.swift in Sources */,
 				E6561ABD25CEF0AA00252B4A /* SceneDelegate.swift in Sources */,
@@ -458,14 +458,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E6561AF825CEF3AF00252B4A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/BeauNouvelle/SwiftyGuitarChords";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		E6AA15A825D596C0000D4BDF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -485,11 +477,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E6561AF925CEF3AF00252B4A /* GuitarChords */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E6561AF825CEF3AF00252B4A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
-			productName = GuitarChords;
-		};
 		E6AA15A925D596C0000D4BDF /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E6AA15A825D596C0000D4BDF /* XCRemoteSwiftPackageReference "Alamofire" */;
