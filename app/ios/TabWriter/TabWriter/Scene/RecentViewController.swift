@@ -18,7 +18,15 @@ class RecentViewController: UIViewController {
         // Do any additional setup after loading the view.
         print("🟢", #function)
         clearAllFile()
-        
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                tableView.backgroundColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2078431373, alpha: 1)
+            } else {
+                tableView.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
+            }
+        } else {
+            tableView.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
+        }
         findAllRecording()
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -94,7 +102,15 @@ extension RecentViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                cell.backgroundColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2078431373, alpha: 1)
+            } else {
+                cell.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
+            }
+        } else {
+            cell.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
+        }
         cell.textLabel?.text = fileList[indexPath.row]
         
         return cell

@@ -22,7 +22,15 @@ class TabViewController: UIViewController, ChartViewDelegate {
     
     lazy var chartView: BubbleChartView = {
        let chartView = BubbleChartView()
-        chartView.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                chartView.backgroundColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2078431373, alpha: 1)
+            } else {
+                chartView.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+            }
+        } else {
+            chartView.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        }
         return chartView
     }()
     
@@ -31,7 +39,31 @@ class TabViewController: UIViewController, ChartViewDelegate {
         // Do any additional setup after loading the view.
         print("🟢", #function)
         
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)
+                self.navigationController?.navigationBar.tintColor = .white
+                self.navigationController?.navigationBar.standardAppearance = appearance
+                self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            }
+        }
+        
         self.titleLabel.text = fileName
+        
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+                self.titleLabel.textColor = #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.968627451, alpha: 1)
+                self.titleLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            } else {
+                self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+                self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+            }
+        } else {
+            self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+            self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
+        }
         
         view.addSubview(chartView)
         chartView.centerInSuperview()
