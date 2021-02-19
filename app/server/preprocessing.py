@@ -6,10 +6,6 @@ import os
 import math
 from scipy.io import wavfile
 
-
-# array
-img = []
-
 # parameters
 sr_downs = 22050
 hop_length = 512
@@ -58,13 +54,16 @@ def scal_norm_exp(img):
 	images = np.expand_dims(np.array(arr), axis=-1)
 	return images
 
-def preprocessing_file(file_path):
-	times = np.arange(0.0, get_duration_seconds(file_path), 0.2)
-
-	for t in range(len(times)-1):
-	    cqt = audio_CQT(path, times[t], times[t+1]-times[t])
-	    img.append(cqt)
-
-	images = scal_norm_exp(img)
-
-	return images
+def preprocessing_file(path):
+    # array
+    img = []
+    
+    times = np.arange(0.0, get_duration_seconds(path), 0.2)
+    
+    for t in range(len(times)-1):
+        cqt = audio_CQT(path, times[t], times[t+1]-times[t])
+        img.append(cqt)
+    
+    images = scal_norm_exp(img)
+    
+    return images

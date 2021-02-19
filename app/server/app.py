@@ -6,7 +6,7 @@ from preprocessing import preprocessing_file
 from flask import jsonify
 from pydub import AudioSegment
 
-from predict import predict_model
+#from predict import predict_model
 
 app = flask.Flask(__name__)
 
