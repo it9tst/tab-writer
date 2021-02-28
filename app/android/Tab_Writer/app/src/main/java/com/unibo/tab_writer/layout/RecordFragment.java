@@ -3,9 +3,9 @@ package com.unibo.tab_writer.layout;
 import android.Manifest;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +56,11 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
     private DbAdapter dbHelper;
     private long cursor;
+
+    private Handler handlerAscolto;
+    private Runnable runnableAscolto;
+    private Handler handlerPensando;
+    private Runnable runnablePensando;
 
 
     public RecordFragment() {
@@ -120,7 +125,30 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
         recordFile = "Guitar_Tab_" + formatter.format(now) + ".aac";
 
-        recordText.setText("STO ASCOLTANDO...");
+        handlerAscolto = new Handler();
+        runnableAscolto = new Runnable() {
+            int count = 0;
+
+            @Override
+            public void run() {
+                count++;
+
+                if (count == 1) {
+                    recordText.setText("STO ASCOLTANDO.");
+                } else if (count == 2) {
+                    recordText.setText("STO ASCOLTANDO..");
+                } else if (count == 3) {
+                    recordText.setText("STO ASCOLTANDO...");
+                }
+
+                if (count == 3) {
+                    count = 0;
+                }
+                handlerAscolto.postDelayed(this, 2 * 300);
+            }
+        };
+        handlerAscolto.postDelayed(runnableAscolto, 1 * 300);
+
 
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -141,13 +169,39 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
     }
 
     private void stopRecording(){
+        handlerAscolto.removeCallbacks(runnableAscolto);
+
         timer.stop();
 
         mediaRecorder.stop();
         mediaRecorder.release();
         mediaRecorder = null;
 
-        recordText.setText("STO PENSANDO...");
+
+        handlerPensando = new Handler();
+        runnablePensando = new Runnable() {
+            int count = 0;
+
+            @Override
+            public void run() {
+                count++;
+
+                if (count == 1) {
+                    recordText.setText("STO PENSANDO.");
+                } else if (count == 2) {
+                    recordText.setText("STO PENSANDO..");
+                } else if (count == 3) {
+                    recordText.setText("STO PENSANDO...");
+                }
+
+                if (count == 3) {
+                    count = 0;
+                }
+                handlerPensando.postDelayed(this, 2 * 300);
+            }
+        };
+        handlerPensando.postDelayed(runnablePensando, 1 * 300);
+
 
         recordBtn.setClickable(false);
 
@@ -194,5 +248,6 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         navController.navigate(R.id.action_fragment_record_to_fragment_tab_view, bundle);
 
         recordBtn.setClickable(true);
+        handlerPensando.removeCallbacks(runnablePensando);
     }
 }

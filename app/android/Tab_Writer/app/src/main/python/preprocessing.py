@@ -1,15 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import librosa
-import keras
 import os
 import math
-from keras.utils import normalize
+from tensorflow.keras.utils import normalize
 from scipy.io import wavfile
 
-
-# array
-img = []
 
 # parameters
 sr_downs = 22050
@@ -43,29 +39,30 @@ def get_duration_seconds(path):
     return duration_seconds
 
 def scal_norm_exp(img):
-	arr = []
+    arr = []
 
-	a = img
-	a_min = np.min(a)
-	a_max = np.max(a)
-	a_scaled = 255*(a-a_min)/(a_max-a_min)
+    a = img
+    a_min = np.min(a)
+    a_max = np.max(a)
+    a_scaled = 255*(a-a_min)/(a_max-a_min)
 
-	imgnorm = a_scaled
-	imgnorm = normalize(imgnorm, axis=2)
+    imgnorm = a_scaled
+    imgnorm = normalize(imgnorm, axis=2)
 
-	for n in range(len(imgnorm)):
-	    arr.append(imgnorm[n])
+    for n in range(len(imgnorm)):
+        arr.append(imgnorm[n])
 
-	images = np.expand_dims(np.array(arr), axis=-1)
-	return images
+    images = np.expand_dims(np.array(arr), axis=-1)
+    return images
 
 def preprocessing_file(path):
-	times = np.arange(0.0, get_duration_seconds(path), 0.2)
+    img = []
+    times = np.arange(0.0, get_duration_seconds(path), 0.2)
 
-	for t in range(len(times)-1):
-	    cqt = audio_CQT(path, times[t], times[t+1]-times[t])
-	    img.append(cqt)
+    for t in range(len(times)-1):
+        cqt = audio_CQT(path, times[t], times[t+1]-times[t])
+        img.append(cqt)
 
-	images = scal_norm_exp(img)
+    images = scal_norm_exp(img)
 
-	return images
+    return images

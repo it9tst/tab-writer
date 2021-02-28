@@ -19,14 +19,13 @@ android {
         }
 
         python {
-            buildPython "C:/Users/Gabriele/anaconda3/envs/TabWriter2/python.exe"
+            buildPython "C:/Users/Gabriele/anaconda3/envs/Chaquopy/python.exe"
             pip {
                 install "numpy"
                 install "matplotlib"
                 install "librosa"
                 install "keras==2.3.1"
                 install "tensorflow==2.1.0"
-                install "pydub"
             }
             pyc {
                 src false

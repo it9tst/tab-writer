@@ -1,6 +1,7 @@
 .ipynb_checkpoints/
 __pycache__/
 _wip/
+old/
 
 *.jams
 *.wav

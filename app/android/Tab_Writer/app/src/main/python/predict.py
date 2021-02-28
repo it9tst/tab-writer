@@ -43,24 +43,7 @@ def predict_model(images):
 		b = np.zeros_like(np.squeeze(output_data))
 		b[np.arange(len(np.squeeze(output_data))), np.argmax(np.squeeze(output_data),axis=-1)] = 1
 
-		check = 1
-		for n in range(6):
-			value = np.argmax(b.astype('int32')[:, 1:], axis=1)[n]
-			
-			if value == 0:
-				if check == 6:
-					data_json.append({'tab_x' : i, 'tab_y' : n, 'value' : value})
-				check = check + 1
-			else:
-				data_json.append({'tab_x' : i, 'tab_y' : n, 'value' : value})
+		value = np.argmax(b.astype('int32'), axis=1)
+		data_json.append({'tab_x' : i, 'value' : value})
 
-
-
-#		if i == 0:
-#			arr = output_data
-
-#		arr = np.append(arr, output_data, axis=0)
-
-	return json.dumps(data_json, default=myconverter)
-
-	
+	return json.dumps(data_json, default=myconverter)	

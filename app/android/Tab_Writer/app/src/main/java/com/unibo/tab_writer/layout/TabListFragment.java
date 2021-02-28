@@ -3,31 +3,21 @@ package com.unibo.tab_writer.layout;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import com.unibo.tab_writer.MainActivity;
 import com.unibo.tab_writer.R;
 import com.unibo.tab_writer.database.DbAdapter;
 
@@ -61,7 +51,6 @@ public class TabListFragment extends Fragment implements TabListAdapter.onItemLi
         dbHelper = new DbAdapter(getContext());
         dbHelper.open();
         cursor = dbHelper.fetchAllTabs();
-//        dbHelper.close();
 
         while(cursor.moveToNext()) {
             String title = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_TITLE));
@@ -69,6 +58,12 @@ public class TabListFragment extends Fragment implements TabListAdapter.onItemLi
             tab_title.add(title);
             tab_date.add(date);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dbHelper.close();
     }
 
     @Override
@@ -90,7 +85,7 @@ public class TabListFragment extends Fragment implements TabListAdapter.onItemLi
         registerForContextMenu(tabList);
 
         // Initialize ArrayAdapter
-        tabListAdapter = new TabListAdapter(cursor.getCount(), tab_title, tab_date, this);
+        tabListAdapter = new TabListAdapter(tab_title, tab_date, this);
         cursor.close();
 
         // Set ArrayAdapter to tabListAdapter
@@ -123,35 +118,11 @@ public class TabListFragment extends Fragment implements TabListAdapter.onItemLi
         switch (item.getItemId()){
             case R.id.menu_delete:
                 dbHelper.deleteTab(tab_title.get(pos));
+                tabListAdapter.removeAt(pos);
                 Toast.makeText(getActivity(), tab_title.get(pos) + " eliminato", Toast.LENGTH_SHORT).show();
-                onResume();
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
-    }
-
-    public void reload() {
-        cursor = dbHelper.fetchAllTabs();
-
-        while(cursor.moveToNext()) {
-            String title = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_TITLE));
-            String date = cursor.getString(cursor.getColumnIndex(DbAdapter.KEY_DATE));
-            tab_title.add(title);
-            tab_date.add(date);
-        }
-
-        tabListAdapter = new TabListAdapter(cursor.getCount(), tab_title, tab_date, this);
-        cursor.close();
-
-        tabList.setHasFixedSize(true);
-        tabList.setLayoutManager(new LinearLayoutManager(getContext()));
-        tabList.setAdapter(tabListAdapter);
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        reload();
     }
 }

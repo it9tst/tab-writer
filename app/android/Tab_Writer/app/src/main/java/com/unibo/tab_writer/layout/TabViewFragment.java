@@ -40,6 +40,9 @@ public class TabViewFragment extends Fragment {
     private DbAdapter dbHelper;
     private Cursor cursor;
 
+    private JSONArray jsonarray;
+    private JSONObject jsonobject;
+
     public TabViewFragment() {
         // Required empty public constructor
     }
@@ -76,13 +79,12 @@ public class TabViewFragment extends Fragment {
 
         Log.d("LOGGO-Tab-ViewFragment", tab_tab);
 
-        JSONArray ja = null;
         try {
-            ja = new JSONArray(tab_tab);
+            jsonarray = new JSONArray(tab_tab);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ja.put(tab_tab);
+
 
         BubbleChart bubbleChart = view.findViewById(R.id.bubbleChart);
         bubbleChart.setTouchEnabled(true);
@@ -97,7 +99,7 @@ public class TabViewFragment extends Fragment {
 
         XAxis xAxis = bubbleChart.getXAxis();
         xAxis.setAxisMinimum(-0.5f);
-        xAxis.setAxisMaximum(ja.length());
+        xAxis.setAxisMaximum(jsonarray.length()/2);
 
         YAxis yAxis = bubbleChart.getAxisLeft();
         yAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"E","A","D","G","B","e"}));
@@ -111,37 +113,19 @@ public class TabViewFragment extends Fragment {
         yAxis.setAxisMaximum(5f);
 
 
-        for(int i=0; i < ja.length(); i++) {
-            JSONObject jsonobject = null;
+        for(int i=0; i < jsonarray.length(); i++) {
             try {
-                jsonobject = ja.getJSONObject(i);
-                tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x")), getRealPosition(Float.parseFloat(jsonobject.getString("tab_y"))), Float.parseFloat(jsonobject.getString("value"))));
+                jsonobject = jsonarray.getJSONObject(i);
+                JSONArray value = jsonobject.getJSONArray("value");
+                for (int j = 0; j < value.length(); j++){
+                    if(value.getInt(j) == 0) continue;
+                    tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x"))/2, 5-j, Float.parseFloat(value.getString(j))));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-/*
-        Random r = new Random();
-
-        for(int i=0; i<15; i++){
-            tab.add(new BubbleEntry((float) r.nextInt(10), (float) r.nextInt(5), (float) r.nextInt(17)));
-        }
-
-        tab.add(new BubbleEntry(0, 0, 13));
-        tab.add(new BubbleEntry(1, 0, 11));
-        tab.add(new BubbleEntry(1, 1, 13));
-        tab.add(new BubbleEntry(3, 2, 13));
-        tab.add(new BubbleEntry(4, 3, 3));
-        tab.add(new BubbleEntry(4, 4, 4));
-        tab.add(new BubbleEntry(5, 3, 10));
-        tab.add(new BubbleEntry(6, 5, 11));
-        tab.add(new BubbleEntry(7, 3, 3));
-        tab.add(new BubbleEntry(8, 4, 17));
-        tab.add(new BubbleEntry(9, 3, 3));
-        tab.add(new BubbleEntry(10, 1, 10));
-        tab.add(new BubbleEntry(11, 2, 6));
-*/
         BubbleDataSet bubbleDataSet = new BubbleDataSet(tab, "tab");
         bubbleDataSet.setColor(Color.WHITE, 0);
         bubbleDataSet.setValueTextColor(Color.WHITE);
@@ -156,28 +140,4 @@ public class TabViewFragment extends Fragment {
         bubbleChart.animateXY(1000,1000);
     }
 
-    private float getRealPosition(float p){
-        float r = 0;
-        switch ((int) p) {
-            case 0:
-                r = 5;
-                break;
-            case 1:
-                r = 4;
-                break;
-            case 2:
-                r = 3;
-                break;
-            case 3:
-                r = 2;
-                break;
-            case 4:
-                r = 1;
-                break;
-            case 5:
-                r = 0;
-                break;
-        }
-        return r;
-    }
 }

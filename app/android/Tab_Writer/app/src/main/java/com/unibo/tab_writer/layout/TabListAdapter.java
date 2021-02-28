@@ -1,11 +1,6 @@
 package com.unibo.tab_writer.layout;
 
-import android.graphics.Color;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,14 +16,12 @@ import java.util.ArrayList;
 
 public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.TabViewHolder> {
 
-    private int count;
     private ArrayList tab_title;
     private ArrayList tab_date;
     private TimeAgo timeAgo;
     private onItemListClick onItemListClick;
 
-    public TabListAdapter(int count, ArrayList tab_title, ArrayList tab_date, onItemListClick onItemListClick){
-        this.count = count;
+    public TabListAdapter(ArrayList tab_title, ArrayList tab_date, onItemListClick onItemListClick){
         this.tab_title = tab_title;
         this.tab_date = tab_date;
         this.onItemListClick = onItemListClick;
@@ -51,7 +44,7 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.TabViewH
 
     @Override
     public int getItemCount() {
-        return this.count;
+        return this.tab_title.size();
     }
 
     public class TabViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
@@ -86,5 +79,12 @@ public class TabListAdapter extends RecyclerView.Adapter<TabListAdapter.TabViewH
     public interface onItemListClick {
         void onClickListener(int position);
         void onLongClickListener(int position);
+    }
+
+    public void removeAt(int position) {
+        this.tab_title.remove(position);
+        this.tab_date.remove(position);
+        this.notifyItemChanged(position);
+        notifyItemRangeChanged(position, tab_title.size());
     }
 }
