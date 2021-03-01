@@ -85,7 +85,6 @@ public class TabViewFragment extends Fragment {
             e.printStackTrace();
         }
 
-
         BubbleChart bubbleChart = view.findViewById(R.id.bubbleChart);
         bubbleChart.setTouchEnabled(true);
         bubbleChart.setDrawGridBackground(false);
@@ -97,9 +96,51 @@ public class TabViewFragment extends Fragment {
         bubbleChart.getDescription().setEnabled(false);
         bubbleChart.getLegend().setEnabled(false);
 
+        float[] current = {0, 0, 0, 0, 0, 0};
+        float x=0;
+
+        for(int i=0; i < jsonarray.length(); i++) {
+            try {
+                if(i==0){
+                    jsonobject = jsonarray.getJSONObject(i);
+                    JSONArray value = jsonobject.getJSONArray("value");
+                    for (int j = 0; j < value.length(); j++) {
+                        if (value.getInt(j) == 0) {
+                            current[j] = -1;
+                            continue;
+                        } else if (value.getInt(j) == 1) {
+                            current[j] = 0;
+                            tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x")) / 2, 5 - j, 0));
+                        } else {
+                            current[j] = Float.parseFloat(value.getString(j));
+                            tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x")) / 2, 5 - j, Float.parseFloat(value.getString(j))-1));
+                        }
+                    }
+                } else {
+                    jsonobject = jsonarray.getJSONObject(i);
+                    JSONArray value = jsonobject.getJSONArray("value");
+                    for (int j = 0; j < value.length(); j++) {
+                        if (value.getInt(j) == 0 && current[j] == -1) {
+                            continue;
+                        } else if (value.getInt(j) == 1 && current[j] == 0) {
+                            tab.add(new BubbleEntry(x++, 5 - j, 0));
+                        } else if (value.getInt(j) != current[j]) {
+                            if (value.getInt(j) != 0){
+                                current[j] = Float.parseFloat(value.getString(j));
+                                tab.add(new BubbleEntry(x++, 5 - j, Float.parseFloat(value.getString(j))-1));
+                            }
+                        }
+                        current[j] = value.getInt(j);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         XAxis xAxis = bubbleChart.getXAxis();
         xAxis.setAxisMinimum(-0.5f);
-        xAxis.setAxisMaximum(jsonarray.length()/2);
+        xAxis.setAxisMaximum(x);
 
         YAxis yAxis = bubbleChart.getAxisLeft();
         yAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"E","A","D","G","B","e"}));
@@ -111,20 +152,6 @@ public class TabViewFragment extends Fragment {
         yAxis.setDrawZeroLine(false);
         yAxis.setAxisMinimum(0f);
         yAxis.setAxisMaximum(5f);
-
-
-        for(int i=0; i < jsonarray.length(); i++) {
-            try {
-                jsonobject = jsonarray.getJSONObject(i);
-                JSONArray value = jsonobject.getJSONArray("value");
-                for (int j = 0; j < value.length(); j++){
-                    if(value.getInt(j) == 0) continue;
-                    tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x"))/2, 5-j, Float.parseFloat(value.getString(j))));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
 
         BubbleDataSet bubbleDataSet = new BubbleDataSet(tab, "tab");
         bubbleDataSet.setColor(Color.WHITE, 0);

@@ -3,7 +3,6 @@ import tensorflow as tf
 import json
 
 path_model = "/data/user/0/com.unibo.tab_writer/files/chaquopy/AssetFinder/app/model.tflite"
-data_json = []
 
 def myconverter(obj):
 	if isinstance(obj, np.integer):
@@ -16,6 +15,8 @@ def myconverter(obj):
 		return obj.__str__()
 
 def predict_model(images):
+	data_json = []
+
 	# Load the TFLite model and allocate tensors.
 	interpreter = tf.lite.Interpreter(model_path=path_model)
 	interpreter.allocate_tensors()
@@ -46,4 +47,4 @@ def predict_model(images):
 		value = np.argmax(b.astype('int32'), axis=1)
 		data_json.append({'tab_x' : i, 'value' : value})
 
-	return json.dumps(data_json, default=myconverter)	
+	return json.dumps(data_json, default=myconverter)
