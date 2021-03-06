@@ -16,8 +16,7 @@ class InfoViewController: UIViewController {
         // Do any additional setup after loading the view.
         print("🟢", #function)
         
-        let textColor = UIColor(named: "White")
-        self.creditsLabel.textColor = textColor
+        self.creditsLabel.textColor = UIColor(named: "White")
     }
     
 }

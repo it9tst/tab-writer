@@ -23,8 +23,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
     lazy var chartView: BubbleChartView = {
        let chartView = BubbleChartView()
         
-        let textColor = UIColor(named: "Grey")
-        chartView.backgroundColor = textColor
+        chartView.backgroundColor = UIColor(named: "Grey")
         
         return chartView
     }()
@@ -34,21 +33,16 @@ class TabViewController: UIViewController, ChartViewDelegate {
         // Do any additional setup after loading the view.
         print("🟢", #function)
         
-        if #available(iOS 13.0, *) {
-            if self.traitCollection.userInterfaceStyle == .dark {
-                let appearance = UINavigationBarAppearance()
-                appearance.configureWithOpaqueBackground()
-                appearance.backgroundColor = #colorLiteral(red: 0.07058823529, green: 0.07058823529, blue: 0.07058823529, alpha: 1)
-                self.navigationController?.navigationBar.tintColor = .white
-                self.navigationController?.navigationBar.standardAppearance = appearance
-                self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-            }
-        }
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(named: "Black")
+        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
         
         self.titleLabel.text = fileName
         
-        let textColor = UIColor(named: "White")
-        self.titleLabel.textColor = textColor
+        self.titleLabel.textColor = UIColor(named: "White")
         
         view.addSubview(chartView)
         chartView.centerInSuperview()
@@ -108,7 +102,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
                 
                 let output = try self.interpreter.output(at: 0)
                 let probabilities =
-                        UnsafeMutableBufferPointer<Float32>.allocate(capacity: 114)
+                        UnsafeMutableBufferPointer<Float32>.allocate(capacity: 126)
                 output.data.copyBytes(to: probabilities)
                 
                 print("IMG", i)
@@ -119,7 +113,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
                 var z = 0
                 for string in 0...5 {
                     //print("CORDA", (y+1))
-                    for flat in 0...18 {
+                    for flat in 0...20 {
                         if (probabilities[z] > maxTempButtonValue) {
                             maxTempButtonValue = probabilities[z]
                             maxTempButtonPosition = flat
@@ -141,7 +135,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
                 //
                 setChartDataSet()
                 i = i + 1
-            }
+            } // self.inputArray
             
         } catch {
             print("Unexpected predictions")

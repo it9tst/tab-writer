@@ -24,7 +24,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var audioPlayer : AVAudioPlayer!
     var meterTimer:Timer!
     var isAudioRecordingGranted: Bool!
-    var isRecording = false
     var isPlaying = false
     var filename = ""
     
@@ -40,14 +39,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                     }
                 }*/
         
-        let textColor = UIColor(named: "White")
-        self.recordLabel.textColor = textColor
-        self.timerLabel.textColor = textColor
+        self.recordLabel.textColor = UIColor(named: "White")
+        self.timerLabel.textColor = UIColor(named: "White")
         
         recordLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         timerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
         
         let ok = TfliteModel.loadModel(on: self)
+        if (ok == false) {
+            ErrorReporting.showMessage(title: "Error", msg: "Error initializing TensorFlow Lite.", on: self)
+        }
         
         check_record_permission()
     }
@@ -79,7 +80,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     // Setup the recorder
     func setup_recorder()
     {
-        if self.isAudioRecordingGranted
+        if (isAudioRecordingGranted == true)
         {
             let session = AVAudioSession.sharedInstance()
             do
@@ -105,13 +106,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 audioRecorder.delegate = self
                 audioRecorder.isMeteringEnabled = true
                 audioRecorder.prepareToRecord()
+                
+                meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
+                audioRecorder.record()
             }
             catch let error {
                 ErrorReporting.showMessage(title: "Error", msg: error.localizedDescription, on: self)
                 self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
                 
-                let textColor = UIColor(named: "White")
-                self.recordLabel.textColor = textColor
+                self.recordLabel.textColor = UIColor(named: "White")
                 
                 self.recordImage.image = UIImage(named: "rec_button_off")
             }
@@ -122,8 +125,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             
             self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
             
-            let textColor = UIColor(named: "White")
-            self.recordLabel.textColor = textColor
+            self.recordLabel.textColor = UIColor(named: "White")
             
             self.recordImage.image = UIImage(named: "rec_button_off")
         }
@@ -144,8 +146,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             ErrorReporting.showMessage(title: "Error", msg: "Recording failed.", on: self)
             self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
             
-            let textColor = UIColor(named: "White")
-            self.recordLabel.textColor = textColor
+            self.recordLabel.textColor = UIColor(named: "White")
             
             self.recordImage.image = UIImage(named: "rec_button_off")
         }
@@ -170,25 +171,18 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             
             self.recordLabel.text = "STO REGISTRANDO"
             
-            let textColor = UIColor(named: "Red")
-            self.recordLabel.textColor = textColor
+            self.recordLabel.textColor = UIColor(named: "Red")
             
             self.recordImage.image = UIImage(named: "rec_button_on")
             
             setup_recorder()
-            meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
-            audioRecorder.record()
-            isRecording = true
-            
         } else if (self.recordLabel.text == "STO REGISTRANDO") {
             
             self.recordLabel.text = "STO PENSANDO"
             
-            let textColor = UIColor(named: "Blue")
-            self.recordLabel.textColor = textColor
+            self.recordLabel.textColor = UIColor(named: "Blue")
             
             finishAudioRecording(success: true)
-            isRecording = false
             
             let urlAudioM4a = ManageFiles.getFileUrl(filename: filename + ".m4a")
             
@@ -229,8 +223,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                     
                     self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
                 
-                    let textColor = UIColor(named: "White")
-                    self.recordLabel.textColor = textColor
+                    self.recordLabel.textColor = UIColor(named: "White")
                 
                     self.recordImage.image = UIImage(named: "rec_button_off")
                     
@@ -243,8 +236,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 
                 self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
                 
-                let textColor = UIColor(named: "White")
-                self.recordLabel.textColor = textColor
+                self.recordLabel.textColor = UIColor(named: "White")
                 
                 self.recordImage.image = UIImage(named: "rec_button_off")
             }
