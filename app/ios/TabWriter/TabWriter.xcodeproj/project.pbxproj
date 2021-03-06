@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		61123A6F9E0D56640C5CAF2A /* Pods_TabWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA226549FA3064004710B0E4 /* Pods_TabWriter.framework */; };
+		E601394A25F37519000078B7 /* tabCNN.tflite in Resources */ = {isa = PBXBuildFile; fileRef = E601394925F37519000078B7 /* tabCNN.tflite */; };
+		E601394F25F39501000078B7 /* TfliteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E601394E25F39501000078B7 /* TfliteModel.swift */; };
+		E601395625F39AD6000078B7 /* ErrorReporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E601395525F39AD6000078B7 /* ErrorReporting.swift */; };
+		E601395F25F3B055000078B7 /* ManageFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E601395E25F3B055000078B7 /* ManageFiles.swift */; };
 		E6123FD625DD901500DE0B79 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6123FD525DD901500DE0B79 /* InfoViewController.swift */; };
 		E616365B25DADB2300AB0013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E616365A25DADB2300AB0013 /* GoogleService-Info.plist */; };
 		E6561ABB25CEF0AA00252B4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6561ABA25CEF0AA00252B4A /* AppDelegate.swift */; };
@@ -24,13 +28,16 @@
 		E6561B0225CEF5E000252B4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6561B0125CEF5E000252B4A /* LaunchScreen.storyboard */; };
 		E6AA15AA25D596C0000D4BDF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E6AA15A925D596C0000D4BDF /* Alamofire */; };
 		E6AA15AE25D596FB000D4BDF /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E6AA15AD25D596FB000D4BDF /* SwiftyJSON */; };
-		E6FCE36825DBB8E7000948E9 /* tabCNN.tflite in Resources */ = {isa = PBXBuildFile; fileRef = E6FCE36725DBB8E7000948E9 /* tabCNN.tflite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1E67613C5C20886EA26CE0EC /* Pods-TabWriter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.release.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.release.xcconfig"; sourceTree = "<group>"; };
 		A4116A13DF669B39629C87DD /* Pods-TabWriter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.debug.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.debug.xcconfig"; sourceTree = "<group>"; };
 		DA226549FA3064004710B0E4 /* Pods_TabWriter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TabWriter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E601394925F37519000078B7 /* tabCNN.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = tabCNN.tflite; sourceTree = "<group>"; };
+		E601394E25F39501000078B7 /* TfliteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TfliteModel.swift; sourceTree = "<group>"; };
+		E601395525F39AD6000078B7 /* ErrorReporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorReporting.swift; sourceTree = "<group>"; };
+		E601395E25F3B055000078B7 /* ManageFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFiles.swift; sourceTree = "<group>"; };
 		E6123FD525DD901500DE0B79 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		E616365A25DADB2300AB0013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E6561AB725CEF0AA00252B4A /* TabWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,7 +54,6 @@
 		E6561AF425CEF38A00252B4A /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		E6561AFD25CEF5AF00252B4A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E6561B0125CEF5E000252B4A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E6FCE36725DBB8E7000948E9 /* tabCNN.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = tabCNN.tflite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,9 @@
 				E6561B0125CEF5E000252B4A /* LaunchScreen.storyboard */,
 				E616365A25DADB2300AB0013 /* GoogleService-Info.plist */,
 				E6561AC825CEF0AD00252B4A /* Info.plist */,
+				E601394E25F39501000078B7 /* TfliteModel.swift */,
+				E601395525F39AD6000078B7 /* ErrorReporting.swift */,
+				E601395E25F3B055000078B7 /* ManageFiles.swift */,
 			);
 			path = TabWriter;
 			sourceTree = "<group>";
@@ -130,7 +139,7 @@
 		E6561AE725CEF2F000252B4A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E6FCE36725DBB8E7000948E9 /* tabCNN.tflite */,
+				E601394925F37519000078B7 /* tabCNN.tflite */,
 				E6561AEC25CEF31700252B4A /* arlon_bold.ttf */,
 				E6561AED25CEF31700252B4A /* arlon_light.ttf */,
 				E6561AE925CEF30A00252B4A /* arlon_regular.ttf */,
@@ -211,7 +220,7 @@
 				E6561AFE25CEF5AF00252B4A /* Main.storyboard in Resources */,
 				E6561B0225CEF5E000252B4A /* LaunchScreen.storyboard in Resources */,
 				E6561AEA25CEF30A00252B4A /* arlon_regular.ttf in Resources */,
-				E6FCE36825DBB8E7000948E9 /* tabCNN.tflite in Resources */,
+				E601394A25F37519000078B7 /* tabCNN.tflite in Resources */,
 				E6561AEF25CEF31700252B4A /* arlon_light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,10 +277,13 @@
 				E6561ADC25CEF1EC00252B4A /* HomeViewController.swift in Sources */,
 				E6561ABF25CEF0AA00252B4A /* ViewController.swift in Sources */,
 				E6561ABB25CEF0AA00252B4A /* AppDelegate.swift in Sources */,
+				E601395625F39AD6000078B7 /* ErrorReporting.swift in Sources */,
 				E6123FD625DD901500DE0B79 /* InfoViewController.swift in Sources */,
 				E6561AF525CEF38A00252B4A /* RecentViewController.swift in Sources */,
 				E6561AF625CEF38A00252B4A /* TabViewController.swift in Sources */,
 				E6561ABD25CEF0AA00252B4A /* SceneDelegate.swift in Sources */,
+				E601395F25F3B055000078B7 /* ManageFiles.swift in Sources */,
+				E601394F25F39501000078B7 /* TfliteModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

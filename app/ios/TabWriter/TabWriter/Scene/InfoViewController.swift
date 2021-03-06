@@ -13,19 +13,11 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        print("🟢", #function)
         
-        if #available(iOS 13.0, *) {
-            if self.traitCollection.userInterfaceStyle == .dark {
-                self.creditsLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                self.creditsLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            } else {
-                self.creditsLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-                self.creditsLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-            }
-        } else {
-            self.creditsLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-            self.creditsLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-        }
+        let textColor = UIColor(named: "White")
+        self.creditsLabel.textColor = textColor
     }
     
 }

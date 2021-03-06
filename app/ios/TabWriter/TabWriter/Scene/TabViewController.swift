@@ -22,15 +22,10 @@ class TabViewController: UIViewController, ChartViewDelegate {
     
     lazy var chartView: BubbleChartView = {
        let chartView = BubbleChartView()
-        if #available(iOS 13.0, *) {
-            if self.traitCollection.userInterfaceStyle == .dark {
-                chartView.backgroundColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2078431373, alpha: 1)
-            } else {
-                chartView.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-            }
-        } else {
-            chartView.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        }
+        
+        let textColor = UIColor(named: "Grey")
+        chartView.backgroundColor = textColor
+        
         return chartView
     }()
     
@@ -52,18 +47,8 @@ class TabViewController: UIViewController, ChartViewDelegate {
         
         self.titleLabel.text = fileName
         
-        if #available(iOS 13.0, *) {
-            if self.traitCollection.userInterfaceStyle == .dark {
-                self.titleLabel.textColor = #colorLiteral(red: 0.968627451, green: 0.968627451, blue: 0.968627451, alpha: 1)
-                self.titleLabel.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            } else {
-                self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-                self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-            }
-        } else {
-            self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-            self.titleLabel.textColor = #colorLiteral(red: 0.1647058824, green: 0.1647058824, blue: 0.1647058824, alpha: 1)
-        }
+        let textColor = UIColor(named: "White")
+        self.titleLabel.textColor = textColor
         
         view.addSubview(chartView)
         chartView.centerInSuperview()
@@ -71,8 +56,6 @@ class TabViewController: UIViewController, ChartViewDelegate {
         chartView.heightToWidth(of: view)
         
         chartView.delegate = self
-        
-        //chartView.setScaleEnabled(true)
         
         chartView.drawGridBackgroundEnabled = false
         chartView.pinchZoomEnabled = false
@@ -99,7 +82,6 @@ class TabViewController: UIViewController, ChartViewDelegate {
         chartView.xAxis.axisMinimum = 0
         chartView.xAxis.axisMaximum = Double(self.inputArray.count)
         
-        //chartView.xAxis.labelPosition = .bottom
         chartView.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 12)
         tabValues = []
         do {
@@ -157,7 +139,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
                 print(positions)
                 
                 //
-                setData()
+                setChartDataSet()
                 i = i + 1
             }
             
@@ -172,7 +154,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
         print(entry)
     }
     
-    func setData() {
+    func setChartDataSet() {
         let set1 = BubbleChartDataSet(entries: tabValues, label: "")
         set1.drawIconsEnabled = false
         set1.setColor(.white, alpha: 0.0)

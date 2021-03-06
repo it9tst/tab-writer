@@ -122,7 +122,7 @@
                         <outlet property="recordImage" destination="Ed1-CR-4TO" id="0gI-ln-bNL"/>
                         <outlet property="recordLabel" destination="jiX-pz-CTv" id="stz-Fe-a2o"/>
                         <outlet property="timerLabel" destination="zrw-EP-hT0" id="Lvk-vw-rhC"/>
-                        <segue destination="Hl0-Ck-u4Z" kind="show" identifier="segueToResultViewController" id="dD3-KN-1Qb"/>
+                        <segue destination="Hl0-Ck-u4Z" kind="show" identifier="segueHomeToResultViewController" id="dD3-KN-1Qb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tzo-xi-mjx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -241,6 +241,7 @@
                     <navigationItem key="navigationItem" title="Tab Recenti" id="QVK-bc-uY9"/>
                     <connections>
                         <outlet property="tableView" destination="GqZ-I7-Kyk" id="IA1-Ad-Wm1"/>
+                        <segue destination="Hl0-Ck-u4Z" kind="show" identifier="segueTabToResultViewController" id="nL0-H8-faz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7T9-bK-Ydg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -295,6 +296,9 @@
             <point key="canvasLocation" x="831.88405797101461" y="2260.7142857142858"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="nL0-H8-faz"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="background" width="300" height="300"/>

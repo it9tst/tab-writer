@@ -6,27 +6,26 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class RecentViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
     var fileList: [String] = []
+    var inputArray: [[[[Float32]]]] = []
+    var filename = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         print("🟢", #function)
-        clearAllFile()
-        if #available(iOS 13.0, *) {
-            if self.traitCollection.userInterfaceStyle == .dark {
-                tableView.backgroundColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2078431373, alpha: 1)
-            } else {
-                tableView.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
-            }
-        } else {
-            tableView.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
-        }
+        //clearAllFile()
+        
+        let textColor = UIColor(named: "Grey")
+        tableView.backgroundColor = textColor
+        
         findAllRecording()
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -62,7 +61,6 @@ class RecentViewController: UIViewController {
         let fileManager = FileManager.default
         
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        print("🟢 Directory: \(paths)")
             
         do
         {
@@ -80,12 +78,58 @@ class RecentViewController: UIViewController {
         
     }
     
-}
+    func request(audioFilePath: URL, withIdentifier: String) {
+        let url = URL(string: "http://0.0.0.0:5000/upload/")!
+
+        let headers: HTTPHeaders = [
+                "content-type": "multipart/form-data; boundary=---011000010111000001101001",
+                "accept": "application/json"
+        ]
+
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(audioFilePath, withName: "file")
+            
+        }, to: url, headers: headers)
+        .responseJSON { response in
+            switch response.result {
+            case .success:
+                //do{
+                    //let json = try JSON(data: response.data!)
+                    //print(json)
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        self.inputArray = try decoder.decode([[[[Float32]]]].self, from: response.data!)
+                        //debugPrint(inputArray)
+                      } catch {
+                          print("Unexpected runtime error. Array")
+                          return
+                      }
+                    
+                    self.performSegue(withIdentifier: withIdentifier, sender: nil)
+                    
+                //}   catch {
+                //    print(error.localizedDescription)
+                //}
+            
+            case .failure(let encodingError):
+                ErrorReporting.showMessage(title: "Error", msg: "\(encodingError)", on: self)
+            }
+            
+        }
+    }
+    
+} //RecentViewController
 
 extension RecentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        filename = fileList[indexPath.row]
+        
+        let urlAudioM4a = ManageFiles.getFileUrl(filename: fileList[indexPath.row] + ".m4a")
+        
+        request(audioFilePath: urlAudioM4a, withIdentifier: "segueTabToResultViewController")
     }
     
 }
@@ -102,18 +146,37 @@ extension RecentViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if #available(iOS 13.0, *) {
-            if self.traitCollection.userInterfaceStyle == .dark {
-                cell.backgroundColor = #colorLiteral(red: 0.2078431373, green: 0.2078431373, blue: 0.2078431373, alpha: 1)
-            } else {
-                cell.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
-            }
-        } else {
-            cell.backgroundColor = #colorLiteral(red: 0.6116964221, green: 0.6118043065, blue: 0.6116895676, alpha: 1)
-        }
+        
+        let textColor = UIColor(named: "Grey")
+        cell.backgroundColor = textColor
+        
         cell.textLabel?.text = fileList[indexPath.row]
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+        // Controllo se il segue ha un identifier o meno, se non ce l'ha esco dalla func
+        guard let identifier = segue.identifier else {
+            print("🟢 il segue non ha un identifier, esco dal prepareForSegue")
+            return
+        }
+        
+        // Controllo l'identifier perché potrebbero esserci più di un Segue che parte da questo VC
+        switch identifier {
+        case "segueTabToResultViewController":
+            // Accedo al destinationViewController del segue e lo casto del tipo di dato opportuno
+            // Modifico la variabile d'appoggio con il contenuto che voglio inviare
+            let vcDestinazione = segue.destination as! TabViewController
+            vcDestinazione.interpreter = TfliteModel.interpreter
+            vcDestinazione.inputArray = self.inputArray
+            vcDestinazione.fileName = self.filename
+            
+            default:
+                return
+        }
+        
     }
     
 }
