@@ -11,6 +11,7 @@ target 'TabWriter' do
   pod 'Firebase/Analytics'
   pod 'Charts'
   pod 'TinyConstraints'
+  pod 'mobile-ffmpeg-full-gpl', '~> 4.2'
 
 end
 

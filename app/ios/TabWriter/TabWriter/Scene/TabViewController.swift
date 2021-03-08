@@ -80,14 +80,15 @@ class TabViewController: UIViewController, ChartViewDelegate {
         tabValues = []
         do {
             // input tensor [1, 192, 9, 1]
-            // output tensor [1, 6, 19]
-            var i = 1
+            // output tensor [1, 6, 21]
+            var i = 0
             for element in self.inputArray {
                 var inputData = Data()
                 for element2 in element {
                     for element3 in element2 {
                         for element4 in element3 {
                             var f = Float32(element4)
+                            //print(f)
                             let elementSize = MemoryLayout.size(ofValue: f)
                             var bytes = [UInt8](repeating: 0, count: elementSize)
                             memcpy(&bytes, &f, elementSize)
@@ -105,32 +106,31 @@ class TabViewController: UIViewController, ChartViewDelegate {
                         UnsafeMutableBufferPointer<Float32>.allocate(capacity: 126)
                 output.data.copyBytes(to: probabilities)
                 
-                print("IMG", i)
+                //print("IMG", i)
+                
                 var positions: [Int] = []
                 
-                var maxTempButtonValue: Float32 = 0
-                var maxTempButtonPosition = 0
-                var z = 0
                 for string in 0...5 {
                     //print("CORDA", (y+1))
+                    var maxTempButtonValue: Float32 = 0
+                    var maxTempButtonPosition = 0
                     for flat in 0...20 {
-                        if (probabilities[z] > maxTempButtonValue) {
-                            maxTempButtonValue = probabilities[z]
+                        if (probabilities[string*21 + flat] > maxTempButtonValue) {
+                            maxTempButtonValue = probabilities[string*21 + flat]
                             maxTempButtonPosition = flat
                         }
+                        
                         //print(probabilities[z])
-                        z = z + 1
-                    }
+                    } // for flat
                     positions.append(maxTempButtonPosition)
-                    
                     // colonna[0]: se suono o no = 1 no suono
                     // colonna[1]: se non suono i tasti ma solo la corda
                     if (maxTempButtonPosition != 0) {
-                        tabValues.append(BubbleChartDataEntry(x: Double(i), y: Double(string), size: CGFloat(maxTempButtonPosition)))
+                        tabValues.append(BubbleChartDataEntry(x: Double(i), y: Double(5-string), size: CGFloat(maxTempButtonPosition - 1)))
                     }
                 } // for string
                 
-                print(positions)
+                //print(positions)
                 
                 //
                 setChartDataSet()
@@ -145,7 +145,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(entry)
+        //print(entry)
     }
     
     func setChartDataSet() {

@@ -88,9 +88,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 try session.setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
                 try session.setActive(true)
                 let settings = [
-                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                    AVFormatIDKey: Int(kAudioFormatFLAC),
                     AVSampleRateKey: 44100,
-                    AVNumberOfChannelsKey: 1,
+                    AVNumberOfChannelsKey: 2,
                     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
                 ]
                 
@@ -99,8 +99,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 let day = Calendar.current.component(.day, from: Date())
                 let hour = Calendar.current.component(.hour, from: Date())
                 let minute = Calendar.current.component(.minute, from: Date())
+                let second = Calendar.current.component(.second, from: Date())
                 
-                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute)
+                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + String(format: "%02d", second)
                 
                 audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: filename + ".m4a"), settings: settings)
                 audioRecorder.delegate = self
@@ -140,6 +141,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             meterTimer.invalidate()
             self.timerLabel.text = "00:00"
             //print("recorded successfully.")
+            let path = ManageFiles.getFileUrl(filename: filename).absoluteString
+            MobileFFmpeg.execute("-i " + path + ".m4a" + " -acodec pcm_u8 -ar 44100 " + path.replacingOccurrences(of: ".m4a", with: "") + ".wav")
+            do
+            {
+                let fileManager = FileManager.default
+                try fileManager.removeItem(at: (path + ".m4a").asURL())
+            }catch let error {
+                print(error.localizedDescription)
+            }
         }
         else
         {
@@ -184,9 +194,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             
             finishAudioRecording(success: true)
             
-            let urlAudioM4a = ManageFiles.getFileUrl(filename: filename + ".m4a")
+            let urlAudioWav = ManageFiles.getFileUrl(filename: filename + ".wav")
             
-            request(audioFilePath: urlAudioM4a, withIdentifier: "segueHomeToResultViewController")
+            request(audioFilePath: urlAudioWav, withIdentifier: "segueHomeToResultViewController")
             
         }
     }

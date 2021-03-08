@@ -90,6 +90,7 @@ PODS:
   - GoogleUtilities/UserDefaults (7.2.2):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.5.0)
+  - mobile-ffmpeg-full-gpl (4.4)
   - nanopb (2.30907.0):
     - nanopb/decode (= 2.30907.0)
     - nanopb/encode (= 2.30907.0)
@@ -112,6 +113,7 @@ DEPENDENCIES:
   - Charts
   - Firebase/Analytics
   - Firebase/MLModelInterpreter
+  - mobile-ffmpeg-full-gpl (~> 4.2)
   - TensorFlowLiteSwift
   - TinyConstraints
 
@@ -130,6 +132,7 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
+    - mobile-ffmpeg-full-gpl
     - nanopb
     - PromisesObjC
     - Protobuf
@@ -152,6 +155,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 471e0c05d39506e50e6398f46fa9a12ae0efeff9
   GoogleUtilities: 31c5b01f978a70c6cff2afc6272b3f1921614b43
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  mobile-ffmpeg-full-gpl: 77de728206f08f30c70f530b18abb4e8f6413eb6
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: 0cde852566359049847168e51bd1c690e0f70056
@@ -160,6 +164,6 @@ SPEC CHECKSUMS:
   TensorFlowLiteSwift: fb152cc1eec36b25b03a23c07f5d58113170af58
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: 77295257153d99ed16dff646676527d7f01f97cc
+PODFILE CHECKSUM: e425f4aca8d97eeeb39139074212101119cdfb57
 
 COCOAPODS: 1.10.1

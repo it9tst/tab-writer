@@ -44,6 +44,7 @@ class RecentViewController: UIViewController {
             let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
             // process files
             for file in fileURLs {
+                //print(file)
                 fileList.append(ManageFiles.fileName(fileName: file.absoluteString))
             }
             
