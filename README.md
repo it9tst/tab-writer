@@ -1,9 +1,8 @@
 # tab-writer
 
-### Progetto finale per esame di Sistemi Digitali - Ing. Informatica Magistrale - UniBO 2021
+### Final Project for exam of Sistemi Digitali M - Ing. Informatica Magistrale - UniBO 2021
 
 Guitar Tablature Transcription with a Convolutional Neural Network.
-
 
 ### Requirements
 Python 3.6.12, plus some external libraries, are required to use this project:
@@ -19,7 +18,7 @@ Linux, Windows adn MacOS environments should both work.
 ### License
 
 The source code for the site is licensed under the MIT license, which you can find in
-the LICENSE.txt file.
+the LICENSE.md file.
 
 All graphical assets are licensed under the
 [Creative Commons Attribution 3.0 Unported License](https://creativecommons.org/licenses/by/3.0/).
