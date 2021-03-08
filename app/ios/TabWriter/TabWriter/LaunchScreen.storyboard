@@ -19,7 +19,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_grey" translatesAutoresizingMaskIntoConstraints="NO" id="dP0-wz-Nln">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_unibo" translatesAutoresizingMaskIntoConstraints="NO" id="EJ8-if-XBU">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="EJ8-if-XBU">
                                 <rect key="frame" x="55" y="257" width="280" height="330"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="1va-Wq-va4"/>
@@ -47,7 +47,7 @@
     </scenes>
     <resources>
         <image name="bg_grey" width="300" height="300"/>
-        <image name="logo_unibo" width="500" height="499"/>
+        <image name="logo" width="419" height="292"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

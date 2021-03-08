@@ -78,6 +78,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
         
         chartView.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 12)
         tabValues = []
+        var oldPositions: [Int] = []
         do {
             // input tensor [1, 192, 9, 1]
             // output tensor [1, 6, 21]
@@ -123,13 +124,20 @@ class TabViewController: UIViewController, ChartViewDelegate {
                         //print(probabilities[z])
                     } // for flat
                     positions.append(maxTempButtonPosition)
+                    
+                    var lastNote = 0
+                    if (oldPositions != []) {
+                        lastNote = oldPositions[string]
+                    }
+                    
                     // colonna[0]: se suono o no = 1 no suono
                     // colonna[1]: se non suono i tasti ma solo la corda
-                    if (maxTempButtonPosition != 0) {
+                    if (maxTempButtonPosition != 0 && lastNote != maxTempButtonPosition) {
                         tabValues.append(BubbleChartDataEntry(x: Double(i), y: Double(5-string), size: CGFloat(maxTempButtonPosition - 1)))
                     }
                 } // for string
                 
+                oldPositions = positions
                 //print(positions)
                 
                 //

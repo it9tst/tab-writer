@@ -1,10 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import librosa
-import os
-import math
-from tensorflow.keras.utils import normalize
-from scipy.io import wavfile
 
 
 # parameters

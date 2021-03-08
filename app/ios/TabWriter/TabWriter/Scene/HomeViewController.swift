@@ -101,7 +101,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 let minute = Calendar.current.component(.minute, from: Date())
                 let second = Calendar.current.component(.second, from: Date())
                 
-                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + String(format: "%02d", second)
+                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + "_" + String(format: "%02d", second)
                 
                 audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: filename + ".m4a"), settings: settings)
                 audioRecorder.delegate = self

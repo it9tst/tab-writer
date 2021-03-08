@@ -4,7 +4,7 @@ import os
 import numpy as np
 from preprocessing import preprocessing_file
 from flask import jsonify
-from pydub import AudioSegment
+#from pydub import AudioSegment
 
 #from predict import predict_model
 
@@ -22,6 +22,7 @@ def handle_request():
     print("\nReceived audio File name : " + audiofile.filename)
     audiofile.save(filename)
     
+    """
     try:
         dirpath = os.path.dirname(os.path.abspath(filename))
         filepath = dirpath + '/' + filename
@@ -35,19 +36,21 @@ def handle_request():
         os.remove(filepath)
     except:
         print("ERROR CONVERTING")
+    """
     
-    images = preprocessing_file(wav_filename)
-    #images = preprocessing_file(filename)
+    #images = preprocessing_file(wav_filename)
+    images = preprocessing_file(filename)
     print(images.shape)
     #images = np.swapaxes(images,1,2)
     #images = np.swapaxes(images,1,3)
     #print(images.shape)
     #print(images)
     #np.savetxt("nxx", images.reshape((3,-1)), fmt="%s", header=str(images.shape))
+    
     #result = predict_model(images)
     #print(result)
     
-    os.remove(wav_path)
+    os.remove(filename)
     
     return jsonify(images.tolist())
 
