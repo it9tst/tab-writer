@@ -72,9 +72,9 @@ class dataGenerator():
         self.y_test = y_train[val_set_size:(val_set_size + test_set_size)]
         self.y_train = y_train[(val_set_size + test_set_size):]
 
-        self.log("Train set size: " + str(self.X_train.shape))
-        self.log("Validation set size: " + str(self.X_val.shape))
-        self.log("Test set size: " + str(self.X_test.shape))
+        self.log("Train set size: " + str(len(self.X_train)))
+        self.log("Validation set size: " + str(len(self.X_val)))
+        self.log("Test set size: " + str(len(self.X_test)))
 
     def save_data(self):
         # Save features and truth vector (y) sets to disk
@@ -93,6 +93,8 @@ def main():
 
     datagenerator.log("save data...")
     datagenerator.save_data()
+
+    datagenerator.log("End dataGenerator")
 
 if __name__ ==  '__main__':
     main()

@@ -15,7 +15,7 @@ from tensorflow.keras.utils import normalize
 
 class tabModel:
 
-	def __init__(self, batch_size=128, epochs=100, con_win_size = 9, save_path="saved/"):
+	def __init__(self, batch_size=128, epochs=500, con_win_size = 9, save_path="saved/"):
 		self.batch_size = batch_size
 		self.epochs = epochs
 		self.con_win_size = con_win_size
@@ -26,10 +26,8 @@ class tabModel:
 		self.feature_sets_file = "all_targets_sets.npz"
 		self.model_filename = "model.h5"
 		self.X_val = []
-		self.X_test = []
 		self.X_train = []
 		self.y_val = []
-		self.y_test = []
 		self.y_train = []
 
 
@@ -53,28 +51,20 @@ class tabModel:
 
 		# Assign feature sets
 		X_train = features_sets['X_train']
-		y_train = features_sets['y_train']
 		X_val = features_sets['X_val']
-		y_val = features_sets['y_val']
-		X_test = features_sets['X_test']
-		y_test = features_sets['y_test']
 
-		self.y_train = np.array(y_train).astype('float64')
-		self.y_val = np.array(y_val).astype('float64')
-		self.y_test = np.array(y_test).astype('float64')
+		self.y_train = features_sets['y_train']
+		self.y_val = features_sets['y_val']
 
 		# CNN for TF expects (batch, height, width, channels)
 		# So we reshape the input tensors with a "color" channel of 1
 		self.X_train = X_train.reshape(X_train.shape[0], X_train.shape[1], X_train.shape[2], 1)
 		self.X_val = X_val.reshape(X_val.shape[0], X_val.shape[1], X_val.shape[2], 1)
-		self.X_test = X_test.reshape(X_test.shape[0], X_test.shape[1], X_test.shape[2], 1)
 
 		self.log("X Train set size: " + str(self.X_train.shape))
 		self.log("X Validation set size: " + str(self.X_val.shape))
-		self.log("X Test set size: " + str(self.X_test.shape))
-		self.log("y Train set size: " + str(self.X_train.shape))
-		self.log("y Validation set size: " + str(self.X_val.shape))
-		self.log("y Test set size: " + str(self.X_test.shape))
+		self.log("y Train set size: " + str(self.y_train.shape))
+		self.log("y Validation set size: " + str(self.y_val.shape))
 
 	def softmax_by_string(self, t):
 		sh = K.shape(t)
@@ -140,25 +130,10 @@ class tabModel:
 		plt.ylabel('Accuracy')
 		plt.xlabel('Epoch')
 
-		plt.savefig("plot.png")
+		plt.savefig(self.save_path + "plot.png")
 
 	def save_model(self):
 		self.model.save(self.save_path + self.model_filename)
-
-	def test(self):
-		# TEST: Load model and run it against test set
-		for i in range (40, 50):
-			print("Answer:", y_test[i], "Prediction:", self.model.predict(np.expand_dims(X_test[i], 0)))
-
-		self.X_test, self.y_test = self.validation_generator[0]
-		self.y_pred = self.model.predict(self.X_test)
-
-	def evaluate(self):
-		# Evaluate model with test set
-		self.model.evaluate(x=self.X_test, y=self.y_test)
-
-	def save_predictions(self):
-		np.savez(self.save_path + "predictions.npz", y_pred=self.y_pred, y_test=self.y_test)
 
 
 def main():
@@ -181,14 +156,7 @@ def main():
 	tabmodel.log("save model...")
 	tabmodel.save_model()
 
-	tabmodel.log("test model...")
-	tabmodel.test()
-
-	tabmodel.log("evaluate model...")
-	tabmodel.evaluate()
-
-	tabmodel.log("save predictions...")
-	tabmodel.save_predictions()
+	tabmodel.log("End tabModel")
 
 if __name__ ==  '__main__':
 	main()

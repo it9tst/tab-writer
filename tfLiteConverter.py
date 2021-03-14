@@ -1,10 +1,13 @@
 from tensorflow import lite
+from tensorflow.keras import backend as K
 from tensorflow.keras.models import load_model
+import datetime
 
 class tfLiteConverter:
 
 	def __init__(self, save_path="saved/"):
 		self.save_path = save_path
+		self.num_strings = 6
 		self.model_filename = "model.h5"
 		self.tflite_filename = "model.tflite"
 
@@ -34,7 +37,7 @@ class tfLiteConverter:
 		return K.mean(K.equal(K.argmax(y_true, axis=-1), K.argmax(y_pred, axis=-1)))
 
 	def convert_tflite(self):
-		model = tf.keras.models.load_model(self.save_path + self.model_filename, custom_objects={'softmax_by_string': self.softmax_by_string, 'avg_acc': self.avg_acc, 'catcross_by_string': self.catcross_by_string})
+		model = load_model(self.save_path + self.model_filename, custom_objects={'softmax_by_string': self.softmax_by_string, 'avg_acc': self.avg_acc, 'catcross_by_string': self.catcross_by_string})
 		converter = lite.TFLiteConverter.from_keras_model(model)
 		tflite_model = converter.convert()
 		open(self.save_path + self.tflite_filename, "wb").write(tflite_model)
@@ -46,6 +49,8 @@ def main():
 
 	tfliteconverter.log("convert tflite...")
 	tfliteconverter.convert_tflite()
+
+	tfliteconverter.log("End tfLiteConverter")
 
 if __name__ ==  '__main__':
 	main()

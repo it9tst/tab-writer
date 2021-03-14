@@ -7,3 +7,5 @@ old/
 *.wav
 *.npz
 *.pickle
+
+local.properties

@@ -3,6 +3,7 @@ package com.unibo.tab_writer.layout;
 import android.Manifest;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.media.AudioFormat;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
@@ -123,7 +124,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ITALIAN);
         Date now = new Date();
 
-        recordFile = "Guitar_Tab_" + formatter.format(now) + ".aac";
+        recordFile = "Tab_" + formatter.format(now) + ".aac";
 
         handlerAscolto = new Handler();
         runnableAscolto = new Runnable() {
@@ -152,10 +153,12 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
 
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
-        mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        mediaRecorder.setAudioChannels(1);
+        mediaRecorder.setAudioEncodingBitRate(128000);
         mediaRecorder.setAudioSamplingRate(44100);
+        mediaRecorder.setOutputFile(recordPath + "/" + recordFile);
 
         path = recordPath + "/" + recordFile;
 
@@ -238,8 +241,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         Log.d("LOGGO-RecordFragment", obj.toString());
 
 
-        fileAcc.delete();
-        fileWav.delete();
+//        fileAcc.delete();
+//        fileWav.delete();
 
         cursor = dbHelper.createTab(recordFile, String.valueOf(date), obj.toString());
 

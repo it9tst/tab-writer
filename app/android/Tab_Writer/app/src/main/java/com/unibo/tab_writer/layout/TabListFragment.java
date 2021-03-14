@@ -3,6 +3,7 @@ package com.unibo.tab_writer.layout;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -119,7 +120,7 @@ public class TabListFragment extends Fragment implements TabListAdapter.onItemLi
             case R.id.menu_delete:
                 dbHelper.deleteTab(tab_title.get(pos));
                 tabListAdapter.removeAt(pos);
-                Toast.makeText(getActivity(), tab_title.get(pos) + " eliminato", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), tab_title.get(pos) + " eliminato", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onContextItemSelected(item);

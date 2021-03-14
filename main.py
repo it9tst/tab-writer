@@ -1,5 +1,6 @@
 import tensorflow as tf
 import datetime
+import os
 from multiprocessing import Pool
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import Session
@@ -7,6 +8,7 @@ from datasetGen import main as m1
 from dataGenerator import main as m2
 from tabModel import main as m3
 from tfLiteConverter import main as m4
+from modelEvaluate import main as m5
 
 
 # define path data folder and n file
@@ -83,6 +85,15 @@ def menu():
 		log("##### INIT MODEL CONVERT ######")
 		log("###############################")
 		m4()
+
+	modelevaluate = input("Vuoi testare il modello? (y/n) ")
+	log("Vuoi testare il modello? (y/n) " + modelevaluate)
+
+	if (modelevaluate == "y"):
+		log("###############################")
+		log("##### INIT MODEL EVALUATE #####")
+		log("###############################")
+		m5()
 
 
 if __name__ == "__main__":
