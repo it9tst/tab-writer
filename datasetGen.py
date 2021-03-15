@@ -4,7 +4,7 @@ import numpy as np
 import librosa
 import math
 import datetime
-from tensorflow.keras.utils import to_categorical, normalize
+from tensorflow.keras.utils import to_categorical
 from scipy.io import wavfile
 
 class datasetGen:
@@ -127,18 +127,6 @@ class datasetGen:
             os.makedirs(save_path)
         self.save_data(save_path + filename + ".npz")
         self.log("done file n. " + str(n+1) + ": " + filename + ", " + str(num_frames) + " frames")
-
-    def scale_normalize(self, imgs):
-        # Scale
-        a = imgs
-        a_min = np.min(a)
-        a_max = np.max(a)
-        a_scaled = 255*(a-a_min)/(a_max-a_min)
-
-        # Normalize    
-        imgnorm = a_scaled
-        imgnorm = normalize(imgnorm, axis=1)
-        return imgnorm
    
     def load(self, n):
         self.times = self.get_times(n)

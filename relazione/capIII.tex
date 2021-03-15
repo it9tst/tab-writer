@@ -2,7 +2,7 @@
 \textbf{tempo di lavoro:} \\
 \newline
 Fortunatamente, su Internet abbiamo trovato un \textit{data set} di file audio di chitarra già pronto su cui lavorare. Il \textit{GuitarSet}, chiamato così dal suo creatore, è costituito dai file audio e dai suoi \textbf{tab}.\\
-Questo \textit{data set} contiene 360 estratti di canzoni della durata di circa 30 secondi. Essi sono il risultato delle seguenti combinazioni:
+Questo \textit{data set} contiene 360 estratti di canzoni della durata di circa 30 secondi l'uno. Essi sono il risultato delle seguenti combinazioni:
 \begin{itemize}
 	\item 6 persone suonano ciascuno gli stessi 30 fogli
 	\item Vengono registrate 2 versioni diverse: comping e soloing
@@ -20,7 +20,7 @@ Ci sono tre registrazioni audio per ogni estratto:
 	\item \textbf{hex\_cln}: file wav esadecimali con rimozione delle interferenze applicata;
 	\item \textbf{mic}: registrazione monofonica dal microfono di riferimento
 \end{itemize}
-Noi abbiamo usato registrazioni di tipo \textbf{mic} perchè sono quelle che la nostra rete avrebbe usato.\\
+Noi abbiamo usato registrazioni di tipo \textbf{mic} perchè sono quelle che più si avvicinano al caso delle registrazioni tramite microfono dello smartphone.\\
 \newline
 Ciascuno dei 360 estratti ha anche un file .jams che memorizza 16 annotazioni da cui prenderemo le tab:
 \begin{itemize}
@@ -39,11 +39,21 @@ Ciascuno dei 360 estratti ha anche un file .jams che memorizza 16 annotazioni da
 		\item 2 annotazioni di accordi (istruite ed eseguite).
 	\end{itemize}
 \end{itemize}
-Noi useremo le annotazioni \textit{midi\_note}
-\subsection{Compressione con NumPy}
+Noi useremo le annotazioni \textit{midi\_note} che contengono le tab.
+\subsection{Ricavare le tab dai file .jams}
+Innanzitutto calcoliamo i \textit{frame} per ogni file audio, così da poter ricavare un immagine e la corrispondente tab per ogni frame.
+Per calcolare l'istante di tempo per ogni frame utilizziamo la funzione \textit{get_times()}
+\pythonexternal{./codes/times.py}
+
+Successivamente calcoliamo 
+\pythonexternal{./codes/labels.py}
+
+
 \textit{NumPy} è una libreria che aggiunge supporto a grandi matrici e array multidimensionali insieme a una vasta collezione di funzioni matematiche di alto livello per poter operare efficientemente su queste strutture dati.\\
 \newline
 I dati sono stati compressi in \textit{numpy array} (.npz) per organizzarli meglio altrimenti avremmo avuto un'immagine e una label per ogni file audio.
+
+\pythonexternal{./codes/labels.py}
 
 \subsection{Trasformata a Q Costante in Librosa}
 \textit{Librosa} è una libreria per la musica e l'analisi audio. Fornisce gli elementi costitutivi necessari per creare sistemi di recupero delle informazioni musicali.\\

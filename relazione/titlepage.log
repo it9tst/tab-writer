@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.2.8)  19 FEB 2021 13:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.15)  15 MAR 2021 10:02
 entering extended mode
 **./titlepage.tex
 (titlepage.tex
 LaTeX2e <2020-10-01> patch level 4
-L3 programming layer <2021-01-09> xparse <2020-03-03>
+L3 programming layer <2021-02-18> xparse <2020-03-03>
 ! Undefined control sequence.
 l.2 \newgeometry
                 {lmargin=26mm,rmargin=26mm}
@@ -515,7 +515,7 @@ Overfull \hbox (41.68033pt too wide) in paragraph at lines 23--23
 
 ! Undefined control sequence.
 l.25     {\LARGE
-                {\bf TRAMITE L'USO DI}}\\
+                {\bf TRAMITE L'USO DI CNN}}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -524,7 +524,7 @@ and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
 l.25     {\LARGE{\bf
-                     TRAMITE L'USO DI}}\\
+                     TRAMITE L'USO DI CNN}}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -545,36 +545,11 @@ Missing character: There is no S in font nullfont!
 Missing character: There is no O in font nullfont!
 Missing character: There is no D in font nullfont!
 Missing character: There is no I in font nullfont!
-! Undefined control sequence.
-l.27     {\LARGE
-                {\bf SMARTPHONE}}\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-l.27     {\LARGE{\bf
-                     SMARTPHONE}}\\
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Missing character: There is no S in font nullfont!
-Missing character: There is no M in font nullfont!
-Missing character: There is no A in font nullfont!
-Missing character: There is no R in font nullfont!
-Missing character: There is no T in font nullfont!
-Missing character: There is no P in font nullfont!
-Missing character: There is no H in font nullfont!
-Missing character: There is no O in font nullfont!
+Missing character: There is no C in font nullfont!
 Missing character: There is no N in font nullfont!
-Missing character: There is no E in font nullfont!
+Missing character: There is no N in font nullfont!
 ! Undefined control sequence.
-l.28     \vspace{10mm} {\large
+l.26     \vspace{10mm} {\large
                               {\sc Corso di Sistemi Digitali M}}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -583,7 +558,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.28     \vspace{10mm} {\large{\sc
+l.26     \vspace{10mm} {\large{\sc
                                    Corso di Sistemi Digitali M}}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -615,7 +590,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no M in font nullfont!
 ! Undefined control sequence.
-l.34     {\large
+l.32     {\large
                 {\sc Gruppo:}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -624,7 +599,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.34     {\large{\sc
+l.32     {\large{\sc
                      Gruppo:}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -640,7 +615,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no : in font nullfont!
 ! Undefined control sequence.
-l.35     {\bf
+l.33     {\bf
               \textsc{De Nardi-Tornatore}}}\\
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -649,7 +624,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 34--36
+Underfull \hbox (badness 10000) in paragraph at lines 32--34
 
  []
 
@@ -660,14 +635,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.38 \end{titlepage}
+l.36 \end{titlepage}
                     
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 ! Undefined control sequence.
-l.39 \restoregeometry
+l.37 \restoregeometry
                      
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -683,10 +658,10 @@ and I'll forget about whatever was undefined.
 
  
 Here is how much of TeX's memory you used:
- 28 strings out of 479618
- 512 string characters out of 2865027
- 273099 words of memory out of 3000000
- 17299 multiletter control sequences out of 15000+200000
+ 28 strings out of 479334
+ 546 string characters out of 2855659
+ 285611 words of memory out of 3000000
+ 17581 multiletter control sequences out of 15000+200000
  404039 words of font info for 29 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  20i,3n,15p,111b,157s stack positions out of 5000i,500n,10000p,200000b,50000s
