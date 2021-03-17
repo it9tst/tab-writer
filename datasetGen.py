@@ -127,7 +127,7 @@ class datasetGen:
             os.makedirs(save_path)
         self.save_data(save_path + filename + ".npz")
         self.log("done file n. " + str(n+1) + ": " + filename + ", " + str(num_frames) + " frames")
-   
+
     def load(self, n):
         self.times = self.get_times(n)
 

@@ -144,6 +144,10 @@ A questo punto definiamo il modello:
 	\item \textbf{Reshape}: determina la dimensione di uscita. In questo caso è 6x21;
 	\item \textbf{Activation} serve affinchè la somma di ogni elemento di uscita sia uno.
 \end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.4]{./images/model.png}
+\end{figure}
 Per compilare il modello abbiamo scelto come ottimizzatore l'algoritmo \textit{Adadelta} che utilizza un metodo di discesa del gradiente stocastico basato sul tasso di apprendimento adattivo per dimensione per affrontare l'inconveniente del continuo declino dei tassi di apprendimento durante la formazione e la necessità di un tasso di apprendimento globale selezionato manualmente.
 Il codice che esegue quanto abbiamo appena descritto è il seguente:\\
 \newline
@@ -167,10 +171,12 @@ Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \pythonexternal{./codes/modelloFinale4.py}
 \vspace*{2ex}
 \subsection{Addestramento del modello}
-Dopo diverse prove sperimentali, abbiamo deciso di eseguire il modello per 500 epoche:
-\vspace*{2ex}
-\pythonexternal{./codes/storia.py}
-\vspace*{2ex}
+Dopo diverse prove sperimentali, abbiamo deciso di eseguire il modello per 500 epoche:\\
+\newline
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{./images/storia.png}
+\end{figure}
 Questo modello raggiunge una precisione di circa 0,87 (o 87\%) e una perdita del 2\% sui dati di addestramento. Invece, sui dati di validazione la precisione supera lo 0,90 (90\%) e raggiunge una perdita del 1,6\% sui dati di validazione. I \textit{loss} sono la media delle perdite sui dati di \textit{batch} di addestramento. Con questi dati sembra avere ottimi risultati in quanto non abbiamo la presenza di \textit{overfitting}.\\
 \newline
 Il grafico sottostante ci fa comprendere meglio i risultati:

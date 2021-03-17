@@ -14,7 +14,7 @@
 \contentsline {subsection}{\numberline {3.2.3}Pre-elaborare i dati}{15}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}Modello della rete}{18}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Uso di Keras}{18}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Addestramento del modello}{22}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.2}Addestramento del modello}{23}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}Valutazione del modello}{25}{section.3.4}%
 \contentsline {chapter}{\numberline {4}Implementazione su dispositivo Embedded}{29}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Conversione del modello da Keras a Tensorflow Lite}{29}{section.4.1}%
