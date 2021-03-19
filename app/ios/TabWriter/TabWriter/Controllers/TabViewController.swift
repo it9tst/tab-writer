@@ -15,10 +15,8 @@ class TabViewController: UIViewController, ChartViewDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    var interpreter: Interpreter!
-    var fileName: String = ""
-    var inputArray: [[[[Float32]]]] = []
     var tabValues: [ChartDataEntry] = []
+    var fileName = ""
     
     lazy var chartView: BubbleChartView = {
        let chartView = BubbleChartView()
@@ -74,81 +72,36 @@ class TabViewController: UIViewController, ChartViewDelegate {
         chartView.leftAxis.axisMaximum = 5
         
         chartView.xAxis.axisMinimum = 0
-        chartView.xAxis.axisMaximum = Double(self.inputArray.count)
         
         chartView.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 12)
         tabValues = []
-        var oldPositions: [Int] = []
-        do {
-            // input tensor [1, 192, 9, 1]
-            // output tensor [1, 6, 21]
-            var i = 0
-            for element in self.inputArray {
-                var inputData = Data()
-                for element2 in element {
-                    for element3 in element2 {
-                        for element4 in element3 {
-                            var f = Float32(element4)
-                            //print(f)
-                            let elementSize = MemoryLayout.size(ofValue: f)
-                            var bytes = [UInt8](repeating: 0, count: elementSize)
-                            memcpy(&bytes, &f, elementSize)
-                            inputData.append(&bytes, count: elementSize)
-                        }
-                    }
+        
+        let db = DBHelper()
+        let tab = db.read(title: fileName)
+        let tabArray = tab.tab.components(separatedBy: " ")
+        //print(tabArray)
+        chartView.xAxis.axisMaximum = Double(tabArray.count/6 + 1)
+        if (tabArray[0] != "") {
+            var i = 1
+            var string = 0
+            for value in tabArray {
+                
+                if (string == 5) {
+                    string = 0
                 }
                 
-                try self.interpreter.allocateTensors()
-                try self.interpreter.copy(inputData, toInputAt: 0)
-                try self.interpreter.invoke()
+                // colonna[0]: se suono o no = 1 no suono
+                // colonna[1]: se non suono i tasti ma solo la corda
+                if (value != "0") {
+                    tabValues.append(BubbleChartDataEntry(x: Double(i), y: Double(5-string), size: CGFloat(Int(value)! - 1)))
+                }
                 
-                let output = try self.interpreter.output(at: 0)
-                let probabilities =
-                        UnsafeMutableBufferPointer<Float32>.allocate(capacity: 126)
-                output.data.copyBytes(to: probabilities)
-                
-                //print("IMG", i)
-                
-                var positions: [Int] = []
-                
-                for string in 0...5 {
-                    //print("CORDA", (y+1))
-                    var maxTempButtonValue: Float32 = 0
-                    var maxTempButtonPosition = 0
-                    for flat in 0...20 {
-                        if (probabilities[string*21 + flat] > maxTempButtonValue) {
-                            maxTempButtonValue = probabilities[string*21 + flat]
-                            maxTempButtonPosition = flat
-                        }
-                        
-                        //print(probabilities[z])
-                    } // for flat
-                    positions.append(maxTempButtonPosition)
-                    
-                    var lastNote = 0
-                    if (oldPositions != []) {
-                        lastNote = oldPositions[string]
-                    }
-                    
-                    // colonna[0]: se suono o no = 1 no suono
-                    // colonna[1]: se non suono i tasti ma solo la corda
-                    if (maxTempButtonPosition != 0 && lastNote != maxTempButtonPosition) {
-                        tabValues.append(BubbleChartDataEntry(x: Double(i), y: Double(5-string), size: CGFloat(maxTempButtonPosition - 1)))
-                    }
-                } // for string
-                
-                oldPositions = positions
-                //print(positions)
-                
-                //
-                setChartDataSet()
-                i = i + 1
-            } // self.inputArray
-            
-        } catch {
-            print("Unexpected predictions")
-            return
-        }
+                string += 1
+                i += 1
+            }
+        } // if there is a element
+        
+        setChartDataSet()
         
     }
     
@@ -170,6 +123,16 @@ class TabViewController: UIViewController, ChartViewDelegate {
         data.setValueTextColor(.white)
         
         chartView.data = data
+    }
+    
+    // Set the shouldAutorotate to False
+    override open var shouldAutorotate: Bool {
+        return false
+    }
+    
+    // Specify the orientation.
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .landscape
     }
     
 }

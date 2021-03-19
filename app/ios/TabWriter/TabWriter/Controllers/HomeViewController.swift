@@ -18,26 +18,18 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var recordImage: UIImageView!
     
-    var inputArray: [[[[Float32]]]] = []
+    var db: DBHelper!
     
     var audioRecorder: AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
     var meterTimer:Timer!
     var isAudioRecordingGranted: Bool!
     var isPlaying = false
-    var filename = ""
+    var fileName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        /*for family: String in UIFont.familyNames
-                {
-                    print(family)
-                    for names: String in UIFont.fontNames(forFamilyName: family)
-                    {
-                        print("== \(names)")
-                    }
-                }*/
         
         self.recordLabel.textColor = UIColor(named: "White")
         self.timerLabel.textColor = UIColor(named: "White")
@@ -45,6 +37,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         recordLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         timerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
         
+        // open db
+        db = DBHelper()
+        
+        // open model
         let ok = TfliteModel.loadModel(on: self)
         if (ok == false) {
             ErrorReporting.showMessage(title: "Error", msg: "Error initializing TensorFlow Lite.", on: self)
@@ -101,9 +97,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 let minute = Calendar.current.component(.minute, from: Date())
                 let second = Calendar.current.component(.second, from: Date())
                 
-                filename = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + "_" + String(format: "%02d", second)
+                fileName = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + "_" + String(format: "%02d", second)
                 
-                audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: filename + ".m4a"), settings: settings)
+                audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: fileName + ".m4a"), settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.isMeteringEnabled = true
                 audioRecorder.prepareToRecord()
@@ -113,22 +109,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             }
             catch let error {
                 ErrorReporting.showMessage(title: "Error", msg: error.localizedDescription, on: self)
-                self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
-                
-                self.recordLabel.textColor = UIColor(named: "White")
-                
-                self.recordImage.image = UIImage(named: "rec_button_off")
+                self.handlerErrorView()
             }
         }
         else
         {
             ErrorReporting.showMessage(title: "Error", msg: "Don't have access to use your microphone.", on: self)
-            
-            self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
-            
-            self.recordLabel.textColor = UIColor(named: "White")
-            
-            self.recordImage.image = UIImage(named: "rec_button_off")
+            self.handlerErrorView()
         }
     }
     
@@ -141,25 +128,28 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             meterTimer.invalidate()
             self.timerLabel.text = "00:00"
             //print("recorded successfully.")
-            let path = ManageFiles.getFileUrl(filename: filename).absoluteString
+            let path = ManageFiles.getFileUrl(filename: fileName).absoluteString
             MobileFFmpeg.execute("-i " + path + ".m4a" + " -acodec pcm_u8 -ar 44100 " + path.replacingOccurrences(of: ".m4a", with: "") + ".wav")
+            // delete file .m4a
             do
             {
                 let fileManager = FileManager.default
                 try fileManager.removeItem(at: (path + ".m4a").asURL())
-            }catch let error {
+            } catch let error {
                 print(error.localizedDescription)
             }
         }
         else
         {
             ErrorReporting.showMessage(title: "Error", msg: "Recording failed.", on: self)
-            self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
-            
-            self.recordLabel.textColor = UIColor(named: "White")
-            
-            self.recordImage.image = UIImage(named: "rec_button_off")
+            self.handlerErrorView()
         }
+    }
+    
+    func handlerErrorView() {
+        self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
+        self.recordLabel.textColor = UIColor(named: "White")
+        self.recordImage.image = UIImage(named: "rec_button_off")
     }
     
     @objc func updateAudioMeter(timer: Timer)
@@ -180,75 +170,138 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         if (self.recordLabel.text == "CLICCA IL BOTTONE PER REGISTRARE") {
             
             self.recordLabel.text = "STO REGISTRANDO"
-            
             self.recordLabel.textColor = UIColor(named: "Red")
-            
             self.recordImage.image = UIImage(named: "rec_button_on")
             
             setup_recorder()
         } else if (self.recordLabel.text == "STO REGISTRANDO") {
             
             self.recordLabel.text = "STO PENSANDO"
-            
             self.recordLabel.textColor = UIColor(named: "Blue")
             
             finishAudioRecording(success: true)
             
-            let urlAudioWav = ManageFiles.getFileUrl(filename: filename + ".wav")
+            let urlAudioWav = ManageFiles.getFileUrl(filename: fileName + ".wav")
             
-            request(audioFilePath: urlAudioWav, withIdentifier: "segueHomeToResultViewController")
+            request(audioFilePath: urlAudioWav)
             
         }
     }
     
-    func request(audioFilePath: URL, withIdentifier: String) {
-        let url = URL(string: "http://0.0.0.0:5000/upload/")!
+    func request(audioFilePath: URL) {
+        let url = URL(string: "http://192.168.1.6:5000/upload/")!
 
         let headers: HTTPHeaders = [
                 "content-type": "multipart/form-data; boundary=---011000010111000001101001",
                 "accept": "application/json"
         ]
-
+        
         AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(audioFilePath, withName: "file")
             
         }, to: url, headers: headers)
-        .responseJSON { response in
+        .responseJSON { [self] response in
             switch response.result {
             case .success:
-                //do{
-                    //let json = try JSON(data: response.data!)
-                    //print(json)
+                do{
+                    let json = try JSON(data: response.data!)
                     
+                    var inputImages: [[[[Float32]]]] = []
+                    var inputFrames: [Float32] = []
                     let decoder = JSONDecoder()
                     do {
-                        self.inputArray = try decoder.decode([[[[Float32]]]].self, from: response.data!)
-                        //debugPrint(inputArray)
+                        inputImages = try decoder.decode([[[[Float32]]]].self, from: json["images"].rawData())
+                        inputFrames = try decoder.decode([Float32].self, from: json["frames"].rawData())
+                        //debugPrint(inputFrames)
                       } catch {
                           print("Unexpected runtime error. Array")
                           return
                       }
                     
-                    self.performSegue(withIdentifier: withIdentifier, sender: nil)
+                    var i = 0
+                    var positions: String = ""
+                    do {
+                        // input tensor [1, 192, 9, 1]
+                        // output tensor [1, 6, 21]
+                        for element in inputImages {
+                            
+                            if (inputFrames.contains(Float32(i))) {
+                                
+                                var inputData = Data()
+                                for element2 in element {
+                                    for element3 in element2 {
+                                        for element4 in element3 {
+                                            var f = Float32(element4)
+                                            //print(f)
+                                            let elementSize = MemoryLayout.size(ofValue: f)
+                                            var bytes = [UInt8](repeating: 0, count: elementSize)
+                                            memcpy(&bytes, &f, elementSize)
+                                            inputData.append(&bytes, count: elementSize)
+                                        }
+                                    }
+                                }
+                                
+                                try TfliteModel.interpreter.allocateTensors()
+                                try TfliteModel.interpreter.copy(inputData, toInputAt: 0)
+                                try TfliteModel.interpreter.invoke()
+                                
+                                let output = try TfliteModel.interpreter.output(at: 0)
+                                let probabilities =
+                                        UnsafeMutableBufferPointer<Float32>.allocate(capacity: 126)
+                                output.data.copyBytes(to: probabilities)
+                                
+                                //print("IMG", i)
+                                
+                                for string in 0...5 {
+                                    //print("CORDA", (y+1))
+                                    var maxTempButtonValue: Float32 = 0
+                                    var maxTempButtonPosition = 0
+                                    for flat in 0...20 {
+                                        if (probabilities[string*21 + flat] > maxTempButtonValue) {
+                                            maxTempButtonValue = probabilities[string*21 + flat]
+                                            maxTempButtonPosition = flat
+                                        }
+                                        
+                                        //print(probabilities[z])
+                                    } // for flat
+                                    positions += String(maxTempButtonPosition) + " "
+                                    
+                                } // for string
+                                
+                            } // inputFrames
+                            
+                            i += 1
+                        } // inputArray
+                        
+                        self.db.insert(title: fileName, date:"", tab: String(positions.dropLast()))
+                        
+                    } catch {
+                        print("Unexpected predictions")
+                        return
+                    }
+                    
+                    // delete file .wav
+                    do
+                    {
+                        let fileManager = FileManager.default
+                        try fileManager.removeItem(at: audioFilePath)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                    
+                    self.performSegue(withIdentifier: "segueHomeToResultViewController", sender: nil)
                     
                     self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
-                
                     self.recordLabel.textColor = UIColor(named: "White")
-                
                     self.recordImage.image = UIImage(named: "rec_button_off")
                     
-                //}   catch {
-                //    print(error.localizedDescription)
-                //}
+                }   catch {
+                    print(error.localizedDescription)
+                }
             
             case .failure(let encodingError):
                 ErrorReporting.showMessage(title: "Error", msg: "\(encodingError)", on: self)
-                
-                self.recordLabel.text = "CLICCA IL BOTTONE PER REGISTRARE"
-                
-                self.recordLabel.textColor = UIColor(named: "White")
-                
-                self.recordImage.image = UIImage(named: "rec_button_off")
+                self.handlerErrorView()
             }
             
         }
@@ -267,10 +320,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         case "segueHomeToResultViewController":
             // Accedo al destinationViewController del segue e lo casto del tipo di dato opportuno
             // Modifico la variabile d'appoggio con il contenuto che voglio inviare
-            let vcDestinazione = segue.destination as! TabViewController
-            vcDestinazione.interpreter = TfliteModel.interpreter
-            vcDestinazione.inputArray = self.inputArray
-            vcDestinazione.fileName = self.filename
+            let tabViewController = segue.destination as! TabViewController
+            tabViewController.fileName = self.fileName
             
             default:
                 return
