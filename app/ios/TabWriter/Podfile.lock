@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.4.1)
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
@@ -98,6 +99,7 @@ PODS:
   - nanopb/encode (2.30907.0)
   - PromisesObjC (1.2.12)
   - Protobuf (3.14.0)
+  - SwiftyJSON (4.3.0)
   - TensorFlowLiteC (2.3.0):
     - TensorFlowLiteC/Core (= 2.3.0)
   - TensorFlowLiteC/Core (2.3.0)
@@ -110,15 +112,18 @@ PODS:
   - TinyConstraints (4.0.1)
 
 DEPENDENCIES:
+  - Alamofire (~> 5.2)
   - Charts
   - Firebase/Analytics
   - Firebase/MLModelInterpreter
   - mobile-ffmpeg-full-gpl (~> 4.2)
+  - SwiftyJSON (~> 4.0)
   - TensorFlowLiteSwift
   - TinyConstraints
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Charts
     - Firebase
     - FirebaseAnalytics
@@ -136,12 +141,14 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
+    - SwiftyJSON
     - TensorFlowLiteC
     - TensorFlowLiteObjC
     - TensorFlowLiteSwift
     - TinyConstraints
 
 SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   Firebase: e1e089d9aac215a52442583f818ab61de3c4581b
   FirebaseAnalytics: 9f8f4feab1f3fddf4e4515f8f022fe6aa9e51043
@@ -159,11 +166,12 @@ SPEC CHECKSUMS:
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Protobuf: 0cde852566359049847168e51bd1c690e0f70056
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   TensorFlowLiteC: 51f50caf5777f740a70e2c1a5dbdc149e7aeb50b
   TensorFlowLiteObjC: 5b358503636cffcbbafd8b0ac9badb577fd72800
   TensorFlowLiteSwift: fb152cc1eec36b25b03a23c07f5d58113170af58
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: e425f4aca8d97eeeb39139074212101119cdfb57
+PODFILE CHECKSUM: fe80811b40bad2d2e6fac3f4d4408538e21f1350
 
 COCOAPODS: 1.10.1

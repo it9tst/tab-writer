@@ -14,7 +14,7 @@ class TfliteModel {
     
     static func loadModel(`on` controller: UIViewController) -> Bool {
         
-        guard let modelPath = Bundle.main.path(forResource: "tabCNN", ofType: "tflite")
+        guard let modelPath = Bundle.main.path(forResource: "model", ofType: "tflite")
           else {
             // Invalid model path
             return false
