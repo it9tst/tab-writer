@@ -241,8 +241,8 @@ public class RecordFragment extends Fragment implements View.OnClickListener{
         Log.d("LOGGO-RecordFragment", obj.toString());
 
 
-//        fileAcc.delete();
-//        fileWav.delete();
+        fileAcc.delete();
+        fileWav.delete();
 
         cursor = dbHelper.createTab(recordFile, String.valueOf(date), obj.toString());
 

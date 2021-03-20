@@ -2,6 +2,7 @@
 __pycache__/
 _wip/
 old/
+demo/
 
 *.jams
 *.wav

@@ -114,49 +114,6 @@ public class TabViewFragment extends Fragment {
             }
         }
 
-/*
-        float[] current = {0, 0, 0, 0, 0, 0};
-        float x=0;
-
-        for(int i=0; i < jsonarray.length(); i++) {
-            try {
-                if(i==0){
-                    jsonobject = jsonarray.getJSONObject(i);
-                    JSONArray value = jsonobject.getJSONArray("value");
-                    for (int j = 0; j < value.length(); j++) {
-                        if (value.getInt(j) == 0) {
-                            current[j] = -1;
-                            continue;
-                        } else if (value.getInt(j) == 1) {
-                            current[j] = 0;
-                            tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x")) / 2, 5 - j, 0));
-                        } else {
-                            current[j] = Float.parseFloat(value.getString(j));
-                            tab.add(new BubbleEntry(Float.parseFloat(jsonobject.getString("tab_x")) / 2, 5 - j, Float.parseFloat(value.getString(j))-1));
-                        }
-                    }
-                } else {
-                    jsonobject = jsonarray.getJSONObject(i);
-                    JSONArray value = jsonobject.getJSONArray("value");
-                    for (int j = 0; j < value.length(); j++) {
-                        if (value.getInt(j) == 0 && current[j] == -1) {
-                            continue;
-                        } else if (value.getInt(j) == 1 && current[j] == 0) {
-                            tab.add(new BubbleEntry(x++, 5 - j, 0));
-                        } else if (value.getInt(j) != current[j]) {
-                            if (value.getInt(j) != 0){
-                                current[j] = Float.parseFloat(value.getString(j));
-                                tab.add(new BubbleEntry(x++, 5 - j, Float.parseFloat(value.getString(j))-1));
-                            }
-                        }
-                        current[j] = value.getInt(j);
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-*/
         XAxis xAxis = bubbleChart.getXAxis();
         xAxis.setAxisMinimum(-0.5f);
         if(jsonarray.length() < 10){
@@ -164,8 +121,6 @@ public class TabViewFragment extends Fragment {
         } else {
             xAxis.setAxisMaximum(jsonarray.length());
         }
-
-//        xAxis.setAxisMaximum(x);
 
         YAxis yAxis = bubbleChart.getAxisLeft();
         yAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"E","A","D","G","B","e"}));
