@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.15)  19 MAR 2021 19:17
+=======
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.15)  17 MAR 2021 01:37
+>>>>>>> Stashed changes
 entering extended mode
 **./relazione.tex
 (relazione.tex
@@ -1634,7 +1638,11 @@ sfonts/cm/cmr6.pfb><C:/Users/Gabriele/AppData/Local/Programs/MiKTeX/fonts/type1
 grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Gabriele/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/public/txfonts/t1xbtt.pfb><C:/Users/Gabrie
 le/AppData/Local/Programs/MiKTeX/fonts/type1/public/txfonts/t1xtt.pfb>
+<<<<<<< Updated upstream
 Output written on relazione.pdf (49 pages, 5569955 bytes).
+=======
+Output written on relazione.pdf (49 pages, 5552017 bytes).
+>>>>>>> Stashed changes
 PDF statistics:
  1150 PDF objects out of 1200 (max. 8388607)
  628 named destinations out of 1000 (max. 500000)

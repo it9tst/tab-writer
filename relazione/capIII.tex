@@ -118,15 +118,23 @@ Le caratteristiche e i vantaggi che ci hanno portato ad utilizzarlo nell’ambit
 	\item \textbf{estensibilità}: in base alle esigenze dello sviluppatore, è possibile aggiungere facilmente nuovi moduli (ad esempio classi e funzioni) ad un progetto preesistente.
 \end{itemize}
 \subsection{Uso di Keras}
+<<<<<<< Updated upstream
 Prima di dare in \textit{input} al modello il \textit{traning set} e il \textit{validation set}, dobbiamo fare delle modifiche alla dimensione del numpy \textit{array} delle immagini di nome X in quanto il modello si aspetta un \textit{input} di \textit{BATCH} x 192 x 9 x 1.
+=======
+Prima di dare in input al modello traning set e validation set, dobbiamo fare delle modifiche alla dimensione del numpy array di nome X (images) in quanto il modello si aspetta un input di BATCH x 192 x 9 x 1.
+>>>>>>> Stashed changes
 \begin{itemize}
 	\item \textit{BATCH} sono la quantità di valori dell'intero \textit{traning set};
 	\item 192 è l'altezza dell'immagine;
 	\item 9 è la lunghezza dell'immagine;
 	\item 1 ci indica che l'immagine è in bianco e nero.
 \end{itemize}
+<<<<<<< Updated upstream
 La Y non ha bisogno di modifiche perchè le dimensioni sono già quelle corrette cioè ha dimensione \textit{BATCH} x 21 x 6.\\
 \newline
+=======
+La Y non ha bisogno di modifiche perchè le dimensioni sono già quelle corrette cioè ha dimensione BATCH x 21 x 6.\\
+>>>>>>> Stashed changes
 Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/modelloFinale1.py}
