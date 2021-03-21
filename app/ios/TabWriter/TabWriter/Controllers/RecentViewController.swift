@@ -15,6 +15,7 @@ class RecentViewController: UIViewController {
     
     var fileList: [Tab] = []
     var fileName = ""
+    var db: DBHelper!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,7 @@ class RecentViewController: UIViewController {
     func findAllRecording() {
         fileList = []
         
-        let db = DBHelper()
+        db = DBHelper()
         fileList = db.readAll()
         //db.delete()
     }
@@ -97,6 +98,15 @@ extension RecentViewController: UITableViewDataSource {
         cell.textLabel?.text = row.title
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            let row = fileList[indexPath.row]
+            fileList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            db.deleteByID(title: row.title)
+        }
     }
     
 }

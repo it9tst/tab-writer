@@ -87,7 +87,7 @@ I dati (\textit{images} e \textit{labels}) di ogni \textit{file} audio sono stat
 \subsection{Pre-elaborare i dati}
 Carichiamo i \textit{file} .\textit{npz} e per ogni immagine aggiungiamo quattro zeri nell'\textit{array} in cui ci sono tutte le immagini sia all'inizio che alla fine. Questo perchè per ogni \textit{frame} salviamo nove righe alla volta che corrispondono a 0.2 secondi.\\
 \newline
-Viene aggiunto un padding perchè così l'ultimo valore, della finestra di 9, risulta essere congruo con gli altri. (matrice)
+Sperimentalmente, abbiamo visto che per ottenere un buon valore di accuratezza della rete, le immagini devono essere stampate in questo arco temporale. Se il tempo fosse stato inferiore avremmo avuto immagini di \textit{file} audio con solo note singole e quando la rete avrebbe dovuto riconoscere più note non sarebbe stata in grado di farlo.  Nell’immagine seguente è possibile vedere che le lettere sulle note si ripetono.  Ad esempio, la lettera F si trova sulla corda F e D. Se la mano è posizionata sulla corda A, è impossibile che si riesca a suonare la F della corda G. Dunque, un istante di tempo troppo corto non aiutava la rete a riconoscere la nota giusta.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.30]{./images/img12.jpg}
@@ -102,7 +102,7 @@ Una volta ottenuto l'\textit{array} di tutte le \textit{images} e i \textit{labe
 	\item 10\% dei dati li usiamo per i \textit{test}
 	\item 80\% dei dati li usiamo per il \textit{traning}
 \end{itemize}
-il \textit{traning set} lo usiamo per costruire il modello, il \textit{validation set} per validare i parametri dei layer della rete neurale mentre il \textit{test set} per determinare l'accuratezza.\\
+il \textit{traning set} lo usiamo per costruire il modello, il \textit{validation set} per validarlo mentre il \textit{test set} per determinare l'accuratezza.\\
 \newline
 Il codice è il seguente:
 \vspace*{2ex}
@@ -118,23 +118,15 @@ Le caratteristiche e i vantaggi che ci hanno portato ad utilizzarlo nell’ambit
 	\item \textbf{estensibilità}: in base alle esigenze dello sviluppatore, è possibile aggiungere facilmente nuovi moduli (ad esempio classi e funzioni) ad un progetto preesistente.
 \end{itemize}
 \subsection{Uso di Keras}
-<<<<<<< Updated upstream
 Prima di dare in \textit{input} al modello il \textit{traning set} e il \textit{validation set}, dobbiamo fare delle modifiche alla dimensione del numpy \textit{array} delle immagini di nome X in quanto il modello si aspetta un \textit{input} di \textit{BATCH} x 192 x 9 x 1.
-=======
-Prima di dare in input al modello traning set e validation set, dobbiamo fare delle modifiche alla dimensione del numpy array di nome X (images) in quanto il modello si aspetta un input di BATCH x 192 x 9 x 1.
->>>>>>> Stashed changes
 \begin{itemize}
 	\item \textit{BATCH} sono la quantità di valori dell'intero \textit{traning set};
 	\item 192 è l'altezza dell'immagine;
 	\item 9 è la lunghezza dell'immagine;
 	\item 1 ci indica che l'immagine è in bianco e nero.
 \end{itemize}
-<<<<<<< Updated upstream
 La Y non ha bisogno di modifiche perchè le dimensioni sono già quelle corrette cioè ha dimensione \textit{BATCH} x 21 x 6.\\
 \newline
-=======
-La Y non ha bisogno di modifiche perchè le dimensioni sono già quelle corrette cioè ha dimensione BATCH x 21 x 6.\\
->>>>>>> Stashed changes
 Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/modelloFinale1.py}
@@ -181,7 +173,7 @@ Dopo diverse prove sperimentali, abbiamo deciso di eseguire il modello per cinqu
 	\centering
 	\includegraphics[scale=0.8]{./images/storia.png}
 \end{figure}
-Questo modello raggiunge una precisione di circa 0,87 (o 87\%) e una perdita del 2\% sui dati di addestramento. Invece, sui dati di validazione la precisione supera lo 0,90 (90\%) e raggiunge una perdita del 1,6\% sui dati di validazione. I \textit{loss} sono la media delle perdite sui dati di \textit{batch} di addestramento.\\
+Questo modello raggiunge una precisione di circa 0,87 (o 87\%) e una perdita del 2\% sui dati di addestramento. Invece, sui dati di validazione la precisione supera lo 0,90 (90\%) e raggiunge una perdita del 1,6\% sui dati di validazione. I \textit{loss} sono la media delle perdite sui dati di \textit{batch} di addestramento. Con questi dati sembra avere ottimi risultati in quanto non abbiamo la presenza di \textit{overfitting}.\\
 \newline
 Il grafico sottostante ci fa comprendere meglio i risultati:
 \begin{figure}[H]

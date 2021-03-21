@@ -125,14 +125,4 @@ class TabViewController: UIViewController, ChartViewDelegate {
         chartView.data = data
     }
     
-    // Set the shouldAutorotate to False
-    override open var shouldAutorotate: Bool {
-        return false
-    }
-    
-    // Specify the orientation.
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .landscape
-    }
-    
 }
