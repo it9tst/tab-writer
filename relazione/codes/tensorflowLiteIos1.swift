@@ -1,7 +1,6 @@
 static var interpreter: Interpreter!
 
 static func loadModel(`on` controller: UIViewController) -> Bool {
-
 	guard let modelPath = Bundle.main.path(forResource: "model", ofType: "tflite")
 		else {
 		// Invalid model path
