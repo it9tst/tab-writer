@@ -9,7 +9,6 @@ from tensorflow.keras.layers import Dense, Dropout, Flatten, Reshape, Activation
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Conv1D, Lambda
 from tensorflow.keras.optimizers import Adadelta
 from tensorflow.keras.callbacks import History
-from tensorflow.keras import activations
 from tensorflow.keras import backend as K
 from tensorflow.keras.utils import normalize
 

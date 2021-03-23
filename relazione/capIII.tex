@@ -6,8 +6,8 @@ I \textit{package} usati per realizzare il progetto sono:
 	\item \textit{librosa, versione 0.8.0}, è una libreria per la musica e l'analisi audio. Fornisce gli elementi necessari per recuperare informazioni musicali;
 	\item \textit{scipy, versione 1.4.1}, è una libreria di algoritmi e strumenti matematici che contiene moduli per l'ottimizzazione, per l'algebra lineare, elaborazione di segnali ed immagini e altro;
 	\item \textit{matplotlib, versione 3.1.2}, è una libreria per la creazione di grafici;
-	\item \textit{tensorflow, versione 2.1.0}, è una libreria utilizzata per il \textit{machine learning} che fornisce moduli sperimentati e ottimizzati, utili nella realizzazione di algoritmi per diversi tipi di compiti percettivi e di comprensione del linguaggio.
-	\item \textit{keras, versione 2.3.1}, consente di implementazione algoritmi basati su reti neurali. Permette di sviluppare e prototipare in maniera semplice e veloce modelli nell’ambito del \textit{machine learning} e del \textit{deep learning}. Supporta come \textit{back-end} \textit{Tensorflow} ed è integrata in esso dalla versione 2.
+	\item \textit{tensorflow, versione 2.1.0}, è una libreria utilizzata per il \textit{machine learning} che fornisce moduli sperimentati e ottimizzati, utili nella realizzazione di algoritmi per diversi tipi di compiti percettivi e di comprensione del linguaggio;
+	\item \textit{keras, versione 2.3.1}, consente di implementazione algoritmi basati su reti neurali. Permette di sviluppare e prototipare in maniera semplice e veloce modelli nell’ambito del \textit{machine learning} e del \textit{deep learning}. Supporta come \textit{back-end} \textit{Tensorflow} ed è integrata in esso dalla versione 2;
 \end{itemize}
 
 \section{Set dati GuitarSet}
@@ -24,11 +24,11 @@ Ci sono tre registrazioni audio per ogni estratto:
 \begin{itemize}
 	\item \textbf{hex}: file .\textit{wav} originali a sei canali dal \textit{pickup esafonico};
 	\item \textbf{hex\_cln}: file .\textit{wav} con rimozione delle interferenze applicata;
-	\item \textbf{mic}: registrazione monofonica dal microfono di riferimento
+	\item \textbf{mic}: registrazione monofonica dal microfono di riferimento;
 \end{itemize}
 Noi abbiamo usato registrazioni di tipo \textbf{mic} perchè sono quelle che più si avvicinano al caso delle registrazioni tramite microfono dello \textit{smartphone}.\\
 \newline
-Ciascuno dei trecentosessanta estratti ha anche un file .\textit{jams} che memorizza sedici annotazioni da cui prenderemo le \textit{tab}:
+Ciascuno dei trecentosessanta estratti ha anche un file .\textit{jams} che memorizza sedici annotazioni:
 \begin{itemize}
 	\item Intonazione:
 	\begin{itemize}
@@ -42,29 +42,29 @@ Ciascuno dei trecentosessanta estratti ha anche un file .\textit{jams} che memor
 	\end{itemize}
 	\item Accordi:
 	\begin{itemize}
-		\item 2 annotazioni di accordi (istruite ed eseguite).
+		\item 2 annotazioni di accordi (istruite ed eseguite);
 	\end{itemize}
 \end{itemize}
-Noi useremo le annotazioni \textit{midi\_note}.
+Noi useremo le annotazioni \textit{midi\_note}, da cui prenderemo le \textit{tab}.
 \subsection{Ricavare le tab dai file .jams}
-Innanzitutto calcoliamo i \textit{frame} per ogni \textit{file} audio, così da poter ricavare un'immagine e la corrispondente \textit{tab} per ogni \textit{frame}. Per calcolare l'istante di tempo per ogni \textit{frame} utilizziamo la funzione \textit{get\_times()}
+Innanzitutto calcoliamo il numero di \textit{frame} per ogni \textit{file} audio, così da poter ricavare un'immagine completa e le corrispondenti \textit{tab} per ogni \textit{frame}. Per calcolare l'istante di tempo per ogni \textit{frame} utilizziamo la funzione \textit{get\_times()}:
 \vspace*{2ex}
 \pythonexternal{./codes/times.py}
 \vspace*{2ex}
 Adesso che, per ogni \textit{file} audio, abbiamo una divisione in \textit{frame} di cui conosciamo gli istanti di tempo esatti, possiamo estarre dai file .\textit{jams} del \textit{dataset} le \textit{tab} corrispondenti.\\ Più precisamente, dai file .\textit{jams} prendiamo le note \textit{MIDI} e creiamo una matrice 6x19 dove il sei rappresenta il numero di corde mentre il diciannove rappresenta il numero di tasti.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.30]{./images/img12.jpg}
+	\includegraphics[scale=0.65]{./images/img11.png}
 \end{figure}
 Ogni tasto della matrice ha un valore \textit{MIDI} che varia da 40 a 82.
 \vspace*{2ex}
 \pythonexternal{./codes/matrixMidi.py}
 \vspace*{2ex}
-Ad ogni matrice sostituiamo i valori \textit{MIDI} con una matrice della stessa dimensione in cui ci sono solo uni o zeri a seconda dei valori \textit{MIDI} che il \textit{file} .\textit{jams} ci ha restituito. Ad esempio, se dal file .\textit{jams} abbiamo che in quel frame sono state suonate le note 40, 62 e 65 avremmo la seguente matrice:
+Ad ogni matrice sostituiamo i valori \textit{MIDI} con una matrice della stessa dimensione in cui ci sono solo uni o zeri a seconda dei valori \textit{MIDI} che il \textit{file} .\textit{jams} ci ha restituito. Ad esempio, dato un frame, se dal file .\textit{jams} leggiamo che sono state suonate le note 40 della sesta corda, 60 della seconda corda e 67 della prima, avremo la seguente matrice:
 \vspace*{2ex}
 \pythonexternal{./codes/matrixUniZeri.py}
 \vspace*{2ex}
-Dato che una nota si può trovare su più corde, alla fine bisogna sceglierne soltanto una perchè il suono è lo stesso. Dunque, gli "1" in più devono essere cancellati. Inoltre, siccome queste matrici che chiameremo \textit{labels} le daremo in \textit{input} al modello è importante avere i dati categorici, quindi devono essere mappati come numeri interi per cui useremo la codifica \textit{one-hot}, cioè si può trovare un "1" solo in ogni riga. A questa matrice aggiungiamo altre due colonne che servono a capire se la corda è stata suonata (colonna 0) e se si, se è stata suonata a vuoto (colonna 1) oppure no.\\
+Queste matrici, da ora in avanti, saranno chiamate \textit{labels} e verranno usate come \textit{target y} del modello, per questo è molto importante avere una mappatura di numeri interi "categorica", per cui useremo la codifica \textit{one-hot}, cioè si può trovare un solo "1" in ogni riga. Per finire, aggiungiamo altre due colonne in testa alle labels che serviranno a capire se la corda è stata suonata o meno (colonna 0) e se si, se è stata suonata a vuoto oppure o no (colonna 1).\\
 \newline
 Di conseguenza, la matrice finale di dimensione 6x21 è la seguente:
 \vspace*{2ex}
@@ -74,55 +74,68 @@ Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/labels.py}
 \subsection{Ricavare le immagini dai file audio}
-Dopo aver trovato i \textit{label} per ogni \textit{frame}, dobbiamo trovare un modo per far imparare al modello che un frammento di audio sia associato al corrispondente \textit{label}.
-Grazie a \textit{librosa} possiamo convertire i \textit{file} audio in immagini. Per far ciò usiamo la trasformata a Q costante che ci viene fornita da questa libreria e che ricava per ogni \textit{file} audio un'immagine.
+Dopo esserci ricavati le \textit{labels} per ogni \textit{frame}, dobbiamo trovare un modo per far "imparare" al modello che un frammento di audio sia associato al corrispondente \textit{label}.
+Grazie alla libreria \textit{librosa} possiamo analizzare e manipolare il suono, vedere lo spettrogramma della trasformata a Q costante e ricavare per ogni \textit{file} audio un'immagine.\\
+\newline
+Per esempio, questo è lo spettrogramma della trasformata a Q costante di un audio del dataset.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.60]{./images/img7.png}
 \end{figure}
+Per utilizzare al meglio il modulo \textit{librosa.cqt()}, dobbiamo impostare alcuni parametri:
+\begin{itemize}
+	\item \textbf{sr\_downs}: il numero di campioni al secondo del segnale di ingresso;
+	\item \textbf{hop\_length}: il numero di campioni tra i fotogrammi;
+	\item \textbf{n\_bins}: il numero di bande di frequenza nello spettrogramma risultante;
+	\item \textbf{bins\_per\_octave}: il numero di bande di frequenza per ogni ottava;
+\end{itemize}
 \vspace*{2ex}
 \pythonexternal{./codes/librosa.py}
 \vspace*{2ex}
-I dati (\textit{images} e \textit{labels}) di ogni \textit{file} audio sono stati compressi in archivi .\textit{npz} per organizzare meglio il \textit{dataset} da dare come \textit{input} al modello.
-\subsection{Pre-elaborare i dati}
-Carichiamo i \textit{file} .\textit{npz} e per ogni immagine aggiungiamo quattro zeri nell'\textit{array} in cui ci sono tutte le immagini sia all'inizio che alla fine. Questo perchè per ogni \textit{frame} salviamo nove righe alla volta che corrispondono a 0.2 secondi.\\
+In particolare, una volta che l'audio è un oggetto dati "librosa", Python lo vede come un array numpy e quindi possiamo evitare di salvarci fisicamente dei classici file immagini \textit{.jpeg} o \textit{.png} e continuare a lavorare con le matrici.\\
 \newline
-Sperimentalmente, abbiamo visto che per ottenere un buon valore di accuratezza della rete, le immagini devono essere stampate in questo arco temporale. Se il tempo fosse stato inferiore avremmo avuto immagini di \textit{file} audio con solo note singole e quando la rete avrebbe dovuto riconoscere più note non sarebbe stata in grado di farlo.  Nell’immagine seguente è possibile vedere che le lettere sulle note si ripetono.  Ad esempio, la lettera F si trova sulla corda F e D. Se la mano è posizionata sulla corda A, è impossibile che si riesca a suonare la F della corda G. Dunque, un istante di tempo troppo corto non aiutava la rete a riconoscere la nota giusta.
+I dati (\textit{images} e \textit{labels}) di ogni \textit{file} audio sono stati compressi in archivi .\textit{npz} per organizzare meglio il \textit{dataset} da dare come \textit{input} al modello.
+\vspace*{2ex}
+\pythonexternal{./codes/store.py}
+\vspace*{2ex}
+\subsection{Pre-elaborare i dati}
+Carichiamo i \textit{file} .\textit{npz} salvati in precedenza. Si è visto, sperimentalmente, che un buon arco di tempo per riconoscere una nota è 200ms che, nel nostro caso, corrispondono ad una finestra di nove righe della matrice dell'immagine. Di conseguenza, quello che dobbiamo fare non è altro che associare, per ogni \textit{frame}, una \textit{label} e un'\textit{immagine} di nove righe (192x9), senza dimenticare di aggiungere un padding (quattro zeri nell'\textit{array}, sia all'inizio che alla fine, con il metodo \textit{np.pad()}) perchè così l'ultimo valore, della finestra di nove righe, risulta essere congruo con gli altri.\\
+\newline
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.30]{./images/img12.jpg}
+	\includegraphics[scale=0.50]{./images/img8.png}
 \end{figure}
 Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/preElaborazionedati1.py}
 \vspace*{2ex}
-Una volta ottenuto l'\textit{array} di tutte le \textit{images} e i \textit{labels} dei \textit{file} audio, e assegnati rispettivamente le variabili X e Y, lo mescoliamo in modo da avere più imprevedibilità. Infine, suddividiamo questi dati nel seguente modo:
+Una volta ottenuto l'\textit{array}, chiamato (\textit{training\_data}), di tutte le \textit{images} e i \textit{labels} dei \textit{file} audio, e assegnati rispettivamente le variabili \textit{X} e \textit{y}, lo mescoliamo in modo da avere più imprevedibilità. Infine, suddividiamo questi dati nel seguente modo:
 \begin{itemize}
 	\item 10\% dei dati li usiamo per la \textit{validation}
 	\item 10\% dei dati li usiamo per i \textit{test}
 	\item 80\% dei dati li usiamo per il \textit{traning}
 \end{itemize}
-il \textit{traning set} lo usiamo per costruire il modello, il \textit{validation set} per validarlo mentre il \textit{test set} per determinare l'accuratezza.\\
+Il \textit{traning set} lo utilizziamo per costruire il modello, il \textit{validation set} per validare i parametri dei layer della rete neurale mentre il \textit{test set} per determinare l'accuratezza.\\
 \newline
 Il codice è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/preElaborazionedati2.py}
 \vspace*{2ex}
 \section{Modello della rete}
-La difficoltà nell’apprendere i meccanismi di implementazione su \textit{Keras} sono ridotti al minimo grazie alla vasta documentazione presente, arricchita da numerosi esempi sulle più utilizzate configurazioni inerenti il \textit{machine learning}, come \textit{CNN} (Convolutional Neural Network).
+La difficoltà nell’apprendere i meccanismi di implementazione su \textit{Keras} sono ridotti al minimo grazie alla vasta documentazione presente, arricchita da numerosi esempi sulle più utilizzate configurazioni inerenti il \textit{machine learning}, come le \textit{CNN} (Convolutional Neural Network).
 Le operazioni di calcolo matriciali possono essere accelerate sia tramite \textit{CPU}, che \textit{GPU} (su hardware \textit{Nvidia} con supporto \textit{CUDA}).
 Le caratteristiche e i vantaggi che ci hanno portato ad utilizzarlo nell’ambito del progetto sono:
 \begin{itemize}
-	\item \textbf{semplicità}: a differenza di altre \textit{API}, è possibile realizzare modelli complessi scrivendo meno righe di codice, mantenendo nel contempo chiarezza nello sviluppo. Tutto ciò consente allo sviluppatore di mantenere nel tempo il codice in maniera agevole.
-	\item \textbf{modularità}: un modello in \textit{Keras} è inteso come una sequenza o un grafo di singoli, compatti e completamente configurabili moduli, che possono lavorare in sinergia tra loro con il minimo numero di restrizioni possibili. Ciò rende il codice estremamente flessibile.
-	\item \textbf{estensibilità}: in base alle esigenze dello sviluppatore, è possibile aggiungere facilmente nuovi moduli (ad esempio classi e funzioni) ad un progetto preesistente.
+	\item \textbf{semplicità}: a differenza di altre \textit{API}, è possibile realizzare modelli complessi scrivendo meno righe di codice, mantenendo nel contempo chiarezza nello sviluppo. Tutto ciò consente allo sviluppatore di mantenere nel tempo il codice in maniera agevole;
+	\item \textbf{modularità}: un modello in \textit{Keras} è inteso come una sequenza o un grafo di singoli, compatti e completamente configurabili moduli, che possono lavorare in sinergia tra loro con il minimo numero di restrizioni possibili. Ciò rende il codice estremamente flessibile;
+	\item \textbf{estensibilità}: in base alle esigenze dello sviluppatore, è possibile aggiungere facilmente nuovi moduli (ad esempio classi e funzioni) ad un progetto preesistente;
 \end{itemize}
 \subsection{Uso di Keras}
-Prima di dare in \textit{input} al modello il \textit{traning set} e il \textit{validation set}, dobbiamo fare delle modifiche alla dimensione del numpy \textit{array} delle immagini di nome X in quanto il modello si aspetta un \textit{input} di \textit{BATCH} x 192 x 9 x 1.
+Prima di dare in \textit{input} al modello il \textit{traning set} e il \textit{validation set}, dobbiamo fare delle modifiche alla dimensione del numpy \textit{array} delle immagini X in quanto il modello si aspetta una dimensione di \textit{input} di \textit{BATCH} x 192 x 9 x 1.
 \begin{itemize}
-	\item \textit{BATCH} sono la quantità di valori dell'intero \textit{traning set};
-	\item 192 è l'altezza dell'immagine;
-	\item 9 è la lunghezza dell'immagine;
+	\item \textit{BATCH} sono la quantità di valori dell'intero \textit{training set};
+	\item 192 è l'altezza dell'immagine (H);
+	\item 9 è la lunghezza dell'immagine (W);
 	\item 1 ci indica che l'immagine è in bianco e nero.
 \end{itemize}
 La Y non ha bisogno di modifiche perchè le dimensioni sono già quelle corrette cioè ha dimensione \textit{BATCH} x 21 x 6.\\
@@ -133,14 +146,16 @@ Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 A questo punto definiamo il modello:
 \begin{itemize}
-	\item \textbf{Conv2D}: serve per mettere in evidenza le caratteristiche interessanti dell'immagine. parametri di \textit{input}: numero di filtri, grandezza filtri, input shape e funzione di attivazione.
-	\item \textbf{MaxPooling2D}: riduce la dimensione dell'immagine, elimina le informazioni inutili mantenendo quelle più importanti. parametri di \textit{input}: matrice di input;
-	\item \textbf{Dropout} elimina una percentuale di dati casuali. Ad esempio, elimina rumori di sottofondo e mantiene le informazioni più importanti. Parametri di \textit{input}: percentuale.
+	\item \textbf{Conv2D}: mette in evidenza le caratteristiche interessanti dell'immagine. Parametri di \textit{input}: numero di filtri, grandezza filtri, input shape e funzione di attivazione;
+	\item \textbf{MaxPooling2D}: riduce la dimensione dell'immagine, elimina le informazioni inutili mantenendo quelle più importanti;
+	\item \textbf{Dropout} elimina una percentuale di dati casuali. Ad esempio, elimina rumori di sottofondo e mantiene le informazioni più importanti;
 	\item \textbf{Flattern} appiattisce il tensore e rimuove tutte le dimensioni;
-	\item \textbf{Dense}: decide il numero di numero di neuroni in uscita.
+	\item \textbf{Dense}: crea un layer di neuroni, ognuno dei quali connesso ad ogni uscita del layer precedente;
 	\item \textbf{Reshape}: determina la dimensione di uscita. In questo caso è 6x21;
-	\item \textbf{Activation} serve affinchè la somma di ogni elemento di uscita sia uno.
+	\item \textbf{Activation}: la funzione di attivazione è una "porta" matematica tra l'input che alimenta il neurone corrente e il suo output che va allo strato successivo;
 \end{itemize}
+L' unità lineare rettificata (ReLU) è la funzione di attivazione più comunemente utilizzata nel deep learning. La funzione restituisce 0 se l'input è negativo, ma per qualsiasi input positivo, restituisce quel valore.\\
+La funzione \textit{softmax} è molto utilizzata in statistica e consente di gestire un vettore di uscita normalizzato di n elementi, dove ogni elemento può valere da 0 ad 1 e la somma di tutti gli elementi è pari ad 1. In sostanza il nostro vettore di uscita sarà in una forma simile a quella one hot e ogni posizione corrisponderà alla probabilità (normalizzata) che l’immagine appartenga a quella specifica classe. La somma di tutte le probabilità sarà 1 = 100%.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.4]{./images/model.png}
@@ -151,29 +166,30 @@ Il codice è il seguente:\\
 \vspace*{2ex}
 \pythonexternal{./codes/modelloFinale3.py}
 \vspace*{2ex}
-Questo è il \textit{summary} del modello:
+La funzione \textit{summary()} ci descrive il modello:
 \vspace*{2ex}
 \pythonexternal{./codes/modelloFinale5.py}
 \vspace*{2ex}
-In particolare, per il modello abbiamo usato delle funzioni personalizzate per la funzione di attivazione finale del modello (\textit{sofmax\_by\_string}), per la funzione obiettivo \textit{loss} (\textit{catcross\_by\_string}) e per le metriche (\textit{avg\_acc}) che devono essere valutate del modello durante l'addestramento e il modello.\\
+In particolare, per il modello abbiamo usato delle funzioni personalizzate per la funzione di attivazione finale del modello (\textit{sofmax\_by\_string}), per la funzione obiettivo \textit{loss} (\textit{catcross\_by\_string}) e per le metriche di accuratezza (\textit{avg\_acc}) che devono essere valutate dal modello durante l'addestramento.\\
+Esse permettono di utilizzare la funzione di attivazione \textit{softmax} e la funzione di perdita \textit{categorical_crossentropy} per ogni stringa, e alla fine concatenare i sei risultati in un unico valore.\\
 \newline
 Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/modelloFinale2.py}
 \vspace*{2ex}
-Per avviare l'addestramento del modello eseguiamo il comando \textit{model.fit()} dove indichiamo con \textit{batch\_size} il numero di campioni per ogni aggiornamento del gradiente e con \textit{epochs} il numero di iterazioni sul quale il modello deve effettuare il \textit{traning}.\\
+Per avviare l'addestramento del modello eseguiamo la funzione \textit{model.fit()} dove indichiamo con \textit{batch\_size} il numero di campioni per ogni aggiornamento del gradiente e con \textit{epochs} il numero di iterazioni sul quale il modello deve effettuare il \textit{training}.\\
 \newline
 Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/modelloFinale4.py}
 \vspace*{2ex}
 \subsection{Addestramento del modello}
-Dopo diverse prove sperimentali, abbiamo deciso di eseguire il modello per cinquecento:
+Dopo diverse prove sperimentali, abbiamo deciso di eseguire il modello per cinquecento epoche:
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{./images/storia.png}
 \end{figure}
-Questo modello raggiunge una precisione di circa 0,87 (o 87\%) e una perdita del 2\% sui dati di addestramento. Invece, sui dati di validazione la precisione supera lo 0,90 (90\%) e raggiunge una perdita del 1,6\% sui dati di validazione. I \textit{loss} sono la media delle perdite sui dati di \textit{batch} di addestramento. Con questi dati sembra avere ottimi risultati in quanto non abbiamo la presenza di \textit{overfitting}.\\
+Questo modello raggiunge una precisione di circa 0,87 su 1 (o 87\%) e una perdita del 2\% sui dati di addestramento. Invece, sui dati di validazione la precisione supera lo 0,90 (90\%) e raggiunge una perdita del 1,6\% sui dati di validazione. I \textit{loss} sono la media delle perdite sui dati di \textit{batch} di addestramento.\\
 \newline
 Il grafico sottostante ci fa comprendere meglio i risultati:
 \begin{figure}[H]

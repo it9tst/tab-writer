@@ -34,25 +34,42 @@ pdfauthor={De Nardi-Tornatore}]{hyperref}
 \definecolor{deepgreen}{rgb}{0.67,0.31,0.31}
 \definecolor{deepblack}{rgb}{0.11,0.11,0.11}
 \definecolor{lightblue}{rgb}{0.77, 0.89, 0.93}
+\definecolor{codeblack}{rgb}{0.20,0.20,0.20}
+\definecolor{codered}{rgb}{1,0.6,0.6}
+\definecolor{codelightblue}{rgb}{0.6,0.6,0.6}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+
 
 \usepackage{listings}
 
 % Python style for highlighting
 \newcommand\pythonstyle{\lstset{
-		backgroundcolor=\color{deepblack},
-		language=Python,
-		basicstyle=\ttm\color{white},
-		morekeywords={self},              % Add keywords here
-		keywordstyle=\ttb\color{deepblue},
-		emph={MyClass,__init__},          % Custom highlighting
-		emphstyle=\ttb\color{deepred},    % Custom highlighting style
-		stringstyle=\color{deepgreen},
-		commentstyle=\ttm\color{lightblue},
-		frame=tb,                         % Any extra options here
-		showstringspaces=false,
-    	literate={\ \ }{{\ }}2
+	backgroundcolor=\color{codeblack},
+	language=Python,
+	basicstyle=\ttm\color{white},
+	morekeywords={self},
+	keywordstyle=\ttb\color{deepblue},
+	emph={MyClass,__init__},
+	emphstyle=\ttb\color{codered},
+	stringstyle=\color{deepgreen},
+	commentstyle=\ttm\color{codelightblue},
+	breaklines=true,
+	frameround=ftff,
+	frame=single,
+	showstringspaces=false,
+	numbers=left,
+	numberstyle=\ttm\color{codegray},
+	stepnumber=1,
+	numbersep=8pt,
+    belowcaptionskip=5em,
+    belowskip=3em
 }}
 
+\makeatletter
+\lst@CCPutMacro
+    \lst@ProcessOther {"2D}{\lst@ttfamily{-{}}{-}}
+    \@empty\z@\@empty
+\makeatother
 
 % Python environment
 \lstnewenvironment{python}[1][]

@@ -1,3 +1,5 @@
+from tensorflow.keras import backend as K
+
 def softmax_by_string(self, t):
     sh = K.shape(t)
     string_sm = []

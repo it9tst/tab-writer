@@ -7,7 +7,6 @@ for element in self.inputImages {
 		for element3 in element2 {
 			for element4 in element3 {
 				var f = Float32(element4)
-				//print(f)
 				let elementSize = MemoryLayout.size(ofValue: f)
 				var bytes = [UInt8](repeating: 0, count: elementSize)
 				memcpy(&bytes, &f, elementSize)
@@ -21,6 +20,5 @@ try self.interpreter.copy(inputData, toInputAt: 0)
 try self.interpreter.invoke()
 
 let output = try self.interpreter.output(at: 0)
-let probabilities =
-		UnsafeMutableBufferPointer<Float32>.allocate(capacity: 126)
+let probabilities = UnsafeMutableBufferPointer<Float32>.allocate(capacity: 126)
 output.data.copyBytes(to: probabilities)

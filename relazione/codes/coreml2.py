@@ -2,9 +2,7 @@ outpututput_directory_path = './output'
 
 # the model_dir states where the graph and checkpoint files
 # will be saved to
-estimator_model = tf.keras.estimator.model_to_estimator(
-                        keras_model = model, 
-                        model_dir = output_directory_path)
+estimator_model = tf.keras.estimator.model_to_estimator(keras_model = model, model_dir = output_directory_path)
 
 def input_function(features,labels=None,shuffle=False):
     input_fn = tf.estimator.inputs.numpy_input_fn(

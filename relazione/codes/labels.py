@@ -1,4 +1,4 @@
- # labeling parameters
+# labeling parameters
 self.string_midi_pitches = [40,45,50,55,59,64]
 self.highest_fret = 19
 self.num_classes = self.highest_fret + 2
@@ -33,8 +33,7 @@ def spacejam(self, file_num):
             if string_label_samples[i] == []:
                 string_label_samples[i] = -1
             else:
-                string_label_samples[i] = int(round(string_label_samples[i][0]) - 
-                                              self.string_midi_pitches[string_num])
+                string_label_samples[i] = int(round(string_label_samples[i][0]) - self.string_midi_pitches[string_num])
         labs.append([string_label_samples])
     
     labs = np.array(labs)

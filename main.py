@@ -12,7 +12,7 @@ from modelEvaluate import main as m5
 
 
 # define path data folder and n file
-path = "C:/Users/Gabriele/GitHub/tab-writer/data/"
+path = "D:/Projects/GitHub-Projects/tab-writer/data/"
 n_file = 360
 
 path_arr = [path] * 360
