@@ -83,9 +83,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 try session.setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
                 try session.setActive(true)
                 let settings = [
-                    AVFormatIDKey: Int(kAudioFormatFLAC),
+                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                    AVNumberOfChannelsKey: 1,
+                    AVEncoderBitRateKey: 128000,
                     AVSampleRateKey: 44100,
-                    AVNumberOfChannelsKey: 2,
                     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
                 ]
                 

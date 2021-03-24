@@ -49,9 +49,18 @@ class TabViewController: UIViewController, ChartViewDelegate {
         
         chartView.delegate = self
         
+        chartView.doubleTapToZoomEnabled = false
+        chartView.scaleXEnabled = true
+        chartView.scaleYEnabled = false
+        chartView.highlightPerTapEnabled = false
+        chartView.highlightPerDragEnabled = true
+        chartView.setVisibleXRangeMaximum(5)
+        
         chartView.drawGridBackgroundEnabled = false
-        chartView.pinchZoomEnabled = false
         chartView.dragEnabled = true
+        chartView.dragXEnabled = true
+        chartView.dragYEnabled = false
+        chartView.pinchZoomEnabled = false
         chartView.xAxis.enabled = false
         chartView.leftAxis.enabled = true
         chartView.rightAxis.enabled = false
