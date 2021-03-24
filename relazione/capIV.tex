@@ -161,13 +161,13 @@ Il \textit{server} è stato scritto grazie al \textit{micro-framework} \textit{F
 \vspace*{2ex}
 Le stesse operazioni descritte nel \textit{paragrafo 4.2.2} vengono eseguite dal \textit{server} che infatti ritorna solo i \textit{frame} più significativi.
 \subsection{Implementazione di Tensorflow Lite}
-Per utilizzare il nostro modello \textit{TensorFlow Lite} all'interno dell'applicazione, abbiamo dovuto prima configurare il progetto usando la libreria \textit{Firebase} e poi istanziato l'interprete per poterlo caricare.
+Per utilizzare il nostro modello \textit{TensorFlow Lite} all'interno dell'applicazione, abbiamo dovuto prima configurare il progetto usando la libreria \textit{Firebase} e poi istanziato l'interprete per poterlo caricare. Nel seguente codice l'interprete viene istanziato grazie a \textit{Interpreter()}.
 \vspace*{2ex}
 \swiftexternal{./codes/tensorflowLiteIos1.swift}
 \vspace*{2ex}
-\noindent Per eseguire l'inferenza è necessario effettuare delle trasformazioni sui dati che sono obbligatorie per il modello. L'\textit{input} della rete deve essere un oggetto \textit{Data} al cui interno sono presenti i dati dell'\textit{array} che contiene le immagini del file audio.\\
-Si allocano i tensori, si inserisce l'\textit{input} nella rete e si chiama il metodo \textit{invoke()}.
-È possibile ottenere l'\textit{output} chiamando il metodo \textit{output(at:)} dell'oggetto restituito.
+\noindent Per eseguire l'inferenza è necessario effettuare delle trasformazioni sui dati che sono obbligatorie per poterli dare in ingresso al modello. L'\textit{input} della rete deve essere un oggetto \textit{Data} al cui interno sono presenti i dati dell'\textit{array}contenente le immagini del \textit{file} audio (\textit{inputImages}).\\
+A questo punto si allocano i tensori, si inserisce l'\textit{input} nella rete e si chiama il metodo \textit{invoke()}.
+È possibile ottenere il tensore di \textit{output} chiamando il metodo \textit{output(at:)} e gli elementi ottenuti dalla predizione tramite \textit{output.data.copyBytes}. Inoltre, si può notare che ci sono due cicli: quello esterno serve per leggersi tutte le immagini della registrazione mentre il secondo funge da \textit{check} per verificare che l'immagine corrisponda a uno di quei picchi di cui abbiamo parlato in precedenza.
 \vspace*{2ex}
 \swiftexternal{./codes/tensorflowLiteIos2.swift}
 \subsection{Installazione su dispositivo fisico}

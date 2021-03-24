@@ -46,13 +46,13 @@ pdfauthor={De Nardi-Tornatore}]{hyperref}
 \newcommand\pythonstyle{\lstset{
 	backgroundcolor=\color{codeblack},
 	language=Python,
-	basicstyle=\linespread{1.8}\fontsize{8}{8}\ttfamily\color{white},
+	basicstyle=\fontsize{8}{8}\ttm\color{white},
 	morekeywords={self},
-	keywordstyle=\linespread{1.8}\fontsize{8}{8}\ttfamily\color{deepblue},
+	keywordstyle=\fontsize{8}{8}\ttb\color{deepblue},
 	emph={MyClass,__init__},
-	emphstyle=\linespread{1.8}\fontsize{8}{8}\ttfamily\color{codered},
-	stringstyle=\linespread{1.8}\fontsize{8}{8}\ttfamily\color{deepgreen},
-	commentstyle=\linespread{1.8}\fontsize{8}{8}\ttfamily\color{codelightblue},
+	emphstyle=\fontsize{8}{8}\ttb\color{codered},
+	stringstyle=\fontsize{8}{8}\ttm\color{deepgreen},
+	commentstyle=\fontsize{8}{8}\ttm\color{codelightblue},
 	breaklines=true,
 	frameround=ftff,
 	frame=single,
@@ -125,30 +125,45 @@ pdfauthor={De Nardi-Tornatore}]{hyperref}
 
 \lstdefinelanguage{swift}
 {
-  morekeywords={
+  keywords=[1]{UInt8, Float32, Bool, Bundle, UIViewController, MemoryLayout, Data, UnsafeMutableBufferPointer},
+  keywords=[2]{
     open,catch,@escaping,nil,throws,func,if,then,else,for,in,while,do,switch,case,default,where,break,continue,fallthrough,return,
     typealias,struct,class,enum,protocol,var,func,let,get,set,willSet,didSet,inout,init,deinit,extension,
     subscript,prefix,operator,infix,postfix,precedence,associativity,left,right,none,convenience,dynamic,
     final,lazy,mutating,nonmutating,optional,override,required,static,unowned,safe,weak,internal,
-    private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,
+    private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,try,guard
   },
+  keywords=[3]{copy, invoke, allocateTensors, data},
+  keywords=[4]{main,path,memcpy,append,allocate,size,copyBytes},
+  keywords=[5]{loadModel},
+  keywords=[6]{Interpreter,TfliteModel},
   morecomment=[l]{//}, % l is for line comment
   morecomment=[s]{/*}{*/}, % s is for start and end delimiter
   morestring=[b]", % defines that strings are enclosed in double quotes
 }
 
-\definecolor{keyword}{HTML}{BA2CA3}
-\definecolor{string}{HTML}{D12F1B}
-\definecolor{comment}{HTML}{008400}
+\definecolor{lightblue}{rgb}{0.24,0.46,0.53}
+\definecolor{lightgreen}{rgb}{0.40,0.63,0.59}
+\definecolor{lightgreen2}{rgb}{0.51,0.71,0.67}
+\definecolor{pink}{rgb}{0.86,0.43,0.62}
+\definecolor{lightpurple}{rgb}{0.70,0.60,0.82}
+\definecolor{purple}{rgb}{0.53,0.41,0.71}
+\definecolor{string}{rgb}{0.92,0.47,0.42}
+\definecolor{comment}{rgb}{0.44,0.48,0.52}
 
 \newcommand\swiftstyle{\lstset{
   backgroundcolor=\color{codeblack},
   language=swift,
   extendedchars=true,
-  basicstyle=\linespread{2}\fontsize{8}{8}\ttfamily\color{white},
-  keywordstyle=\linespread{2}\fontsize{8}{8}\ttfamily\color{keyword},
-  stringstyle=\linespread{2}\fontsize{8}{8}\ttfamily\color{string},
-  commentstyle=\linespread{2}\fontsize{8}{8}\ttfamily\color{comment},
+  basicstyle=\fontsize{8}{8}\ttm\color{white},
+  keywordstyle=[1]\fontsize{8}{8}\ttb\color{lightpurple},
+  keywordstyle=[2]\fontsize{8}{8}\ttb\color{pink},
+  keywordstyle=[3]\fontsize{8}{8}\ttb\color{lightgreen},
+  keywordstyle=[4]\fontsize{8}{8}\ttb\color{purple},
+  keywordstyle=[5]\fontsize{8}{8}\ttb\color{lightblue},
+  keywordstyle=[6]\fontsize{8}{8}\ttb\color{lightgreen2},
+  stringstyle=\fontsize{8}{8}\ttm\color{string},
+  commentstyle=\fontsize{8}{8}\ttm\color{comment},
   breaklines=true,
   frameround=ftff,
   frame=single,
