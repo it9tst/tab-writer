@@ -47,6 +47,7 @@ def predict_model(images, frames):
 
 			value = np.argmax(b.astype('uint8'), axis=1)
 			data_json.append({'tab_x' : x, 'value' : value})
+            # [{"tab_x": 0, "value": [4, 0, 0, 0, 0, 0]}, {"tab_x": 1, "value": [6, 0, 0, 0, 0, 0]}, {"tab_x": 2, "value": [7, 0, 0, 0, 0, 0]}]
 
 			x += 1
 

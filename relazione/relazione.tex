@@ -103,7 +103,7 @@ pdfauthor={De Nardi-Tornatore}]{hyperref}
 
 % normal text style for highlighting
 \newcommand\textnormalstyle{\lstset{
-		backgroundcolor=\color{deepblack},
+		backgroundcolor=\color{codeblack},
 		basicstyle=\ttm\color{white},
 		morekeywords={self},              % Add keywords here
 		keywordstyle=\ttm\color{white},
@@ -111,8 +111,12 @@ pdfauthor={De Nardi-Tornatore}]{hyperref}
 		emphstyle=\ttm\color{white},    % Custom highlighting style
 		stringstyle=\ttm\color{white},
 		commentstyle=\ttm\color{white},
-		frame=tb,                         % Any extra options here
+		breaklines=true,
+		frameround=ftff,
+		frame=single,
 		showstringspaces=false,
+		belowcaptionskip=5em,
+    	belowskip=3em,
     	literate={\ \ }{{\ }}2
 }}
 
