@@ -70,6 +70,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guitarist" translatesAutoresizingMaskIntoConstraints="NO" id="nZ3-sr-eqf">
                                 <rect key="frame" x="73" y="148" width="268" height="148"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="nZ3-sr-eqf" secondAttribute="height" multiplier="54:30" priority="998" id="KiE-iT-c3N"/>
                                     <constraint firstAttribute="width" constant="268" id="Z1p-o1-TNY"/>
                                     <constraint firstAttribute="height" constant="148" id="rLc-ib-N7d"/>
                                 </constraints>
@@ -79,24 +80,26 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="276" id="Kdg-hq-Ro1"/>
                                     <constraint firstAttribute="height" constant="215" id="emm-uA-ukg"/>
+                                    <constraint firstAttribute="width" secondItem="Ed1-CR-4TO" secondAttribute="height" multiplier="221:172" priority="998" id="fqx-Aw-N8d"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzo-1K-Xgi">
-                                <rect key="frame" x="134" y="454" width="146" height="158"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="158" id="C1E-IE-qEB"/>
-                                    <constraint firstAttribute="width" constant="146" id="tX5-S8-Lw7"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="recordButton_touchUpInside:" destination="fOw-PH-GtS" eventType="touchUpInside" id="3ZT-LV-sNT"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrw-EP-hT0">
                                 <rect key="frame" x="155.5" y="660.5" width="103" height="46"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="38"/>
                                 <color key="textColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzo-1K-Xgi">
+                                <rect key="frame" x="134" y="437.5" width="146" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="C1E-IE-qEB"/>
+                                    <constraint firstAttribute="width" secondItem="Kzo-1K-Xgi" secondAttribute="height" multiplier="73:60" id="Mzw-ig-aDX"/>
+                                    <constraint firstAttribute="width" constant="146" id="tX5-S8-Lw7"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="recordButton_touchUpInside:" destination="fOw-PH-GtS" eventType="touchUpInside" id="3ZT-LV-sNT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5dQ-YE-K6t"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -104,17 +107,18 @@
                             <constraint firstItem="oH3-nK-0zq" firstAttribute="trailing" secondItem="5dQ-YE-K6t" secondAttribute="trailing" id="2C4-JS-l5o"/>
                             <constraint firstItem="jiX-pz-CTv" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="4Hv-lK-gJa"/>
                             <constraint firstItem="nZ3-sr-eqf" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="5PF-mf-28Z"/>
+                            <constraint firstItem="Kzo-1K-Xgi" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="5k6-Ie-1C8"/>
+                            <constraint firstItem="Ed1-CR-4TO" firstAttribute="centerY" secondItem="jiX-pz-CTv" secondAttribute="centerY" multiplier="1.5" id="CMm-gv-Lmf"/>
                             <constraint firstItem="zrw-EP-hT0" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="CfE-d0-9ge"/>
                             <constraint firstItem="nZ3-sr-eqf" firstAttribute="top" secondItem="5dQ-YE-K6t" secondAttribute="top" constant="60" id="DDg-pB-plh"/>
                             <constraint firstItem="nZ3-sr-eqf" firstAttribute="top" secondItem="5dQ-YE-K6t" secondAttribute="top" constant="60" id="Ecb-fA-sRR"/>
-                            <constraint firstItem="Kzo-1K-Xgi" firstAttribute="centerY" secondItem="jiX-pz-CTv" secondAttribute="centerY" multiplier="1.5" id="HsM-qi-ubZ"/>
-                            <constraint firstItem="Ed1-CR-4TO" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="K1p-wn-rS4"/>
+                            <constraint firstItem="jiX-pz-CTv" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="I5J-kw-JDu"/>
                             <constraint firstItem="jiX-pz-CTv" firstAttribute="centerY" secondItem="nZ3-sr-eqf" secondAttribute="centerY" multiplier="1.6" id="KfP-ZN-q2K"/>
                             <constraint firstItem="oH3-nK-0zq" firstAttribute="leading" secondItem="5dQ-YE-K6t" secondAttribute="leading" id="Ld1-gF-HBx"/>
-                            <constraint firstItem="Kzo-1K-Xgi" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="MOt-nv-Ygs"/>
                             <constraint firstItem="oH3-nK-0zq" firstAttribute="bottom" secondItem="5dQ-YE-K6t" secondAttribute="bottom" id="T8P-PK-wBA"/>
                             <constraint firstItem="zrw-EP-hT0" firstAttribute="top" secondItem="Ed1-CR-4TO" secondAttribute="bottom" constant="20" id="bAR-Ws-Vno"/>
-                            <constraint firstItem="Ed1-CR-4TO" firstAttribute="centerY" secondItem="jiX-pz-CTv" secondAttribute="centerY" multiplier="1.5" id="r3N-jF-X1X"/>
+                            <constraint firstItem="Ed1-CR-4TO" firstAttribute="centerX" secondItem="dnl-o5-GD7" secondAttribute="centerX" id="mkE-Vp-BQO"/>
+                            <constraint firstItem="Kzo-1K-Xgi" firstAttribute="centerY" secondItem="jiX-pz-CTv" secondAttribute="centerY" multiplier="1.4" id="sDQ-7f-JGk"/>
                             <constraint firstItem="oH3-nK-0zq" firstAttribute="top" secondItem="5dQ-YE-K6t" secondAttribute="top" id="vb5-v0-aac"/>
                         </constraints>
                     </view>
@@ -305,10 +309,10 @@
     <resources>
         <image name="background" width="300" height="300"/>
         <image name="guitarist" width="512" height="512"/>
-        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="info.circle" catalog="system" width="32" height="32"/>
         <image name="logo" width="419" height="292"/>
-        <image name="music.note.house" catalog="system" width="128" height="106"/>
-        <image name="music.note.list" catalog="system" width="128" height="115"/>
+        <image name="music.note.house" catalog="system" width="32" height="32"/>
+        <image name="music.note.list" catalog="system" width="32" height="32"/>
         <image name="rec_button_off" width="171" height="200"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
