@@ -15,7 +15,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    var tabValues: [ChartDataEntry] = []
+    var tabValues: [BubbleChartDataEntry] = []
     var fileName = ""
     
     lazy var chartView: BubbleChartView = {
@@ -51,7 +51,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
         
         chartView.drawGridBackgroundEnabled = false
         chartView.pinchZoomEnabled = false
-        chartView.dragEnabled = false
+        chartView.dragEnabled = true
         chartView.xAxis.enabled = false
         chartView.leftAxis.enabled = true
         chartView.rightAxis.enabled = false
@@ -86,18 +86,18 @@ class TabViewController: UIViewController, ChartViewDelegate {
             var string = 0
             for value in tabArray {
                 
-                if (string == 5) {
-                    string = 0
-                }
-                
                 // colonna[0]: se suono o no = 1 no suono
                 // colonna[1]: se non suono i tasti ma solo la corda
                 if (value != "0") {
                     tabValues.append(BubbleChartDataEntry(x: Double(i), y: Double(5-string), size: CGFloat(Int(value)! - 1)))
+                    i += 1
+                }
+                
+                if (string == 5) {
+                    string = -1
                 }
                 
                 string += 1
-                i += 1
             }
         } // if there is a element
         
