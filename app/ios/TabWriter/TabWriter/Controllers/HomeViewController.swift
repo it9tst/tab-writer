@@ -31,11 +31,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.recordLabel.font = UIFont(name: "Arlon-Regular", size: 22)
         self.recordLabel.textColor = UIColor(named: "White")
         self.timerLabel.textColor = UIColor(named: "White")
-        
-        recordLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        timerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
+        self.timerLabel.font = UIFont(name: "Arlon-Regular", size: 38)
         
         // open db
         db = DBHelper()

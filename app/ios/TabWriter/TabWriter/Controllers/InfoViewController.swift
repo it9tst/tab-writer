@@ -17,6 +17,7 @@ class InfoViewController: UIViewController {
         print("🟢", #function)
         
         self.creditsLabel.textColor = UIColor(named: "White")
+        self.creditsLabel.font = UIFont(name: "Arlon-Regular", size: 17)
     }
     
 }
