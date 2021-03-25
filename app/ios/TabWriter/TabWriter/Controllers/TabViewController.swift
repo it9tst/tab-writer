@@ -127,7 +127,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
         
         let data = BubbleChartData(dataSet: set1)
         data.setDrawValues(true)
-        data.setValueFont(UIFont(name: "Arlon-Regular", size: 12)!)
+        data.setValueFont(UIFont(name: "Arlon-Regular", size: 16)!)
         data.setHighlightCircleWidth(0)
         data.setValueTextColor(.white)
         
