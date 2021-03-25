@@ -31,11 +31,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.recordLabel.font = UIFont(name: "Arlon-Regular", size: 22)
         self.recordLabel.textColor = UIColor(named: "White")
         self.timerLabel.textColor = UIColor(named: "White")
-        
-        recordLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        timerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
+        self.timerLabel.font = UIFont(name: "Arlon-Regular", size: 38)
         
         // open db
         db = DBHelper()
@@ -84,9 +83,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 try session.setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
                 try session.setActive(true)
                 let settings = [
-                    AVFormatIDKey: Int(kAudioFormatFLAC),
+                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                    AVNumberOfChannelsKey: 1,
+                    AVEncoderBitRateKey: 128000,
                     AVSampleRateKey: 44100,
-                    AVNumberOfChannelsKey: 2,
                     AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
                 ]
                 
@@ -99,7 +99,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 
                 fileName = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + "_" + String(format: "%02d", second)
                 
-                audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: fileName + ".m4a"), settings: settings)
+                audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: fileName + ".aac"), settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.isMeteringEnabled = true
                 audioRecorder.prepareToRecord()
@@ -129,12 +129,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             self.timerLabel.text = "00:00"
             //print("recorded successfully.")
             let path = ManageFiles.getFileUrl(filename: fileName).absoluteString
-            MobileFFmpeg.execute("-i " + path + ".m4a" + " -acodec pcm_u8 -ar 44100 " + path.replacingOccurrences(of: ".m4a", with: "") + ".wav")
-            // delete file .m4a
+            MobileFFmpeg.execute("-i " + path + ".aac" + " -acodec pcm_u8 -ar 44100 " + path.replacingOccurrences(of: ".aac", with: "") + ".wav")
+            // delete file .aac
             do
             {
                 let fileManager = FileManager.default
-                try fileManager.removeItem(at: (path + ".m4a").asURL())
+                try fileManager.removeItem(at: (path + ".aac").asURL())
             } catch let error {
                 print(error.localizedDescription)
             }

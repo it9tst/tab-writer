@@ -96,6 +96,7 @@ extension RecentViewController: UITableViewDataSource {
         let row = fileList[indexPath.row]
         
         cell.textLabel?.text = row.title
+        cell.textLabel?.font = UIFont(name: "Arlon-Regular", size: 17)
         
         return cell
     }

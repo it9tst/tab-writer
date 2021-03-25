@@ -15,7 +15,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    var tabValues: [ChartDataEntry] = []
+    var tabValues: [BubbleChartDataEntry] = []
     var fileName = ""
     
     lazy var chartView: BubbleChartView = {
@@ -49,9 +49,18 @@ class TabViewController: UIViewController, ChartViewDelegate {
         
         chartView.delegate = self
         
+        chartView.doubleTapToZoomEnabled = false
+        chartView.scaleXEnabled = true
+        chartView.scaleYEnabled = false
+        chartView.highlightPerTapEnabled = false
+        chartView.highlightPerDragEnabled = true
+        chartView.setVisibleXRangeMaximum(5)
+        
         chartView.drawGridBackgroundEnabled = false
+        chartView.dragEnabled = true
+        chartView.dragXEnabled = true
+        chartView.dragYEnabled = false
         chartView.pinchZoomEnabled = false
-        chartView.dragEnabled = false
         chartView.xAxis.enabled = false
         chartView.leftAxis.enabled = true
         chartView.rightAxis.enabled = false
@@ -86,18 +95,18 @@ class TabViewController: UIViewController, ChartViewDelegate {
             var string = 0
             for value in tabArray {
                 
-                if (string == 5) {
-                    string = 0
-                }
-                
                 // colonna[0]: se suono o no = 1 no suono
                 // colonna[1]: se non suono i tasti ma solo la corda
                 if (value != "0") {
                     tabValues.append(BubbleChartDataEntry(x: Double(i), y: Double(5-string), size: CGFloat(Int(value)! - 1)))
+                    i += 1
+                }
+                
+                if (string == 5) {
+                    string = -1
                 }
                 
                 string += 1
-                i += 1
             }
         } // if there is a element
         
@@ -118,7 +127,7 @@ class TabViewController: UIViewController, ChartViewDelegate {
         
         let data = BubbleChartData(dataSet: set1)
         data.setDrawValues(true)
-        data.setValueFont(UIFont(name: "Arlon-Regular", size: 12)!)
+        data.setValueFont(UIFont(name: "Arlon-Regular", size: 16)!)
         data.setHighlightCircleWidth(0)
         data.setValueTextColor(.white)
         
