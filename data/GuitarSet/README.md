@@ -1,7 +1,3 @@
 # tab-writer
 
-Progetto finale per esame di Sistemi Digitali - Ing. Informatica Magistrale - UniBO 2021
-
----
-Group by:
-*D. De Nardi, G. Tornatore*
+Link dataset: https://zenodo.org/record/3371780#.YFzE8j_SKUk

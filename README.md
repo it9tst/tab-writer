@@ -5,6 +5,7 @@
 Guitar Tablature Transcription with a Convolutional Neural Network.
 
 ### Requirements
+
 Python 3.6.12, plus some external libraries, are required to use this project:
 ```
 Jams, version 0.3.4, a JSON Annotated Music Specification for Reproducible MIR Research
@@ -14,6 +15,9 @@ Numpy, version 1.17.4, for manipulating the arrays
 Tensorflow, version 2.1.0, an open source software library for machine learning, deep learning and high performance numerical computation
 ```
 Linux, Windows adn MacOS environments should both work.
+
+### Applications
+There are two applications and you can find the code at the top right
 
 ### License
 
