@@ -99,7 +99,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 
                 fileName = "Recording_" + String(year) + "_" + String(format: "%02d",month) + "_" + String(format: "%02d", day) + "_" + String(format: "%02d", hour) + "_" + String(format: "%02d", minute) + "_" + String(format: "%02d", second)
                 
-                audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: fileName + ".m4a"), settings: settings)
+                audioRecorder = try AVAudioRecorder(url: ManageFiles.getFileUrl(filename: fileName + ".aac"), settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.isMeteringEnabled = true
                 audioRecorder.prepareToRecord()
@@ -129,12 +129,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             self.timerLabel.text = "00:00"
             //print("recorded successfully.")
             let path = ManageFiles.getFileUrl(filename: fileName).absoluteString
-            MobileFFmpeg.execute("-i " + path + ".m4a" + " -acodec pcm_u8 -ar 44100 " + path.replacingOccurrences(of: ".m4a", with: "") + ".wav")
-            // delete file .m4a
+            MobileFFmpeg.execute("-i " + path + ".aac" + " -acodec pcm_u8 -ar 44100 " + path.replacingOccurrences(of: ".aac", with: "") + ".wav")
+            // delete file .aac
             do
             {
                 let fileManager = FileManager.default
-                try fileManager.removeItem(at: (path + ".m4a").asURL())
+                try fileManager.removeItem(at: (path + ".aac").asURL())
             } catch let error {
                 print(error.localizedDescription)
             }

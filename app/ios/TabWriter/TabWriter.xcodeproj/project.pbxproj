@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E6280B98260CD9BB008B41BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6280B97260CD9BB008B41BE /* Main.storyboard */; };
 		E65DFEDD260BEBDF00DE917A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65DFEDC260BEBDF00DE917A /* SceneDelegate.swift */; };
 		E65DFEF3260BEC0B00DE917A /* TfliteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65DFEF1260BEC0B00DE917A /* TfliteModel.swift */; };
 		E65DFF06260BEC5800DE917A /* arlon_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E65DFF02260BEC5800DE917A /* arlon_bold.ttf */; };
@@ -25,7 +26,6 @@
 		E65DFF2F260BED1500DE917A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65DFF2E260BED1500DE917A /* AppDelegate.swift */; };
 		E65DFF9A260BF01600DE917A /* Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = E65DFF99260BF01600DE917A /* Bridging-Header.h */; };
 		E65DFFED260BF18500DE917A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E65DFEF9260BEC2700DE917A /* LaunchScreen.storyboard */; };
-		E65DFFEE260BF18500DE917A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E65DFEF8260BEC2700DE917A /* Main.storyboard */; };
 		E65DFFEF260BF18500DE917A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E65DFF28260BECE900DE917A /* Assets.xcassets */; };
 		FB4F825D192051362F3FB23A /* Pods_TabWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4975A1C0C83795AF3A0798B0 /* Pods_TabWriter.framework */; };
 /* End PBXBuildFile section */
@@ -34,10 +34,10 @@
 		4975A1C0C83795AF3A0798B0 /* Pods_TabWriter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TabWriter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55AA7815E189EC1181ADA2E1 /* Pods-TabWriter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.debug.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.debug.xcconfig"; sourceTree = "<group>"; };
 		5D7CE69DDC163F5627F3CC9B /* Pods-TabWriter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.release.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.release.xcconfig"; sourceTree = "<group>"; };
+		E6280B97260CD9BB008B41BE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E65DFED7260BEBDF00DE917A /* TabWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E65DFEDC260BEBDF00DE917A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E65DFEF1260BEC0B00DE917A /* TfliteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TfliteModel.swift; sourceTree = "<group>"; };
-		E65DFEF8260BEC2700DE917A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E65DFEF9260BEC2700DE917A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E65DFF02260BEC5800DE917A /* arlon_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arlon_bold.ttf; sourceTree = "<group>"; };
 		E65DFF03260BEC5800DE917A /* arlon_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arlon_regular.ttf; sourceTree = "<group>"; };
@@ -129,8 +129,8 @@
 		E65DFEF6260BEC1800DE917A /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				E6280B97260CD9BB008B41BE /* Main.storyboard */,
 				E65DFEF9260BEC2700DE917A /* LaunchScreen.storyboard */,
-				E65DFEF8260BEC2700DE917A /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -232,8 +232,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6280B98260CD9BB008B41BE /* Main.storyboard in Resources */,
 				E65DFFED260BF18500DE917A /* LaunchScreen.storyboard in Resources */,
-				E65DFFEE260BF18500DE917A /* Main.storyboard in Resources */,
 				E65DFFEF260BF18500DE917A /* Assets.xcassets in Resources */,
 				E65DFF07260BEC5800DE917A /* arlon_regular.ttf in Resources */,
 				E65DFF06260BEC5800DE917A /* arlon_bold.ttf in Resources */,
