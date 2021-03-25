@@ -17,6 +17,7 @@ Tensorflow, version 2.1.0, an open source software library for machine learning,
 Linux, Windows adn MacOS environments should both work.
 
 ### Applications
+
 There are two applications and you can find the code at the top right
 
 ### License
