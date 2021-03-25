@@ -1,4 +1,4 @@
-I problemi che verranno segnalati nel seguente capitolo non si sono presentati subito, ma solo quando si è testata l'accuratezza del modello per cui ci sono paragrafi in cui si parla di esso senza averlo ancora definito.
+I problemi che verranno segnalati nel seguente capitolo non si sono presentati subito ma solo quando si è testata l'accuratezza del modello. Dunque, ci sono paragrafi in cui si parla di esso senza averlo ancora definito.
 \section{Machine learning}
 Usare un algoritmo scritto da un programmatore non è sempre la soluzione migliore in quanto bisogna definire tutti i parametri e i dati necessari alla risoluzione del problema. Infatti, esiste anche un'altra strategia cioè quella di far imparare ad una macchina come risolverlo. La prima cosa che viene spontaneo chiedersi è: come fa una macchina ad imparare? Gli psicologi ci insegnano che l’apprendimento consiste nell’acquisizione o modifica di conoscenze, comportamenti, abilità, valori ed esperienze che sono poi utilizzati per vivere la vita di tutti i giorni. Tramite l’apprendimento creiamo delle regole generali che sono assimilabili in modelli di apprendimento. Questi modelli ci indicano come comportarci in una determinata situazione, ad interagire con gli altri, come leggere, come socializzare e così via. L’apprendimento è un processo iterativo, che continua per tutta la vita e ci permette di migliorare le nostre conoscenze a seconda delle informazioni che raccogliamo. Lo stesso fanno le macchine: dai dati di \textit{input} che analizzano ricavano i modelli di apprendimento.\\
 \newline
@@ -15,7 +15,7 @@ I \textit{package} usati per realizzare il progetto sono:
 \end{itemize}
 
 \section{Set dati GuitarSet}
-Fortunatamente, su Internet abbiamo trovato un \textit{dataset} di file audio di chitarra già pronto su cui lavorare. Il \textit{GuitarSet}, chiamato così dal suo creatore, è costituito dai file audio e dai suoi \textit{tab}.\\
+Fortunatamente, su Internet abbiamo trovato un \textit{dataset} di \textit{file} audio di chitarra già pronto su cui lavorare. Il \textit{GuitarSet}, chiamato così dal suo creatore, è costituito dai file audio e dai suoi \textit{tab}.\\
 \newline
 Questo \textit{dataset} contiene trecentosessanta estratti di canzoni della durata di circa trenta secondi l'uno. Quest'ultime sono suonate da sei persone diverse che leggono gli stessi fogli musicali. I fogli musicali sono generati da una combinazione di:
 \begin{itemize}
@@ -68,7 +68,7 @@ Innanzitutto calcoliamo il numero di \textit{frame} per ogni \textit{file} audio
 \noindent Ad ogni matrice sostituiamo i valori \textit{MIDI} con una matrice della stessa dimensione in cui ci sono solo uni o zeri a seconda dei valori \textit{MIDI} che il \textit{file} .\textit{jams} ci ha restituito. Ad esempio, dato un \textit{frame}, se dal file .\textit{jams} leggiamo che sono state suonate le note 40 della sesta corda, 60 della seconda corda e 67 della prima, avremo la seguente matrice:
 \vspace*{2ex}
 \pythonexternal{./codes/matrixUniZeri.py}
-\noindent Queste matrici, da ora in avanti, saranno chiamate \textit{labels} e verranno usate come \textit{target y} del modello, per questo è molto importante avere una mappatura di numeri interi "categorica", per cui useremo la codifica \textit{one-hot}, cioè si può trovare un solo "1" in ogni riga. Per finire, aggiungiamo altre due colonne in testa alle labels che serviranno a capire se la corda è stata suonata o meno (colonna 0) e se si, se è stata suonata a vuoto oppure o no (colonna 1).\\
+\noindent Queste matrici, da ora in avanti, saranno chiamate \textit{labels} e verranno usate come \textit{target y} del modello, per questo è molto importante avere una mappatura di numeri interi "categorica", per cui useremo la codifica \textit{one-hot}, cioè si può trovare un solo "1" in ogni riga. Per finire, aggiungiamo altre due colonne in testa alle \textit{labels} che serviranno a capire se la corda è stata suonata o meno (colonna 0) e se si, se è stata suonata a vuoto oppure o no (colonna 1).\\
 \newline
 Di conseguenza, la matrice finale di dimensione 6x21 è la seguente:
 \vspace*{2ex}
@@ -218,7 +218,7 @@ Dopo diverse prove sperimentali, abbiamo deciso di eseguire il modello per cinqu
 \end{figure}
 \noindent Come si può notare dal \textit{log}, un’epoca (cioè l’addestramento eseguito su un intero \textit{dataset} di 378048 immagini) viene eseguita in circa 47 secondi, usando mediamente 124 microsecondi per immagine. Questo è il risultato ottenuto utilizzando una \textit{GPU NVIDIA RTX 2060}.\\
 \newline
-Questo modello raggiunge una precisione di circa 0,87 su 1 (o 87\%) e una perdita del 2\% sui dati di addestramento. Invece, sui dati di validazione la precisione supera lo 0,90 (90\%) e raggiunge una perdita del 1,6\% sui dati di validazione. I \textit{loss} sono la media delle perdite sui dati di \textit{batch} di addestramento.\\
+Il seguente modello raggiunge una precisione di circa 0,87 su 1 (o 87\%) e una perdita del 2\% sui dati di addestramento. Invece, sui dati di validazione la precisione supera lo 0,90 (90\%) e raggiunge una perdita del 1,6\% sui dati di validazione. I \textit{loss} sono la media delle perdite sui dati di \textit{batch} di addestramento.\\
 \newline
 Il grafico sottostante ci fa comprendere meglio i risultati:
 \begin{figure}[H]

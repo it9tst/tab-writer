@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.2.19)  25 MAR 2021 18:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 21.1) (preloaded format=pdflatex 2021.2.19)  25 MAR 2021 20:54
 entering extended mode
 **./relazione.tex
 (relazione.tex
@@ -1616,7 +1616,7 @@ Package rerunfilecheck Info: File `relazione.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  34884 strings out of 479618
- 786299 string characters out of 2865026
+ 786621 string characters out of 2865026
  1740013 words of memory out of 3000000
  50428 multiletter control sequences out of 15000+200000
  425415 words of font info for 205 fonts, out of 3000000 for 9000
@@ -1641,7 +1641,7 @@ e1/public/amsfonts/cm/cmti12.pfb><C:/Users/dario/AppData/Local/Programs/MiKTeX/
 fonts/type1/public/amsfonts/latxfont/lcircle1.pfb><C:/Users/dario/AppData/Local
 /Programs/MiKTeX/fonts/type1/public/txfonts/t1xbtt.pfb><C:/Users/dario/AppData/
 Local/Programs/MiKTeX/fonts/type1/public/txfonts/t1xtt.pfb>
-Output written on relazione.pdf (53 pages, 5519456 bytes).
+Output written on relazione.pdf (53 pages, 5519523 bytes).
 PDF statistics:
  1216 PDF objects out of 1440 (max. 8388607)
  659 named destinations out of 1000 (max. 500000)
