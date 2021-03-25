@@ -1,11 +1,8 @@
 import flask
 import werkzeug
 import os
-import numpy as np
 from preprocessing import preprocessing_file
 from flask import jsonify
-
-#from predict import predict_model
 
 app = flask.Flask(__name__)
 

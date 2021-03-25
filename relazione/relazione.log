@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.15)  24 MAR 2021 23:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.2) (preloaded format=pdflatex 2021.3.15)  25 MAR 2021 16:48
 entering extended mode
 **./relazione.tex
 (relazione.tex
@@ -1152,21 +1152,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 1--4
 
  []
 
-<./images/img14.jpg, id=191, 578.16pt x 385.1991pt>
+<./images/img14.jpg, id=191, 468.3096pt x 341.1144pt>
 File: ./images/img14.jpg Graphic file (type jpg)
 <use ./images/img14.jpg>
 Package pdftex.def Info: ./images/img14.jpg  used on input line 11.
-(pdftex.def)             Requested size: 289.07928pt x 192.59908pt.
+(pdftex.def)             Requested size: 234.15422pt x 170.55676pt.
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 14.
 
-[3 <./images/img14.jpg>]
-<./images/img12.jpg, id=197, 1027.84pt x 583.17876pt>
+
+Underfull \vbox (badness 1092) has occurred while \output is active []
+
+ [3 <./images/img14.jpg>]
+<./images/img12.jpg, id=197, 1027.84pt x 578.16pt>
 File: ./images/img12.jpg Graphic file (type jpg)
 <use ./images/img12.jpg>
 Package pdftex.def Info: ./images/img12.jpg  used on input line 28.
-(pdftex.def)             Requested size: 359.74939pt x 204.11562pt.
+(pdftex.def)             Requested size: 359.74939pt x 202.35902pt.
 <./images/img13.jpg, id=198, 714.41907pt x 121.20282pt>
 File: ./images/img13.jpg Graphic file (type jpg)
 <use ./images/img13.jpg>
@@ -1192,18 +1195,13 @@ Package pdftex.def Info: ./images/img16.png  used on input line 50.
 [6 <./images/img16.png>]
 Capitolo 2.
 (capII.tex
-<./images/img4.jpg, id=216, 2409.0pt x 782.925pt>
+<./images/img4.jpg, id=216, 2368.85pt x 746.79pt>
 File: ./images/img4.jpg Graphic file (type jpg)
 <use ./images/img4.jpg>
 Package pdftex.def Info: ./images/img4.jpg  used on input line 4.
-(pdftex.def)             Requested size: 361.33441pt x 117.43369pt.
+(pdftex.def)             Requested size: 402.69917pt x 126.9526pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 6--11
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 6--11
+Underfull \hbox (badness 10000) in paragraph at lines 6--12
 
  []
 
@@ -1216,15 +1214,28 @@ Package amsmath Warning: Foreign command \over;
 
  <./images/img4.jpg>]) [8]
 Capitolo 3.
-(capIII.tex [9
+(capIII.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--5
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 17--20
+Underfull \hbox (badness 10000) in paragraph at lines 18--21
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 32--35
+Underfull \hbox (badness 10000) in paragraph at lines 33--36
 
  []
 
@@ -1234,16 +1245,16 @@ y
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 55.
+nput line 56.
  (codes/times.py [11])
-<./images/img11.png, id=254, 590.205pt x 174.6525pt>
+<./images/img11.png, id=252, 589.20125pt x 173.64874pt>
 File: ./images/img11.png Graphic file (type png)
 <use ./images/img11.png>
-Package pdftex.def Info: ./images/img11.png  used on input line 60.
-(pdftex.def)             Requested size: 383.6287pt x 113.52277pt.
- (codes/matrixMidi.py) [12 <./images/img11.png>]
-(codes/matrixUniZeri.py)
-Underfull \hbox (badness 10000) in paragraph at lines 70--74
+Package pdftex.def Info: ./images/img11.png  used on input line 62.
+(pdftex.def)             Requested size: 382.97627pt x 112.87033pt.
+ (codes/matrixMidi.py) [12 <./images/img11.png (PNG copy)>] (codes/matrixUniZer
+i.py)
+Underfull \hbox (badness 10000) in paragraph at lines 71--75
 
  []
 
@@ -1251,18 +1262,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 70--74
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [14]
-<./images/img7.png, id=344, 664.4825pt x 208.78pt>
+<./images/img7.png, id=344, 650.43pt x 194.7275pt>
 File: ./images/img7.png Graphic file (type png)
 <use ./images/img7.png>
-Package pdftex.def Info: ./images/img7.png  used on input line 85.
-(pdftex.def)             Requested size: 398.69257pt x 125.26895pt.
+Package pdftex.def Info: ./images/img7.png  used on input line 86.
+(pdftex.def)             Requested size: 390.261pt x 116.83739pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 94--97
+Underfull \hbox (badness 10000) in paragraph at lines 95--98
 
  []
 
 [15 <./images/img7.png>] (codes/librosa.py)
-Underfull \hbox (badness 10000) in paragraph at lines 106--110
+Underfull \hbox (badness 10000) in paragraph at lines 107--111
 
  []
 
@@ -1270,68 +1281,63 @@ Underfull \hbox (badness 10000) in paragraph at lines 106--110
 <./images/img28.jpg, id=376, 882.29625pt x 414.04688pt>
 File: ./images/img28.jpg Graphic file (type jpg)
 <use ./images/img28.jpg>
-Package pdftex.def Info: ./images/img28.jpg  used on input line 118.
+Package pdftex.def Info: ./images/img28.jpg  used on input line 119.
 (pdftex.def)             Requested size: 441.14705pt x 207.02292pt.
 
-Overfull \hbox (22.89337pt too wide) in paragraph at lines 118--119
+Overfull \hbox (22.89337pt too wide) in paragraph at lines 119--120
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--119
+Underfull \hbox (badness 10000) in paragraph at lines 114--120
 
  []
 
 [17 <./images/img28.jpg>]
-<./images/img8.png, id=392, 972.63374pt x 353.32pt>
+<./images/img8.png, id=392, 958.58125pt x 339.2675pt>
 File: ./images/img8.png Graphic file (type png)
 <use ./images/img8.png>
-Package pdftex.def Info: ./images/img8.png  used on input line 130.
-(pdftex.def)             Requested size: 389.0466pt x 141.32549pt.
+Package pdftex.def Info: ./images/img8.png  used on input line 131.
+(pdftex.def)             Requested size: 383.4257pt x 135.70459pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--131
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 124--131
+Underfull \hbox (badness 10000) in paragraph at lines 125--132
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--131
+Underfull \hbox (badness 10000) in paragraph at lines 125--132
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--132
 
  []
 
 (codes/preElaborazionedati1.py) [18 <./images/img8.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 142--146
+Underfull \hbox (badness 10000) in paragraph at lines 143--147
 
  []
 
 (codes/preElaborazionedati2.py [19]) (codes/gpu.py) [20]
-Underfull \hbox (badness 10000) in paragraph at lines 168--172
+Underfull \hbox (badness 10000) in paragraph at lines 169--173
 
  []
 
 (codes/modelloFinale1.py [21])
-<./images/model.png, id=481, 299.6796pt x 82.8696pt>
+<./images/model.png, id=481, 292.2117pt x 80.4606pt>
 File: ./images/model.png Graphic file (type png)
 <use ./images/model.png>
-Package pdftex.def Info: ./images/model.png  used on input line 188.
-(pdftex.def)             Requested size: 419.54855pt x 116.0166pt.
-
-Overfull \hbox (1.29488pt too wide) in paragraph at lines 188--189
- [][] 
- []
-
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 190--194
+Package pdftex.def Info: ./images/model.png  used on input line 189.
+(pdftex.def)             Requested size: 409.09358pt x 112.64407pt.
+ [22]
+Underfull \hbox (badness 10000) in paragraph at lines 191--195
 
  []
 
 (codes/modelloFinale3.py [23 <./images/model.png (PNG copy)>])
 (codes/modelloFinale5.py)
-Underfull \hbox (badness 10000) in paragraph at lines 200--205
+Underfull \hbox (badness 10000) in paragraph at lines 201--206
 
  []
 
@@ -1340,7 +1346,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [24]
 (codes/modelloFinale2.py)
-Underfull \hbox (badness 10000) in paragraph at lines 207--211
+Underfull \hbox (badness 10000) in paragraph at lines 208--212
 
  []
 
@@ -1348,41 +1354,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 207--211
 <./images/storia.png, id=581, 572.3784pt x 279.9258pt>
 File: ./images/storia.png Graphic file (type png)
 <use ./images/storia.png>
-Package pdftex.def Info: ./images/storia.png  used on input line 216.
+Package pdftex.def Info: ./images/storia.png  used on input line 217.
 (pdftex.def)             Requested size: 457.90334pt x 223.94093pt.
 
-Overfull \hbox (39.64966pt too wide) in paragraph at lines 216--217
+Overfull \hbox (39.64966pt too wide) in paragraph at lines 217--218
  [][] 
  []
 
-<./images/plot.png, id=582, 645.16031pt x 636.12656pt>
+<./images/plot.png, id=582, 577.40718pt x 574.39594pt>
 File: ./images/plot.png Graphic file (type png)
 <use ./images/plot.png>
-Package pdftex.def Info: ./images/plot.png  used on input line 225.
-(pdftex.def)             Requested size: 225.80948pt x 222.64763pt.
+Package pdftex.def Info: ./images/plot.png  used on input line 226.
+(pdftex.def)             Requested size: 230.95879pt x 229.75429pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--226
+Underfull \hbox (badness 10000) in paragraph at lines 219--227
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 218--226
+Underfull \hbox (badness 10000) in paragraph at lines 219--227
 
  []
 
 [26 <./images/storia.png (PNG copy)>]
-<./images/plot2.png, id=598, 612.03656pt x 630.85687pt>
+<./images/plot2.png, id=598, 566.86781pt x 574.39594pt>
 File: ./images/plot2.png Graphic file (type png)
 <use ./images/plot2.png>
-Package pdftex.def Info: ./images/plot2.png  used on input line 229.
-(pdftex.def)             Requested size: 214.216pt x 220.8032pt.
+Package pdftex.def Info: ./images/plot2.png  used on input line 230.
+(pdftex.def)             Requested size: 226.7431pt x 229.75429pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 233--237
+Underfull \hbox (badness 10000) in paragraph at lines 234--238
 
  []
 
-[27 <./images/plot.png> <./images/plot2.png>] (codes/test.py [28])
-(codes/valutazione.py) (codes/accuratezza.py))
+[27 <./images/plot.png (PNG copy)> <./images/plot2.png (PNG copy)>]
+(codes/test.py [28]) (codes/valutazione.py) (codes/accuratezza.py))
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [29]
@@ -1401,12 +1407,12 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
 [31
 
 ]
-<./images/img17.png, id=692, 1084.05pt x 2228.325pt>
+<./images/img17.png, id=691, 1084.05pt x 2228.325pt>
 File: ./images/img17.png Graphic file (type png)
 <use ./images/img17.png>
 Package pdftex.def Info: ./images/img17.png  used on input line 17.
 (pdftex.def)             Requested size: 108.41135pt x 222.84555pt.
-<./images/img20.png, id=693, 1084.05pt x 2228.325pt>
+<./images/img20.png, id=692, 1084.05pt x 2228.325pt>
 File: ./images/img20.png Graphic file (type png)
 <use ./images/img20.png>
 Package pdftex.def Info: ./images/img20.png  used on input line 18.
@@ -1426,12 +1432,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--19
 
  []
 
-<./images/img18.png, id=694, 1084.05pt x 2228.325pt>
+<./images/img18.png, id=693, 1084.05pt x 2228.325pt>
 File: ./images/img18.png Graphic file (type png)
 <use ./images/img18.png>
 Package pdftex.def Info: ./images/img18.png  used on input line 25.
 (pdftex.def)             Requested size: 108.41135pt x 222.84555pt.
-<./images/img22.png, id=695, 1084.05pt x 2228.325pt>
+<./images/img22.png, id=694, 1084.05pt x 2228.325pt>
 File: ./images/img22.png Graphic file (type png)
 <use ./images/img22.png>
 Package pdftex.def Info: ./images/img22.png  used on input line 26.
@@ -1442,7 +1448,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 20--27
  []
 
 [32 <./images/img17.png> <./images/img20.png>]
-<./images/img19.png, id=702, 1671.24374pt x 813.0375pt>
+<./images/img19.png, id=701, 1671.24374pt x 813.0375pt>
 File: ./images/img19.png Graphic file (type png)
 <use ./images/img19.png>
 Package pdftex.def Info: ./images/img19.png  used on input line 31.
@@ -1457,7 +1463,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 38--39
 
  []
 
-<./images/img25.png, id=703, 1003.75pt x 487.8225pt>
+<./images/img25.png, id=702, 1003.75pt x 487.8225pt>
 File: ./images/img25.png Graphic file (type png)
 <use ./images/img25.png>
 Package pdftex.def Info: ./images/img25.png  used on input line 48.
@@ -1468,35 +1474,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 43--49
  []
 
 [33 <./images/img18.png> <./images/img22.png> <./images/img19.png>]
-<./images/img26.png, id=712, 1204.5pt x 323.2075pt>
+<./images/img26.png, id=711, 1151.30125pt x 302.12875pt>
 File: ./images/img26.png Graphic file (type png)
 <use ./images/img26.png>
 Package pdftex.def Info: ./images/img26.png  used on input line 53.
-(pdftex.def)             Requested size: 421.58131pt x 113.12431pt.
-
-Overfull \hbox (3.32764pt too wide) in paragraph at lines 53--54
- [][] 
- []
-
-<./images/img27.png, id=713, 1204.5pt x 323.2075pt>
+(pdftex.def)             Requested size: 402.96149pt x 105.74664pt.
+<./images/img27.png, id=712, 1150.2975pt x 288.07625pt>
 File: ./images/img27.png Graphic file (type png)
 <use ./images/img27.png>
 Package pdftex.def Info: ./images/img27.png  used on input line 58.
-(pdftex.def)             Requested size: 421.58131pt x 113.12431pt.
-
-Overfull \hbox (3.32764pt too wide) in paragraph at lines 58--59
- [][] 
- []
-
-[34 <./images/img25.png (PNG copy)> <./images/img26.png>]
+(pdftex.def)             Requested size: 402.61017pt x 100.82819pt.
+ [34 <./images/img25.png (PNG copy)> <./images/img26.png (PNG copy)>]
 (codes/preprocessing.py)
-<./images/img24.png, id=719, 1003.75pt x 487.8225pt>
+<./images/img24.png, id=717, 1003.75pt x 487.8225pt>
 File: ./images/img24.png Graphic file (type png)
 <use ./images/img24.png>
 Package pdftex.def Info: ./images/img24.png  used on input line 67.
 (pdftex.def)             Requested size: 281.04808pt x 136.58936pt.
- [35 <./images/img27.png> <./images/img24.png>]
-(codes/predict.py [36])
+ [35 <./images/img27.png (PNG copy)> <./images/img24.png>] (codes/predict.py [3
+6])
 Underfull \hbox (badness 10000) in paragraph at lines 75--79
 
  []
@@ -1508,12 +1504,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--101
 
 [38] (codes/freezer.py [39]) (codes/coreml3.py) (codes/coremltools.py) [40]
 (codes/coremltools2.txt)
-<./images/img2.png, id=884, 786.68906pt x 732.48656pt>
+<./images/img2.png, id=881, 786.68906pt x 732.48656pt>
 File: ./images/img2.png Graphic file (type png)
 <use ./images/img2.png>
 Package pdftex.def Info: ./images/img2.png  used on input line 134.
 (pdftex.def)             Requested size: 157.33502pt x 146.4947pt.
-<./images/img3.png, id=885, 789.70032pt x 776.14969pt>
+<./images/img3.png, id=882, 789.70032pt x 776.14969pt>
 File: ./images/img3.png Graphic file (type png)
 <use ./images/img3.png>
 Package pdftex.def Info: ./images/img3.png  used on input line 135.
@@ -1542,7 +1538,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 122--136
 Underfull \vbox (badness 3735) has occurred while \output is active []
 
  [41]
-<./images/img10.png, id=892, 560.8453pt x 1095.3422pt>
+<./images/img10.png, id=889, 560.8453pt x 1095.3422pt>
 File: ./images/img10.png Graphic file (type png)
 <use ./images/img10.png>
 Package pdftex.def Info: ./images/img10.png  used on input line 144.
@@ -1575,17 +1571,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 156--160
 
  []
 
-(codes/flask.py) (codes/tensorflowLiteIos1.swift [43])
-(codes/tensorflowLiteIos2.swift [44])
-<./images/img21.jpg, id=947, 719.68875pt x 791.95876pt>
+(codes/flask.py [43]) (codes/tensorflowLiteIos1.swift) [44]
+(codes/tensorflowLiteIos2.swift)
+Underfull \vbox (badness 4647) has occurred while \output is active []
+
+ [45]
+<./images/img21.jpg, id=990, 719.68875pt x 791.95876pt>
 File: ./images/img21.jpg Graphic file (type jpg)
 <use ./images/img21.jpg>
 Package pdftex.def Info: ./images/img21.jpg  used on input line 177.
 (pdftex.def)             Requested size: 287.87039pt x 316.7779pt.
 )
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [45]
 [46 <./images/img21.jpg>]
 Capitolo 5.
 (conclusioni.tex)
@@ -1665,13 +1661,13 @@ Package rerunfilecheck Info: File `relazione.out' has not changed.
 (rerunfilecheck)             Checksum: CC0B0D7B6A66C1362B13B60F5448B3FB;5888.
  ) 
 Here is how much of TeX's memory you used:
- 37438 strings out of 479334
- 822411 string characters out of 2855659
- 1771025 words of memory out of 3000000
- 53279 multiletter control sequences out of 15000+200000
- 425088 words of font info for 202 fonts, out of 3000000 for 9000
+ 37480 strings out of 479334
+ 823006 string characters out of 2855659
+ 1771269 words of memory out of 3000000
+ 53300 multiletter control sequences out of 15000+200000
+ 425415 words of font info for 205 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,9n,103p,1172b,2119s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 102i,9n,103p,1174b,2119s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Gabriele\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
 crm0800.pk> <C:\Users\Gabriele\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\tcrm1200.pk> <C:\Users\Gabriele\AppData\Local\MiKTeX\fonts/pk/ljfour/pu
@@ -1692,9 +1688,9 @@ Users/Gabriele/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxfo
 nt/lcircle1.pfb><C:/Users/Gabriele/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/txfonts/t1xbtt.pfb><C:/Users/Gabriele/AppData/Local/Programs/MiKTeX/fonts/
 type1/public/txfonts/t1xtt.pfb>
-Output written on relazione.pdf (53 pages, 5642815 bytes).
+Output written on relazione.pdf (53 pages, 5524507 bytes).
 PDF statistics:
- 1200 PDF objects out of 1200 (max. 8388607)
- 644 named destinations out of 1000 (max. 500000)
+ 1216 PDF objects out of 1440 (max. 8388607)
+ 659 named destinations out of 1000 (max. 500000)
  47492 words of extra memory for PDF output out of 51595 (max. 10000000)
 

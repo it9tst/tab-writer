@@ -19,13 +19,13 @@ Abbiamo convertito il modello usando \textit{Tensorflow Lite}. Il seguente codic
 \end{figure}
 \noindent Dopo aver creato le interfacce con gli elementi grafici, sia in \textit{light mode} che in \textit{dark mode}, è stato implementato un \textit{database} che tiene traccia delle \textit{tab} registrate e predette, in modo da poterle consultare anche in un secondo momento senza dover richiamare l'interprete di \textit{Tensorflow Lite}.\\
 \newline
-Per avviare la registrazione, basta cliccare sull'immagine centrale su cui c'è un microfono. A questo punto il cellulare registra il \textit{file} audio e per terminarla bisogna ricliccare sull'immagine.
+Per avviare la registrazione, basta cliccare sull'immagine centrale su cui è raffigurato un microfono. A questo punto il cellulare registra l'audio e per terminarla bisogna ricliccare sull'immagine.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.10]{./images/img18.png}
 	\includegraphics[scale=0.10]{./images/img22.png}
 \end{figure}
-\noindent A questo punto il file verrà salvato sul cellulare e convertito nel formato .\textit{wav} e grazie al modello della rete è possibile avviare la predizione. Il risultato apparirà in una nuova interfaccia:
+\noindent A questo punto il file verrà salvato sul cellulare e convertito nel formato .\textit{wav}. Una volta aver ricavato le immagini dal \textit{file} audio, grazie al modello della rete è possibile avviare la predizione. Il risultato apparirà in una nuova interfaccia:
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.15]{./images/img19.png}
@@ -40,7 +40,7 @@ Per avviare la registrazione, basta cliccare sull'immagine centrale su cui c'è 
 %
 \textbf{Soluzione finale:} grazie ai ricevimenti fatti con il professore, ci è stato consigliato di usare \textit{chaquopy}, un \textit{plugin} che consente di implementare codice \textit{Python} all'interno delle applicazioni \textit{Android}.
 \subsection{Pre-elaborazione dell'audio}
-\textbf{Problemi riscontrati:} ricavando le immagini per ogni \textit{frame} di audio e successivamente facendo la \textit{predict} per ogni immagine, si ottenevano tante soluzioni quanti erano i \textit{frame}.\\ Per esempio, suonando il terzo tasto della quinta corda per due volte avremmo sull'interfaccia dell'applicazione una lunga serie di "3", perchè un \textit{frame} ha una durata di pochi millisecondi mentre la nota ha un \textit{range} di qualche secondo. La soluzione corretta sarebbe quella di avere solo due 3. \\
+\textbf{Problemi riscontrati:} ricavando le immagini per ogni \textit{frame} di audio e successivamente facendo la \textit{predict} per ogni immagine, si ottenevano tante soluzioni quanti erano i \textit{frame}.\\ Per esempio, suonando il terzo tasto della quinta corda per due volte avremmo sull'interfaccia dell'applicazione una lunga serie di "3", perchè un \textit{frame} ha una durata di pochi millisecondi mentre la nota può avere un \textit{range} anche di qualche secondo. La soluzione corretta sarebbe quella di avere solo due 3. \\
 \newline
 L'immagine sottostante fa vedere quanto è stato descritto:
 \begin{figure}[H]
@@ -110,7 +110,7 @@ Per poter usare il modello pre-addestrato sul cellulare abbiamo dovuto convertir
 	\vspace*{2ex}
 	\pythonexternal{./codes/coremltools.py}
 	\vspace*{2ex}
-	\item Successivamente, per aumentare l'accuratezza, è stata inserita una funziona di attivazione personalizzata. Purtroppo, anche con \textit{coremltools} non siamo stati in grado di convertirlo perchè ci appariva un errore in corrispondenza del livello della nuova funzione:
+	\item Successivamente, per esigenze del nuovo modello, sono state inserite alcune funzioni personalizzate. Purtroppo, anche con \textit{coremltools} non siamo stati in grado di convertirlo perchè ci appariva un errore in corrispondenza del livello della nuova funzione:
 	\vspace*{2ex}
 	\textexternal{./codes/coremltools2.txt}
 	\vspace*{2ex}
@@ -136,7 +136,7 @@ E' stata prestata anche molta attenzione a rendere compatibile l'applicazione su
 \end{figure}
 \noindent Le due immagini precedenti mostrano chiaramente quello appena descritto: i due dispositivi sono diversi e le proporzioni vengono rispettate in entrambi.\\
 \newline
-L'applicazione che è stata realizzata da un punto di vista estetico è uguale a quella su \textit{iOS}. Cambiano solo leggeri particolari che differenziano i due mondi.\\
+L'applicazione che è stata realizzata da un punto di vista estetico è uguale a quella su \textit{Android}. Cambiano solo leggeri particolari che differenziano i due mondi.\\
 \newline
 Inoltre, una particolare attenzione è stata dedicata anche sulla nuova modalità che sta riscontrando un grandissimo successo: la \textit{dark mode}. Dunque, sono stati presi tutti gli accorgimenti necessari per avere sia l'app compatibile con la versione chiara che con quella scura. L'immagine successiva mostra l'app in versione \textit{dark}:
 \begin{figure}[H]
@@ -155,7 +155,7 @@ Inoltre, una particolare attenzione è stata dedicata anche sulla nuova modalit�
 %
 \textbf{Soluzione finale:} per questo motivo ci siamo serviti di un \textit{server} che prende in ingresso la registrazione che è stata effettuata dallo \textit{smartphone} e restituisce in uscita le immagini del \textit{file} audio. Ovviamente la soluzione non è efficiente ma ai fini del progetto può andare più che bene. La predizione viene eseguita sul dispositivo e \textbf{non} sul \textit{server}.\\
 \newline
-Il \textit{server} è stato scritto grazie al \textit{micro-framework} \textit{Flask} scritto in \textit{Python}.
+Il \textit{server} è stato implementato grazie al \textit{micro-framework} \textit{Flask} scritto in \textit{Python}.
 \vspace*{2ex}
 \pythonexternal{./codes/flask.py}
 \vspace*{2ex}
@@ -165,7 +165,7 @@ Per utilizzare il nostro modello \textit{TensorFlow Lite} all'interno dell'appli
 \vspace*{2ex}
 \swiftexternal{./codes/tensorflowLiteIos1.swift}
 \vspace*{2ex}
-\noindent Per eseguire l'inferenza è necessario effettuare delle trasformazioni sui dati che sono obbligatorie per poterli dare in ingresso al modello. L'\textit{input} della rete deve essere un oggetto \textit{Data} al cui interno sono presenti i dati dell'\textit{array}contenente le immagini del \textit{file} audio (\textit{inputImages}).\\
+\noindent Per eseguire l'inferenza è necessario effettuare delle trasformazioni sui dati che sono obbligatorie per poterli dare in ingresso al modello. L'\textit{input} della rete deve essere un oggetto \textit{Data} al cui interno sono presenti i dati dell'\textit{array} contenente le immagini del \textit{file} audio (\textit{inputImages}).\\
 A questo punto si allocano i tensori, si inserisce l'\textit{input} nella rete e si chiama il metodo \textit{invoke()}.
 È possibile ottenere il tensore di \textit{output} chiamando il metodo \textit{output(at:)} e gli elementi ottenuti dalla predizione tramite \textit{output.data.copyBytes}. Inoltre, si può notare che ci sono due cicli: quello esterno serve per leggersi tutte le immagini della registrazione mentre il secondo funge da \textit{check} per verificare che l'immagine corrisponda a uno di quei picchi di cui abbiamo parlato in precedenza.
 \vspace*{2ex}

@@ -1,6 +1,7 @@
 I problemi che verranno segnalati nel seguente capitolo non si sono presentati subito, ma solo quando si è testata l'accuratezza del modello per cui ci sono paragrafi in cui si parla di esso senza averlo ancora definito.
 \section{Machine learning}
-Usare un algoritmo scritto da un programmatore non è sempre la soluzione migliore in quanto bisogna definire tutti i parametri e i dati necessari alla risoluzione del problema. Infatti, esiste anche un'altra strategia cioè quella di far imparare ad una macchina come risolverlo. La prima cosa che viene spontaneo chiedersi è: come fa una macchina ad imparare? Gli psicologi ci insegnano che l’apprendimento consiste nell’acquisizione o modifica di conoscenze, comportamenti, abilità, valori ed esperienze che sono poi utilizzati per vivere la vita di tutti i giorni. Tramite l’apprendimento creiamo delle regole generali che sono assimilabili in modelli di apprendimento. Questi modelli ci indicano come comportarci in una determinata situazione, ad interagire con gli altri, come leggere, come socializzare e così via. L’apprendimento è un processo iterativo, che continua per tutta la vita e ci permette di migliorare le nostre conoscenze a seconda delle informazioni che raccogliamo. Lo stesso fanno le macchine: dai dati di \textit{input} che analizzano ricavano i modelli di apprendimento. 
+Usare un algoritmo scritto da un programmatore non è sempre la soluzione migliore in quanto bisogna definire tutti i parametri e i dati necessari alla risoluzione del problema. Infatti, esiste anche un'altra strategia cioè quella di far imparare ad una macchina come risolverlo. La prima cosa che viene spontaneo chiedersi è: come fa una macchina ad imparare? Gli psicologi ci insegnano che l’apprendimento consiste nell’acquisizione o modifica di conoscenze, comportamenti, abilità, valori ed esperienze che sono poi utilizzati per vivere la vita di tutti i giorni. Tramite l’apprendimento creiamo delle regole generali che sono assimilabili in modelli di apprendimento. Questi modelli ci indicano come comportarci in una determinata situazione, ad interagire con gli altri, come leggere, come socializzare e così via. L’apprendimento è un processo iterativo, che continua per tutta la vita e ci permette di migliorare le nostre conoscenze a seconda delle informazioni che raccogliamo. Lo stesso fanno le macchine: dai dati di \textit{input} che analizzano ricavano i modelli di apprendimento.\\
+\newline
 \section{Librerie utilizzate}
 I \textit{package} usati per realizzare il progetto sono:
 \begin{itemize}
@@ -27,7 +28,7 @@ Ci sono tre registrazioni audio per ogni estratto:
 \begin{itemize}
 	\item \textbf{hex}: file .\textit{wav} originali a sei canali dal \textit{pickup esafonico};
 	\item \textbf{hex\_cln}: file .\textit{wav} con rimozione delle interferenze applicata;
-	\item \textbf{mic}: registrazione monofonica dal microfono di riferimento;
+	\item \textbf{mic}: registrazione monofonica dal microfono di riferimento.
 \end{itemize}
 Noi abbiamo usato registrazioni di tipo \textbf{mic} perchè sono quelle che più si avvicinano al caso delle registrazioni tramite microfono dello \textit{smartphone}.\\
 \newline
@@ -35,17 +36,17 @@ Ciascuno dei trecentosessanta estratti ha anche un file .\textit{jams} che memor
 \begin{itemize}
 	\item Intonazione:
 	\begin{itemize}
-		\item 6 annotazioni \textit{pitch\_contour} (1 per stringa);
-		\item 6 annotazioni \textit{midi\_note} (1 per stringa);
+		\item 6 annotazioni \textit{pitch\_contour} (1 per stringa)
+		\item 6 annotazioni \textit{midi\_note} (1 per stringa)
 	\end{itemize}
 	\item Beat e tempo:
 	\begin{itemize}
-		\item 1 annotazione \textit{beat\_position};
-		\item 1 annotazione del tempo;
+		\item 1 annotazione \textit{beat\_position}
+		\item 1 annotazione del tempo
 	\end{itemize}
 	\item Accordi:
 	\begin{itemize}
-		\item 2 annotazioni di accordi (istruite ed eseguite);
+		\item 2 annotazioni di accordi (istruite ed eseguite)
 	\end{itemize}
 \end{itemize}
 Noi useremo le annotazioni \textit{midi\_note}, da cui prenderemo le \textit{tab}.
@@ -55,6 +56,7 @@ Innanzitutto calcoliamo il numero di \textit{frame} per ogni \textit{file} audio
 \pythonexternal{./codes/times.py}
 \vspace*{2ex}
 \noindent Adesso che, per ogni \textit{file} audio, abbiamo una divisione in \textit{frame} di cui conosciamo gli istanti di tempo esatti, possiamo estarre dai file .\textit{jams} del \textit{dataset} le \textit{tab} corrispondenti.\\ Più precisamente, dai file .\textit{jams} prendiamo le note \textit{MIDI} e creiamo una matrice 6x19 dove il sei rappresenta il numero di corde mentre il diciannove rappresenta il numero di tasti.
+\vspace*{2ex}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.65]{./images/img11.png}
@@ -66,7 +68,6 @@ Innanzitutto calcoliamo il numero di \textit{frame} per ogni \textit{file} audio
 \noindent Ad ogni matrice sostituiamo i valori \textit{MIDI} con una matrice della stessa dimensione in cui ci sono solo uni o zeri a seconda dei valori \textit{MIDI} che il \textit{file} .\textit{jams} ci ha restituito. Ad esempio, dato un \textit{frame}, se dal file .\textit{jams} leggiamo che sono state suonate le note 40 della sesta corda, 60 della seconda corda e 67 della prima, avremo la seguente matrice:
 \vspace*{2ex}
 \pythonexternal{./codes/matrixUniZeri.py}
-\vspace*{2ex}
 \noindent Queste matrici, da ora in avanti, saranno chiamate \textit{labels} e verranno usate come \textit{target y} del modello, per questo è molto importante avere una mappatura di numeri interi "categorica", per cui useremo la codifica \textit{one-hot}, cioè si può trovare un solo "1" in ogni riga. Per finire, aggiungiamo altre due colonne in testa alle labels che serviranno a capire se la corda è stata suonata o meno (colonna 0) e se si, se è stata suonata a vuoto oppure o no (colonna 1).\\
 \newline
 Di conseguenza, la matrice finale di dimensione 6x21 è la seguente:
@@ -91,15 +92,15 @@ Per esempio, questo è lo spettrogramma della trasformata a Q costante di un aud
 	\item \textbf{n\_bins}: il numero di bande di frequenza nello spettrogramma risultante;
 	\item \textbf{bins\_per\_octave}: il numero di bande di frequenza per ogni ottava.
 \end{itemize}
-\textbf{Problemi riscontrati:} le funzioni per caricare il \textit{file} audio e la \textit{cqt} restitiscono dei valori negativi e non scalati, per questo bisogna effettuare delle operazioni sulle matrici. Inoltre, la scelta dei parametri di \textit{simple rate} e \textit{n\_bins} influenzano l'accuratezza del modello. \\
+\textbf{Problemi riscontrati:} le funzioni per caricare il \textit{file} audio e la \textit{cqt} restitiscono dei valori negativi e non scalati, per questo bisogna effettuare delle operazioni sulle matrici che potrebbero alterare il risultato. Inoltre, la scelta dei parametri di \textit{simple rate} e \textit{n\_bins} influenzano l'accuratezza del modello. \\
 \newline
 \textbf{Soluzioni provate:}
 \begin{itemize}
 	\item Abbiamo avuto la necessità di scrivere delle funzioni per convertire i valori della matrice calcolata. Dunque, è stata ridimensionata in modo che si trovi nell'intervallo 0-255 e poi normalizzata nell'intervallo 0-1;
-	\item All'inizio l'audio è stato campionato a 44100Hz perchè è la stessa frequenza usata nel \textit{dataset}. Le immagini generate avevano una frequenza delle note maggiore di quella che avrebbero dovuto avere. Infatti, nella figura in alto la parte scura era più spessa. Questo provocava imprecisioni perchè la rete non riusciva a riconoscere la nota corretta;
+	\item All'inizio l'audio è stato campionato a 44100Hz perchè è la stessa frequenza usata nel \textit{dataset}. Le immagini generate avevano una frequenza delle note maggiore di quella che avrebbero dovuto avere. Infatti, nella figura in alto la parte scura era meno spessa. Questo provocava delle imprecisioni perchè la rete non riusciva a riconoscere la nota corretta;
 	\item Il valore iniziale scelto di \textit{n\_bins} è stato 96. Questo influenzava le dimensioni dell'immagine in quanto è il valore della sua lunghezza e risultava troppo piccola.
 \end{itemize}
-\textbf{Soluzione finale:} le scelte finali sono ricadute rispettivamente su 22050Hz come \textit{simple rate} e su 192 come \textit{n\_bins} perchè dopo aver effettuato diverse ricerche, in ambito di manipolazione del suono, sono consigliati usare questi valori. Per quanto riguarda il ridimensionamento abbiamo usato subito le funzioni \textit{librosa.util.normalize()} e \textit{np.abs()} invece di manipolare le matrici in seguito.
+\textbf{Soluzione finale:} le scelte finali sono ricadute rispettivamente su 22050Hz come \textit{simple rate} e su 192 come \textit{n\_bins} perchè dopo aver effettuato diverse ricerche, in ambito di manipolazione del suono, è consigliato utilizzare questi valori. Per quanto riguarda il ridimensionamento abbiamo usato le funzioni \textit{librosa.util.normalize()} e \textit{np.abs()} subito dopo aver caricato i file audio invece di manipolare le matrici in seguito.
 \vspace*{2ex}
 \pythonexternal{./codes/librosa.py}
 \vspace*{2ex}
@@ -147,11 +148,11 @@ Il codice è il seguente:
 \vspace*{2ex}
 \section{Modello della rete}
 La difficoltà nell’apprendere i meccanismi di implementazione su \textit{Keras} sono ridotti al minimo grazie alla vasta documentazione presente, arricchita da numerosi esempi sulle più utilizzate configurazioni inerenti il \textit{machine learning}, come le \textit{CNN} (Convolutional Neural Network).
-Le operazioni di calcolo matriciali possono essere accelerate sia tramite \textit{CPU}, che \textit{GPU} (su \textit{hardware} \textit{Nvidia} con supporto \textit{CUDA}). Nel nostro caso è stata utilizzata una \textit{GPU} in modo da sfruttare direttamente la potenza parallela della \textit{GPU} contenute nelle schede video recenti.
+Le operazioni di calcolo matriciali possono essere accelerate sia tramite \textit{CPU}, che \textit{GPU} (su \textit{hardware} \textit{Nvidia} con supporto \textit{CUDA}). Nel nostro caso è stata utilizzata una \textit{GPU} in modo da sfruttare direttamente la sua potenza parallela contenute nelle schede video recenti.
 \vspace*{2ex}
 \pythonexternal{./codes/gpu.py}
 \vspace*{2ex}
-\noindent Le caratteristiche e i vantaggi che ci hanno portato ad utilizzarlo nell’ambito del progetto sono:
+\noindent Le caratteristiche e i vantaggi che ci hanno portato ad utilizzare \textit{Keras} nell’ambito del progetto sono:
 \begin{itemize}
 	\item \textbf{semplicità}: a differenza di altre \textit{API}, è possibile realizzare modelli complessi scrivendo meno righe di codice, mantenendo nel contempo chiarezza nello sviluppo. Tutto ciò consente allo sviluppatore di mantenere nel tempo il codice in maniera agevole;
 	\item \textbf{modularità}: un modello in \textit{Keras} è inteso come una sequenza o un grafo di singoli, compatti e completamente configurabili moduli, che possono lavorare in sinergia tra loro con il minimo numero di restrizioni possibili. Ciò rende il codice estremamente flessibile;
@@ -171,12 +172,12 @@ Il codice che esegue quanto abbiamo appena descritto è il seguente:
 \vspace*{2ex}
 \pythonexternal{./codes/modelloFinale1.py}
 \vspace*{2ex}
-A questo punto definiamo il modello:
+A questo punto definiamo il modello con l'aggiunta dei seguenti \textit{layers}:
 \begin{itemize}
 	\item \textbf{Conv2D}: mette in evidenza le caratteristiche interessanti dell'immagine. Parametri di \textit{input}: numero di filtri, grandezza filtri, \textit{input shape} e funzione di attivazione;
 	\item \textbf{MaxPooling2D}: riduce la dimensione dell'immagine, elimina le informazioni inutili mantenendo quelle più importanti;
-	\item \textbf{Dropout} elimina una percentuale di dati casuali. Ad esempio, elimina rumori di sottofondo e mantiene le informazioni più importanti;
-	\item \textbf{Flattern} appiattisce il tensore e rimuove tutte le dimensioni;
+	\item \textbf{Dropout}: elimina una percentuale di dati casuali. Ad esempio, elimina rumori di sottofondo e mantiene le informazioni più importanti;
+	\item \textbf{Flattern}: appiattisce il tensore e rimuove tutte le dimensioni;
 	\item \textbf{Dense}: crea un \textit{layer} di neuroni, ognuno dei quali connesso ad ogni uscita del \textit{layer} precedente;
 	\item \textbf{Reshape}: determina la dimensione di uscita. In questo caso è 6x21;
 	\item \textbf{Activation}: la funzione di attivazione è una "porta" matematica tra l'\textit{input} che alimenta il neurone corrente e il suo \textit{output} che va allo strato successivo.
@@ -222,11 +223,11 @@ Questo modello raggiunge una precisione di circa 0,87 su 1 (o 87\%) e una perdit
 Il grafico sottostante ci fa comprendere meglio i risultati:
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{./images/plot.png}
+	\includegraphics[scale=0.40]{./images/plot.png}
 \end{figure}
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{./images/plot2.png}
+	\includegraphics[scale=0.40]{./images/plot2.png}
 \end{figure}
 
 \section{Valutazione del modello}
