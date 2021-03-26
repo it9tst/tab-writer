@@ -17,6 +17,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Arlon-Regular", size: 10)!], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Arlon-Regular", size: 10)!], for: .selected)
         
+        let exist = ManageFiles.fileExits(filename: "settings.json")
+        if (!exist) {
+            _ = ManageFiles.writeDataToFile(filename: "settings.json", text: "{\"server\": \"192.168.1.6\",\"port\": \"5000\"}")
+        } else {
+            
+            do {
+                let json = try JSONSerialization.loadJSON(withFilename: "settings") as? [String: Any]
+                
+                SettingsViewController.dictionary["port"] = json?["port"] as? String
+                SettingsViewController.dictionary["server"] = json?["server"] as? String
+            } catch let error {
+                print("parse error: \(error.localizedDescription)")
+            }
+            
+        }
+        
         FirebaseApp.configure()
         
         return true

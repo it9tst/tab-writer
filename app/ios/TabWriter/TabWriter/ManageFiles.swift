@@ -25,4 +25,36 @@ class ManageFiles {
         return filePath
     }
     
+    static func fileExits(filename: String) -> Bool
+    {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        if let pathComponent = url.appendingPathComponent(filename) {
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    static func writeDataToFile(filename: String, text: String)-> Bool{
+    
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        
+        let fileName = url.appendingPathComponent(filename)
+        
+        do{
+            try text.write(to: fileName!, atomically: false, encoding: String.Encoding.utf8)
+            return true
+        } catch _ as NSError {
+            return false
+        }
+    }
+    
 }

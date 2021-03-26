@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E6280B98260CD9BB008B41BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6280B97260CD9BB008B41BE /* Main.storyboard */; };
+		E645CEF6260DDA2600E428BA /* JSONSaveLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = E645CEF5260DDA2600E428BA /* JSONSaveLoad.swift */; };
 		E65DFEDD260BEBDF00DE917A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65DFEDC260BEBDF00DE917A /* SceneDelegate.swift */; };
 		E65DFEF3260BEC0B00DE917A /* TfliteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65DFEF1260BEC0B00DE917A /* TfliteModel.swift */; };
 		E65DFF06260BEC5800DE917A /* arlon_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E65DFF02260BEC5800DE917A /* arlon_bold.ttf */; };
@@ -27,6 +28,7 @@
 		E65DFF9A260BF01600DE917A /* Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = E65DFF99260BF01600DE917A /* Bridging-Header.h */; };
 		E65DFFED260BF18500DE917A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E65DFEF9260BEC2700DE917A /* LaunchScreen.storyboard */; };
 		E65DFFEF260BF18500DE917A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E65DFF28260BECE900DE917A /* Assets.xcassets */; };
+		E6E9C7F9260D3236009F4E20 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E9C7F8260D3236009F4E20 /* SettingsViewController.swift */; };
 		FB4F825D192051362F3FB23A /* Pods_TabWriter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4975A1C0C83795AF3A0798B0 /* Pods_TabWriter.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,7 @@
 		55AA7815E189EC1181ADA2E1 /* Pods-TabWriter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.debug.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.debug.xcconfig"; sourceTree = "<group>"; };
 		5D7CE69DDC163F5627F3CC9B /* Pods-TabWriter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TabWriter.release.xcconfig"; path = "Target Support Files/Pods-TabWriter/Pods-TabWriter.release.xcconfig"; sourceTree = "<group>"; };
 		E6280B97260CD9BB008B41BE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E645CEF5260DDA2600E428BA /* JSONSaveLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSaveLoad.swift; sourceTree = "<group>"; };
 		E65DFED7260BEBDF00DE917A /* TabWriter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabWriter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E65DFEDC260BEBDF00DE917A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E65DFEF1260BEC0B00DE917A /* TfliteModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TfliteModel.swift; sourceTree = "<group>"; };
@@ -56,6 +59,7 @@
 		E65DFF28260BECE900DE917A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E65DFF2E260BED1500DE917A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E65DFF99260BF01600DE917A /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		E6E9C7F8260D3236009F4E20 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,7 @@
 				E65DFF28260BECE900DE917A /* Assets.xcassets */,
 				E65DFF0F260BEC7F00DE917A /* GoogleService-Info.plist */,
 				E65DFF10260BEC7F00DE917A /* Info.plist */,
+				E645CEF5260DDA2600E428BA /* JSONSaveLoad.swift */,
 			);
 			path = TabWriter;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 				E65DFF21260BECCA00DE917A /* InfoViewController.swift */,
 				E65DFF20260BECCA00DE917A /* RecentViewController.swift */,
 				E65DFF1F260BECCA00DE917A /* TabViewController.swift */,
+				E6E9C7F8260D3236009F4E20 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -296,12 +302,14 @@
 				E65DFEF3260BEC0B00DE917A /* TfliteModel.swift in Sources */,
 				E65DFF24260BECCA00DE917A /* RecentViewController.swift in Sources */,
 				E65DFF15260BEC7F00DE917A /* ManageFiles.swift in Sources */,
+				E645CEF6260DDA2600E428BA /* JSONSaveLoad.swift in Sources */,
 				E65DFF16260BEC7F00DE917A /* ErrorReporting.swift in Sources */,
 				E65DFF0D260BEC6F00DE917A /* Tab.swift in Sources */,
 				E65DFF22260BECCA00DE917A /* HomeViewController.swift in Sources */,
 				E65DFEDD260BEBDF00DE917A /* SceneDelegate.swift in Sources */,
 				E65DFF9A260BF01600DE917A /* Bridging-Header.h in Sources */,
 				E65DFF23260BECCA00DE917A /* TabViewController.swift in Sources */,
+				E6E9C7F9260D3236009F4E20 /* SettingsViewController.swift in Sources */,
 				E65DFF25260BECCA00DE917A /* InfoViewController.swift in Sources */,
 				E65DFF1B260BECBB00DE917A /* DBHelper.swift in Sources */,
 			);

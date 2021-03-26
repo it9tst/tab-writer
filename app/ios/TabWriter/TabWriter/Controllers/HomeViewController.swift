@@ -189,8 +189,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }
     
     func request(audioFilePath: URL) {
-        let url = URL(string: "http://192.168.1.6:5000/upload/")!
-
+        
+        let url: URL = URL(string: "http://" + SettingsViewController.dictionary["server"]! + ":" + SettingsViewController.dictionary["port"]! + "/upload/")!
         let headers: HTTPHeaders = [
                 "content-type": "multipart/form-data; boundary=---011000010111000001101001",
                 "accept": "application/json"
