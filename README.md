@@ -4,7 +4,7 @@
 
 Guitar Tablature Transcription with a Convolutional Neural Network.
 
-![Main Emotions](/DeNardi-Tornatore/logical_architecture.jpg)
+![Logical Architecture](/logical_architecture.jpg)
 
 ### Requirements
 
