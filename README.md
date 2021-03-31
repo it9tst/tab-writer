@@ -4,6 +4,8 @@
 
 Guitar Tablature Transcription with a Convolutional Neural Network.
 
+![Main Emotions](/DeNardi-Tornatore/logical_architecture.jpg)
+
 ### Requirements
 
 Python 3.6.12, plus some external libraries, are required to use this project:
@@ -23,6 +25,10 @@ Run main.py and follow the instruction.
 ### Applications
 
 There are two applications and you can find the code at the top right.
+
+### Authors
+[Dario De Nardi](https://github.com/dariodenardi)
+[Gabriele Tornatore](https://github.com/it9tst)
 
 ### License
 
