@@ -6,6 +6,9 @@ Guitar Tablature Transcription with a Convolutional Neural Network.
 
 ![Logical Architecture](/logical_architecture.jpg)
 
+### Documentation
+[``Final Report``](https://github.com/it9tst/tab-writer/blob/main/report/relazione.pdf)
+
 ### Requirements
 
 Python 3.6.12, plus some external libraries, are required to use this project:
